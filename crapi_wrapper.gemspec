@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "cordra_rest_client/version"
+require "cr_api_wrapper/version"
 
 Gem::Specification.new do |spec|
   spec.name          = "crossref_api_wrapper"
-  spec.version       = CrossRefApiWrapper::VERSION
+  spec.version       = CrApiWrapper::VERSION
   spec.authors       = ["Abraham Nieva de la Hidalga"]
   spec.email         = ["a_nieva@hotmail.com"]
 
