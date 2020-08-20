@@ -15,9 +15,6 @@ module CrApiWrapper
 	    record_obj = JSON.parse(Serrano.content_negotiation(ids: doi, format: "citeproc-json"))
 			return record_obj #returns a hash containing the record
 		end
-
-
-
   end
 	#create objects dinamically
 	class CrObjectFactory
