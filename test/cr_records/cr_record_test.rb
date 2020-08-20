@@ -31,12 +31,6 @@ class CrossRefApiWrapperCrRecordTest < Minitest::Test
 			# Check object id and type
 			assert_equal "10.1039/c9sc04905c", crr['DOI']
 		 	assert_equal Hash, crr.class
-			# # B. get schema
-			# #     The schema will be used to build a DO class dinamically
-			# do_schema = CordraRestClient::DigitalObject.get_schema(API_URL, cdo.type.gsub(" ","%20"))
-			# # check that the result is saved
-			# assert_equal "object", do_schema["type"]
-			# assert_equal "DigitalSpecimen", do_schema["title"]
 			# B. build new class using schema
 			crr_properties = crr.keys
 			crr_class = CrApiWrapper::CrObjectFactory.create_class "CrArticle", crr_properties
@@ -48,7 +42,7 @@ class CrossRefApiWrapperCrRecordTest < Minitest::Test
 				instance_var = instance_var.gsub(' ','_')
 				instance_var = instance_var.gsub('-','_')
 				assert_equal arg, new_cr.instance_variable_get("@#{instance_var}")
-				#puts "property: " + instance_var + " value: " + new_cr.instance_variable_get("@#{instance_var}").to_s + new_cr.instance_variable_get("@#{instance_var}").class.to_s
+				puts "property: " + instance_var + " value: " + new_cr.instance_variable_get("@#{instance_var}").to_s + " Type: " + new_cr.instance_variable_get("@#{instance_var}").class.to_s
 			end
 		end
 	end
@@ -61,12 +55,6 @@ class CrossRefApiWrapperCrRecordTest < Minitest::Test
 			# Check object id and type
 			assert_equal "10.1039/c9sc04905c", crr['DOI']
 			assert_equal Hash, crr.class
-			# # B. get schema
-			# #     The schema will be used to build a DO class dinamically
-			# do_schema = CordraRestClient::DigitalObject.get_schema(API_URL, cdo.type.gsub(" ","%20"))
-			# # check that the result is saved
-			# assert_equal "object", do_schema["type"]
-			# assert_equal "DigitalSpecimen", do_schema["title"]
 			# B. build new class using schema
 			crr_properties = crr.keys
 			crr_class = CrApiWrapper::CrObjectFactory.create_class "CrArticle", crr_properties
@@ -125,4 +113,17 @@ class CrossRefApiWrapperCrRecordTest < Minitest::Test
 			end
 		end
 	end
+
+	# 4. test getting arandom list of dois
+	def test_random_doi_list
+		VCR.use_cassette('random_doi_list') do
+			doi_list = CrApiWrapper::CrRecord.random(100)
+			assert_equal Array, doi_list.class
+			puts doi_list
+			# Check that fields are accessible
+			assert_equal 100, doi_list.length()
+		end
+	end
+
+
 end
