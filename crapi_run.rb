@@ -23,30 +23,34 @@ def camelise(a_word)
   return a_word.split('_').collect(&:capitalize).join
 end
 
-def build_cr_record_object(doi_text, object_class)
+def get_cr_pub_data(doi_text)
   # A. get record data
   crr = CrApiWrapper::CrRecord.find(doi_text)
+  return crr
+end
+
+def build_cr_record_object(cr_json_object, object_class)
   # B. build new class using schema
-  crr_properties = crr.keys
-  crr_class = CrApiWrapper::CrObjectFactory.create_class object_class, crr_properties
-  new_cr = crr_class.new
+  cro_properties = cr_json_object.keys
+  cro_class = CrApiWrapper::CrObjectFactory.create_class object_class, cro_properties
+  new_cro = cro_class.new
   # C. assing object values in content to class instance
-  CrApiWrapper::CrObjectFactory.assing_attributes new_cr, crr
+  CrApiWrapper::CrObjectFactory.assing_attributes new_cro, cr_json_object
   ls_authors = []
   #puts "***************************************************************"
   # now handle nested objects
-  crr_properties.each do |field|
+  cro_properties.each do |field|
     instance_var = field.gsub('/','_').downcase()
     instance_var.gsub!(' ','_')
     instance_var = instance_var.gsub('-','_')
-    field_value = new_cr.instance_variable_get("@#{instance_var}")
+    field_value = new_cro.instance_variable_get("@#{instance_var}")
     field_type = field_value.class
     puts "Field: " + instance_var + " Type: "  + field_type.to_s + " Value: " + field_value.to_s
     if field_type == Hash
       # a hash is the representation of a nested object
       # handle this as a hash
       new_class_name = camelise(instance_var)
-      puts "handle this as a Hash create class " + new_class_name 
+      puts "handle this as a Hash create class " + "Cr" + new_class_name
     elsif field_type == Array
       # an array can contain many objects
       # treat each array elemen as a nested object
@@ -54,12 +58,12 @@ def build_cr_record_object(doi_text, object_class)
     end
   end
 
-  if new_cr.respond_to?('author')
+  if new_cro.respond_to?('author')
     cra_keys = nil
     cra_class = nil
     craf_keys = nil
     craf_class = nil
-    for an_author in new_cr.author
+    for an_author in new_cro.author
       cra_properties = an_author.keys
       cra_properties.each do |instance_var|
         if cra_keys == nil or !cra_keys.include?(instance_var)
@@ -98,9 +102,9 @@ def build_cr_record_object(doi_text, object_class)
         new_cra.affiliation = ls_affiliations
       end
     end
-    new_cr.author = ls_authors
+    new_cro.author = ls_authors
   end
-  return new_cr
+  return new_cro
 end
 
 doi_list = CrApiWrapper::CrRecord.random(1)
@@ -108,17 +112,22 @@ doi_list = CrApiWrapper::CrRecord.random(1)
 doi_list.each do |cr_doi|
   crr = CrApiWrapper::CrRecord.find(cr_doi)
   puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s  + " **References: " + crr['is-referenced-by-count'].to_s
-  cr_object = build_cr_record_object(cr_doi, "CrArticle")
+  cr_object = build_cr_record_object(crr, "CrArticle")
   puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
 end
 
 cr_doi = "10.1039/c9sc04905c"
-crr = CrApiWrapper::CrRecord.find(cr_doi)
+crr = get_cr_pub_data(cr_doi)
+
 
 puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s + crr['title'].to_s + " **References: " + crr['is-referenced-by-count'].to_s
-cr_object = build_cr_record_object(cr_doi,"CrArticle")
+cr_object = build_cr_record_object(crr,"CrArticle")
 puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
-puts crr
+#puts crr
 underscored = underscore(CrApiWrapper.to_s)
 puts CrApiWrapper.to_s + " is " + underscored
 puts underscored + " is " + camelise(underscored)
+cr_object.instance_variables.each do |instance_variable|
+  val = cr_object.instance_variable_get(instance_variable)
+  puts "var " + instance_variable.to_s + " value " +  val.to_s
+end
