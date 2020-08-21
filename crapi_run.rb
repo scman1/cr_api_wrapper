@@ -36,8 +36,7 @@ def build_cr_record_object(cr_json_object, object_class)
   new_cro = cro_class.new
   # C. assing object values in content to class instance
   CrApiWrapper::CrObjectFactory.assing_attributes new_cro, cr_json_object
-  ls_authors = []
-  #puts "***************************************************************"
+
   # now handle nested objects
   cro_properties.each do |field|
     instance_var = field.gsub('/','_').downcase()
@@ -49,60 +48,32 @@ def build_cr_record_object(cr_json_object, object_class)
     if field_type == Hash
       # a hash is the representation of a nested object
       # handle this as a hash
-      new_class_name = camelise(instance_var)
-      puts "handle this as a Hash create class " + "Cr" + new_class_name
+      new_class_name = "Cr" + camelise(instance_var)
+      #puts "handle this as a Hash create class " + new_class_name
+      cr_nested_object = build_cr_record_object(field_value, new_class_name)
+      #puts cr_nested_object
+      #puts "***************************************************************"
+      new_cro.instance_variable_set("@#{instance_var}", cr_nested_object)
     elsif field_type == Array
+      values_list = []
       # an array can contain many objects
       # treat each array elemen as a nested object
+      puts "***************************************************************"
       puts "handle this as an Array"
-    end
-  end
-
-  if new_cro.respond_to?('author')
-    cra_keys = nil
-    cra_class = nil
-    craf_keys = nil
-    craf_class = nil
-    for an_author in new_cro.author
-      cra_properties = an_author.keys
-      cra_properties.each do |instance_var|
-        if cra_keys == nil or !cra_keys.include?(instance_var)
-          cra_class = CrApiWrapper::CrObjectFactory.create_class "CrAuthor", cra_properties
-          cra_keys = cra_properties
-          break
+      puts field_value[0]
+      puts "***************************************************************"
+      field_value.each do |fvs|
+        cr_list_object = nil
+        if fvs.class == Hash
+          new_class_name = "Cr" + camelise(instance_var)
+          cr_list_object = build_cr_record_object(fvs, new_class_name)
+        else
+          cr_list_object = fvs
         end
+        values_list.append(cr_list_object)
       end
-      new_cra = cra_class.new
-      CrApiWrapper::CrObjectFactory.assing_attributes new_cra, an_author
-      ls_authors.append(new_cra)
-      #puts new_cra.instance_variables.length
-      cra_properties.each do |instance_var|
-        instance_var = instance_var.gsub('/','_')
-        instance_var = instance_var.gsub(' ','_')
-        instance_var = instance_var.gsub('-','_')
-        #puts "property: " + instance_var + " value: " + new_cra.instance_variable_get("@#{instance_var}").to_s
-      end
-      ls_affiliations = []
-      # will nedd to handle multiple affiliations per author
-      # look for country as an indicator of separate affiliations
-      if new_cra.respond_to?('affiliation')
-        for an_affiliation in new_cra.affiliation
-          craf_properties = an_affiliation.keys
-          craf_properties.each do |instance_var|
-            if craf_keys == nil or !craf_keys.include?(instance_var)
-              craf_class = CrApiWrapper::CrObjectFactory.create_class "CrAffiliation", craf_properties
-              craf_keys = craf_properties
-              break
-            end
-          end
-          new_craf = craf_class.new
-          CrApiWrapper::CrObjectFactory.assing_attributes new_craf, an_affiliation
-          ls_affiliations.append(new_craf)
-        end
-        new_cra.affiliation = ls_affiliations
-      end
+      new_cro.instance_variable_set("@#{instance_var}", values_list)
     end
-    new_cro.author = ls_authors
   end
   return new_cro
 end
@@ -131,3 +102,6 @@ cr_object.instance_variables.each do |instance_variable|
   val = cr_object.instance_variable_get(instance_variable)
   puts "var " + instance_variable.to_s + " value " +  val.to_s
 end
+puts "Deposited date: " + cr_object.deposited.date_parts.to_s
+puts "Deposited date_tiem: " + cr_object.deposited.date_time.to_s
+puts "Deposited timestamp: " + cr_object.deposited.timestamp.to_s
