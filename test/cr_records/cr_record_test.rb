@@ -48,8 +48,8 @@ class CrossRefApiWrapperCrRecordTest < Minitest::Test
 	end
 
 	# 3. create author objects from nested array in crr
-	def test_dynamic_cra_build
-		VCR.use_cassette('dynamic_cra_build') do
+	def test_dynamic_nested_build
+		VCR.use_cassette('dynamic_nested_build') do
 			# A. get record data
 			crr = CrApiWrapper::CrRecord.find("10.1039/c9sc04905c")
 			# Check object id and type
@@ -115,15 +115,13 @@ class CrossRefApiWrapperCrRecordTest < Minitest::Test
 	end
 
 	# 4. test getting arandom list of dois
-	def test_random_doi_list
-		VCR.use_cassette('random_doi_list') do
-			doi_list = CrApiWrapper::CrRecord.random(100)
+	def test_random_dois_list
+		VCR.use_cassette('random_dois_list') do
+			doi_list = CrApiWrapper::CrRecord.random(5)
 			assert_equal Array, doi_list.class
 			puts doi_list
 			# Check that fields are accessible
-			assert_equal 100, doi_list.length()
+			assert_equal 5, doi_list.length()
 		end
 	end
-
-
 end

@@ -28,7 +28,7 @@ module CrApiWrapper
       c = Class.new do
         fields.flatten.each do |field|
           #replace backslashes and space in names with underscores
-          field = field.gsub('/','_')
+          field = field.gsub('/','_').downcase()
           field = field.gsub(' ','_')
           field = field.gsub('-','_')
           define_method field.intern do
@@ -46,7 +46,7 @@ module CrApiWrapper
     def self.assing_attributes(instance, values)
       values.each do |field, arg|
         #replace backslashes and space in names with underscores
-        field = field.gsub('/','_')
+        field = field.gsub('/','_').downcase()
         field = field.gsub(' ','_')
         field = field.gsub('-','_')
         instance.instance_variable_set("@#{field}", arg)
