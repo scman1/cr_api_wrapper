@@ -1,17 +1,59 @@
 # Run the gem on a random sample of publications from crossref
 require './lib/cr_api_wrapper'
 
-def build_cr_record_object(doi_text)
+# from code found on:
+# https://stackoverflow.com/questions/5622435/how-do-i-convert-a-ruby-class-name-to-a-underscore-delimited-symbol
+# by:
+# https://stackoverflow.com/users/312586/kikito
+def underscore(a_word)
+  u_word = a_word.dup
+  u_word.gsub!(/::/, '/')
+  u_word.gsub!(/([A-Z]+)([A-Z][a-z])/,'\1_\2')
+  u_word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
+  u_word.tr!("-", "_")
+  u_word.downcase!
+  u_word
+end
+
+# from code found on:
+# https://stackoverflow.com/questions/9524457/converting-string-from-snake-case-to-camelcase-in-ruby/9524521
+# by:
+# https://stackoverflow.com/users/3869936/user3869936
+def camelise(a_word)
+  return a_word.split('_').collect(&:capitalize).join
+end
+
+def build_cr_record_object(doi_text, object_class)
   # A. get record data
   crr = CrApiWrapper::CrRecord.find(doi_text)
   # B. build new class using schema
   crr_properties = crr.keys
-  crr_class = CrApiWrapper::CrObjectFactory.create_class "CrArticle", crr_properties
+  crr_class = CrApiWrapper::CrObjectFactory.create_class object_class, crr_properties
   new_cr = crr_class.new
   # C. assing object values in content to class instance
   CrApiWrapper::CrObjectFactory.assing_attributes new_cr, crr
   ls_authors = []
   #puts "***************************************************************"
+  # now handle nested objects
+  crr_properties.each do |field|
+    instance_var = field.gsub('/','_').downcase()
+    instance_var.gsub!(' ','_')
+    instance_var = instance_var.gsub('-','_')
+    field_value = new_cr.instance_variable_get("@#{instance_var}")
+    field_type = field_value.class
+    puts "Field: " + instance_var + " Type: "  + field_type.to_s + " Value: " + field_value.to_s
+    if field_type == Hash
+      # a hash is the representation of a nested object
+      # handle this as a hash
+      new_class_name = camelise(instance_var)
+      puts "handle this as a Hash create class " + new_class_name 
+    elsif field_type == Array
+      # an array can contain many objects
+      # treat each array elemen as a nested object
+      puts "handle this as an Array"
+    end
+  end
+
   if new_cr.respond_to?('author')
     cra_keys = nil
     cra_class = nil
@@ -37,6 +79,8 @@ def build_cr_record_object(doi_text)
         #puts "property: " + instance_var + " value: " + new_cra.instance_variable_get("@#{instance_var}").to_s
       end
       ls_affiliations = []
+      # will nedd to handle multiple affiliations per author
+      # look for country as an indicator of separate affiliations
       if new_cra.respond_to?('affiliation')
         for an_affiliation in new_cra.affiliation
           craf_properties = an_affiliation.keys
@@ -64,7 +108,7 @@ doi_list = CrApiWrapper::CrRecord.random(1)
 doi_list.each do |cr_doi|
   crr = CrApiWrapper::CrRecord.find(cr_doi)
   puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s  + " **References: " + crr['is-referenced-by-count'].to_s
-  cr_object = build_cr_record_object(cr_doi)
+  cr_object = build_cr_record_object(cr_doi, "CrArticle")
   puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
 end
 
@@ -72,5 +116,9 @@ cr_doi = "10.1039/c9sc04905c"
 crr = CrApiWrapper::CrRecord.find(cr_doi)
 
 puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s + crr['title'].to_s + " **References: " + crr['is-referenced-by-count'].to_s
-cr_object = build_cr_record_object(cr_doi)
+cr_object = build_cr_record_object(cr_doi,"CrArticle")
 puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
+puts crr
+underscored = underscore(CrApiWrapper.to_s)
+puts CrApiWrapper.to_s + " is " + underscored
+puts underscored + " is " + camelise(underscored)
