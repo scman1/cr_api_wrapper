@@ -44,7 +44,7 @@ def build_cr_record_object(cr_json_object, object_class)
     instance_var = instance_var.gsub('-','_')
     field_value = new_cro.instance_variable_get("@#{instance_var}")
     field_type = field_value.class
-    puts "Field: " + instance_var + " Type: "  + field_type.to_s + " Value: " + field_value.to_s
+    #puts "Field: " + instance_var + " Type: "  + field_type.to_s + " Value: " + field_value.to_s
     if field_type == Hash
       # a hash is the representation of a nested object
       # handle this as a hash
@@ -58,10 +58,10 @@ def build_cr_record_object(cr_json_object, object_class)
       values_list = []
       # an array can contain many objects
       # treat each array elemen as a nested object
-      puts "***************************************************************"
-      puts "handle this as an Array"
-      puts field_value[0]
-      puts "***************************************************************"
+      #puts "***************************************************************"
+      #puts "handle this as an Array"
+      #puts field_value[0]
+      #puts "***************************************************************"
       field_value.each do |fvs|
         cr_list_object = nil
         if fvs.class == Hash
@@ -89,7 +89,6 @@ end
 
 cr_doi = "10.1039/c9sc04905c"
 crr = get_cr_pub_data(cr_doi)
-
 
 puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s + crr['title'].to_s + " **References: " + crr['is-referenced-by-count'].to_s
 cr_object = build_cr_record_object(crr,"CrArticle")
