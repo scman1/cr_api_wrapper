@@ -36,13 +36,15 @@ class CrossRefApiWrapperCrRecordTest < Minitest::Test
 			crr_class = CrApiWrapper::CrObjectFactory.create_class "CrArticle", crr_properties
 			new_cr = crr_class.new
 			# C. assing object values in content to class instance
+			puts '*******************************************************************'
 			CrApiWrapper::CrObjectFactory.assing_attributes new_cr, crr
+			puts new_cr
 			crr.each do |field, arg|
-				instance_var = field.gsub('/','_')
+				instance_var = field.gsub('/','_').downcase()
 				instance_var = instance_var.gsub(' ','_')
 				instance_var = instance_var.gsub('-','_')
-				assert_equal arg, new_cr.instance_variable_get("@#{instance_var}")
 				puts "property: " + instance_var + " value: " + new_cr.instance_variable_get("@#{instance_var}").to_s + " Type: " + new_cr.instance_variable_get("@#{instance_var}").class.to_s
+				assert_equal arg, new_cr.instance_variable_get("@#{instance_var}")
 			end
 		end
 	end
@@ -84,7 +86,7 @@ class CrossRefApiWrapperCrRecordTest < Minitest::Test
 					ls_authors.append(new_cra)
 					puts new_cra.instance_variables.length
 					cra_properties.each do |instance_var|
-						instance_var = instance_var.gsub('/','_')
+						instance_var = instance_var.gsub('/','_').downcase()
 						instance_var = instance_var.gsub(' ','_')
 						instance_var = instance_var.gsub('-','_')
 						puts "property: " + instance_var + " value: " + new_cra.instance_variable_get("@#{instance_var}").to_s
