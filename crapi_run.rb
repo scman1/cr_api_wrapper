@@ -1,3 +1,10 @@
+# CSV gem for handling csv data
+require 'csv'
+# JSON gem for handling json data
+require 'json'
+
+
+
 # Run the gem on a random sample of publications from crossref
 require './lib/cr_api_wrapper'
 
@@ -32,11 +39,19 @@ end
 def build_cr_record_object(cr_json_object, object_class)
   # B. build new class using schema
   cro_properties = cr_json_object.keys
-  cro_class = CrApiWrapper::CrObjectFactory.create_class object_class, cro_properties
+  cra_keys = nil
+  cro_class = nil
+  cro_properties.each do |instance_var|
+    if cra_keys == nil or !cra_keys.include?(instance_var)
+      cro_class = CrApiWrapper::CrObjectFactory.create_class object_class, cro_properties
+      cra_keys = cro_properties
+      break
+    end
+  end
+  #cro_class = CrApiWrapper::CrObjectFactory.create_class object_class, cro_properties
   new_cro = cro_class.new
   # C. assing object values in content to class instance
   CrApiWrapper::CrObjectFactory.assing_attributes new_cro, cr_json_object
-
   # now handle nested objects
   cro_properties.each do |field|
     instance_var = field.gsub('/','_').downcase()
@@ -78,10 +93,31 @@ def build_cr_record_object(cr_json_object, object_class)
   return new_cro
 end
 
-doi_list = CrApiWrapper::CrRecord.random(1)
+# read a list of objects and create an object schema which is common to all
+
+def get_cr_json_object(cr_doi)
+  crr = nil
+  doi_file = './json_files/' + cr_doi.gsub('/','_').downcase() + '.json'
+  if !File.exists?(doi_file)
+    crr = CrApiWrapper::CrRecord.find(cr_doi)
+    File.open(doi_file,"w") do |f|
+      f.write(JSON.pretty_generate(crr))
+    end
+  else
+    File.open(doi_file,"r") do |f|
+      crr = JSON.parse(f.read)
+    end
+  end
+  return crr
+end
+
+doi_list = CSV.read("doi_list_short.csv", headers: true)
+puts doi_list.by_col[0]
+doi_list = doi_list.by_col[0]
+#doi_list = CrApiWrapper::CrRecord.random(1)
 
 doi_list.each do |cr_doi|
-  crr = CrApiWrapper::CrRecord.find(cr_doi)
+  crr = get_cr_json_object(cr_doi)
   puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s  + " **References: " + crr['is-referenced-by-count'].to_s
   cr_object = build_cr_record_object(crr, "CrArticle")
   puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
