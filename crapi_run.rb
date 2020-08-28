@@ -93,8 +93,8 @@ def build_cr_record_object(cr_json_object, object_class)
   return new_cro
 end
 
-# read a list of objects and create an object schema which is common to all
 
+# get a json object and save it locally if not recovered yet.
 def get_cr_json_object(cr_doi)
   crr = nil
   doi_file = './json_files/' + cr_doi.gsub('/','_').downcase() + '.json'
@@ -111,10 +111,13 @@ def get_cr_json_object(cr_doi)
   return crr
 end
 
+# read a list of objects and create an object schema which is common to all
+# use json_schema generator to build the schemas
+# use json_schema validator to verify if they all match
+
 doi_list = CSV.read("doi_list_short.csv", headers: true)
 puts doi_list.by_col[0]
 doi_list = doi_list.by_col[0]
-#doi_list = CrApiWrapper::CrRecord.random(1)
 
 doi_list.each do |cr_doi|
   crr = get_cr_json_object(cr_doi)
