@@ -4,7 +4,7 @@ require 'pathname'
 
 require 'json'
 
-schema_file = './json_files/cr_metadata_api_format_corrected.json'
+schema_file = './json_schema/cr_metadata_api_format_corrected.json'
 schema = Pathname.new(schema_file)
 
 schemer = JSONSchemer.schema(schema)

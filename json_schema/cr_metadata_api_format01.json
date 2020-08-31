@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/work.schema.json",
+  "title": "Work",
+  "description": "A published work indexed by crossref",
+  "type": "object",
+  "properties": {
+    "publisher":{"type":"string","description":"Name of work's publisher"},
+    "title":{"type":"array","items":{"type":"string"},"description":"Name of work's publisher","minItems":0,"uniqueItems":false},
+    "original-title":{"type":"array","items":{"type":"string"},"description":"Work titles, including translated titles","minItems":0,"uniqueItems":false}
+  }
+}

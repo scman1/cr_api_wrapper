@@ -2,7 +2,10 @@
 require 'csv'
 # JSON gem for handling json data
 require 'json'
-
+# validator from schema
+require 'json_schemer'
+# file manager
+require 'pathname'
 
 
 # Run the gem on a random sample of publications from crossref

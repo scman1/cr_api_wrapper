@@ -1,0 +1,323 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/work.schema.json",
+  "title": "CRWork",
+  "description": "A published work indexed by crossref",
+  "type": "object",
+  "properties": {
+    "publisher": {
+      "type": "string",
+      "description": "Name of work's publisher"
+    },
+    "title": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Work titles, including translated titles",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "original-title": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Work titles in the work's original publication language",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "short-title": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Short or abbreviated work titles",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "abstract": {
+      "type": "xml string",
+      "description": "Abstract as a JSON string or a JATS XML snippet encoded into a JSON string"
+    },
+    "reference-count": {
+      "type": "number",
+      "description": "Deprecated Same as references-count"
+    },
+    "references-count": {
+      "type": "number",
+      "description": "Count of outbound references deposited with Crossref"
+    },
+    "is-referenced-by-count": {
+      "type": "number",
+      "description": "Count of inbound references deposited with Crossref"
+    },
+    "source": {
+      "type": "string",
+      "description": "Currently always Crossref"
+    },
+    "prefix": {
+      "type": "string",
+      "description": "DOI prefix identifier of the form http://id.crossref.org/prefix/DOI_PREFIX"
+    },
+    "DOI": {
+      "type": "string",
+      "description": "DOI of the work"
+    },
+    "URL": {
+      "type": "url",
+      "description": "URL form of the work's DOI"
+    },
+    "member": {
+      "type": "string",
+      "description": "Member identifier of the form http://id.crossref.org/member/MEMBER_ID"
+    },
+    "type": {
+      "type": "string",
+      "description": "Enumeration, one of the type ids from https://api.crossref.org/v1/types"
+    },
+    "created": {
+      "type": "date",
+      "description": "Date on which the DOI was first registered"
+    },
+    "deposited": {
+      "type": "date",
+      "description": "Date on which the work metadata was most recently updated"
+    },
+    "indexed": {
+      "type": "date",
+      "description": "Date on which the work metadata was most recently indexed. Re-indexing does not imply a metadata change, see deposited for the most recent metadata change date"
+    },
+    "issued": {
+      "type": "partial date",
+      "description": "Earliest of published-print and published-online"
+    },
+    "posted": {
+      "type": "partial date",
+      "description": "Date on which posted content was made available online"
+    },
+    "accepted": {
+      "type": "partial date",
+      "description": "Date on which a work was accepted, after being submitted, during a submission process"
+    },
+    "subtitle": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Work subtitles, including original language and translated",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "container-title": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Full titles of the containing work (usually a book or journal)",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "short-container-title": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Abbreviated titles of the containing work",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "group-title": {
+      "type": "string",
+      "description": "Group title for posted content"
+    },
+    "issue": {
+      "type": "string",
+      "description": "Issue number of an article's journal"
+    },
+    "volume": {
+      "type": "string",
+      "description": "Volume number of an article's journal"
+    },
+    "page": {
+      "type": "string",
+      "description": "Pages numbers of an article within its journal"
+    },
+    "article-number": {
+      "type": "string",
+      "description": ""
+    },
+    "published-print": {
+      "type": "partial date",
+      "description": "Date on which the work was published in print"
+    },
+    "published-online": {
+      "type": "partial date",
+      "description": "Date on which the work was published online"
+    },
+    "subject": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Subject category names, a controlled vocabulary from Sci-Val. Available for most journal articles",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "ISSN": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "issn-type": {
+      "type": "array",
+      "items": {
+        "type": "issn with type"
+      },
+      "description": "List of ISSNs with ISSN type information",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "ISBN": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "archive": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "license": {
+      "type": "array",
+      "items": {
+        "type": "license"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "funder": {
+      "type": "array",
+      "items": {
+        "type": "funder"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "assertion": {
+      "type": "array",
+      "items": {
+        "type": "assertion"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "author": {
+      "type": "array",
+      "items": {
+        "type": "contributor"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "editor": {
+      "type": "array",
+      "items": {
+        "type": "contributor"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "chair": {
+      "type": "array",
+      "items": {
+        "type": "contributor"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "translator": {
+      "type": "array",
+      "items": {
+        "type": "contributor"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "update-to": {
+      "type": "array",
+      "items": {
+        "type": "update"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "update-policy": {
+      "type": "url",
+      "description": "Link to an update policy covering Crossmark updates for this work"
+    },
+    "link": {
+      "type": "array",
+      "items": {
+        "type": "resource link"
+      },
+      "description": "URLs to full-text locations",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "clinical-trial-number": {
+      "type": "array",
+      "items": {
+        "type": "clinical trial number"
+      },
+      "description": "",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "alternative-id": {
+      "type": "string",
+      "description": "Other identifiers for the work provided by the depositing member"
+    },
+    "reference": {
+      "type": "array",
+      "items": {
+        "type": "reference"
+      },
+      "description": "List of references made by the work",
+      "minItems": 0,
+      "uniqueItems": false
+    },
+    "content-domain": {
+      "type": "content domain",
+      "description": "Information on domains that support Crossmark for this work"
+    },
+    "relation": {
+      "type": "relations",
+      "description": "Relations to other works"
+    },
+    "review": {
+      "type": "review",
+      "description": "Peer review metadata"
+    }
+  }
+}
