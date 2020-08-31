@@ -93,7 +93,6 @@ def build_cr_record_object(cr_json_object, object_class)
   return new_cro
 end
 
-
 # get a json object and save it locally if not recovered yet.
 def get_cr_json_object(cr_doi)
   crr = nil
