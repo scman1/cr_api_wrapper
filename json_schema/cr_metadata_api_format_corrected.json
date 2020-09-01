@@ -483,7 +483,19 @@
       "description": "Name of work's publisher"
     },
     "title": {
-      "type": "string",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0,
+          "uniqueItems": false
+        }
+      ],
       "description": "Work titles, including translated titles"
     },
     "original-title": {
@@ -592,11 +604,35 @@
       "uniqueItems": false
     },
     "container-title": {
-      "type": "string",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0,
+          "uniqueItems": false
+        }
+      ],
       "description": "Full titles of the containing work (usually a book or journal)"
     },
     "short-container-title": {
-      "type": "string",
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 0,
+          "uniqueItems": false
+        }
+      ],
       "description": "Abbreviated titles of the containing work"
     },
     "group-title": {

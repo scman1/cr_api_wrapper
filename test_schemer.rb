@@ -11,7 +11,7 @@ schemer = JSONSchemer.schema(schema)
 
 puts(schemer)
 
-test_file = './json_files/cr_test_retrieved_02.json'
+test_file = './json_files/cr_test_retrieved_03.json'
 json_file = nil
 File.open(test_file,"r") do |f|
   json_file = JSON.parse(f.read)
@@ -31,4 +31,7 @@ if schemer.valid?(json_file)
     end
   end
   puts test_file + " matches " + schema_file
+else
+  puts "**" + test_file + " does not match " + schema_file
+  #puts schemer.validate(json_file).to_a
 end
