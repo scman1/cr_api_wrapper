@@ -843,6 +843,10 @@
         "$ref": "#/definitions/review"
       },
       "description": "Peer review metadata"
+    },
+    "event": {
+      "type": "string",
+      "description": "Name of conference, workshop where work was presesnted"
     }
   },
   "required": [
