@@ -96,6 +96,22 @@ def build_cr_record_object(cr_json_object, object_class)
   return new_cro
 end
 
+# verify returned files against schema
+def verify_with_schema(test_file)
+  schema_file = './json_schema/cr_metadata_api_format_corrected.json'
+  schema = Pathname.new(schema_file)
+  schemer = JSONSchemer.schema(schema)
+  json_file = nil
+  File.open(test_file,"r") do |f|
+    json_file = JSON.parse(f.read)
+  end
+  if schemer.valid?(json_file)
+    puts test_file + " matches " + schema_file
+  else
+    puts "** "+test_file + " does not match " + schema_file
+  end
+end
+
 # get a json object and save it locally if not recovered yet.
 def get_cr_json_object(cr_doi)
   crr = nil
@@ -110,6 +126,8 @@ def get_cr_json_object(cr_doi)
       crr = JSON.parse(f.read)
     end
   end
+  puts "**********************************************************************"
+  verify_with_schema(doi_file)
   return crr
 end
 

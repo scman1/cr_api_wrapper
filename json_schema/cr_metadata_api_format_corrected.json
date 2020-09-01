@@ -4,107 +4,281 @@
   "title": "CRWork",
   "description": "A published work indexed by crossref, Generated according to description",
   "definitions": {
-    "url": {
+    "funder": {
       "type": "object",
       "properties": {
-        "uri": "string"
-      },
-      "required": [
-        "uri"
-      ]
-    },
-    "review": {
-      "type": "object",
-      "properties": {
-        "running-number": {
+        "name": {
           "type": "string",
-          "description": ""
+          "description": "Funding body primary name"
         },
-        "revision-round": {
+        "DOI": {
           "type": "string",
-          "description": ""
+          "description": "Optional Open Funder Registry DOI uniquely identifing the funding body"
         },
-        "stage": {
-          "type": "string",
-          "description": "One of pre-publication or post-publication"
-        },
-        "recommendation": {
-          "type": "string",
-          "description": "One of major-revision or minor-revision or reject or reject-with-resubmit or accept"
-        },
-        "type": {
-          "type": "string",
-          "description": "One of referee-report or editor-report or author-comment or community-comment or aggregate"
-        },
-        "competing-interest-statement": {
-          "type": "string",
-          "description": ""
-        },
-        "language": {
-          "type": "string",
-          "description": ""
-        }
-      }
-    },
-    "relation": {
-      "type": "object",
-      "properties": {
-        "id-type": {
-          "type": "string",
-          "description": ""
-        },
-        "id": {
-          "type": "string",
-          "description": ""
-        },
-        "asserted-by": {
-          "type": "string",
-          "description": "One of subject or object"
-        }
-      },
-      "required": [
-        "id-type",
-        "id",
-        "asserted-by"
-      ]
-    },
-    "content-domain": {
-      "type": "object",
-      "properties": {
-        "domain": {
+        "award": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "",
+          "description": "Award number(s) for awards given by the funding body",
           "minItems": 0,
           "uniqueItems": false
         },
-        "crossmark-restriction": {
+        "doi-asserted-by": {
+          "type": "string",
+          "description": "Either crossref or publisher"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "clinical-trial-number": {
+      "type": "object",
+      "properties": {
+        "clinical-trial-number": {
+          "type": "string",
+          "description": "Identifier of the clinical trial"
+        },
+        "registry": {
+          "type": "string",
+          "description": "DOI of the clinical trial regsitry that assigned the trial number"
+        },
+        "type": {
+          "type": "string",
+          "description": "One of preResults, results or postResults"
+        }
+      },
+      "required": [
+        "clinical-trial-number",
+        "registry"
+      ]
+    },
+    "contributor": {
+      "type": "object",
+      "properties": {
+        "family": {
+          "type": "string",
+          "description": ""
+        },
+        "given": {
+          "type": "string",
+          "description": ""
+        },
+        "ORCID": {
+          "type": {
+            "$ref": "#/definitions/url"
+          },
+          "description": "URL-form of an ORCID identifier"
+        },
+        "authenticated-orcid": {
           "type": "boolean",
+          "description": "If true, record owner asserts that the ORCID user completed ORCID OAuth authentication"
+        },
+        "affiliation": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/affiliation"
+          },
+          "description": "",
+          "minItems": 0,
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "family"
+      ]
+    },
+    "affiliation": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
           "description": ""
         }
       },
       "required": [
-        "domain",
-        "crossmark-restriction"
+        "name"
       ]
     },
-    "issn-with-type": {
+    "date": {
       "type": "object",
       "properties": {
+        "date-parts": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Contains an ordered array of year, month, day of month. Note that the field contains a nested array, e.g. [ [ 2006, 5, 19 ] ] to conform to citeproc JSON dates",
+          "minItems": 0,
+          "uniqueItems": false
+        },
+        "timestamp": {
+          "type": "number",
+          "description": "Seconds since UNIX epoch"
+        },
+        "date-time": {
+          "type": "string",
+          "description": "ISO 8601 date time"
+        }
+      },
+      "required": [
+        "date-parts",
+        "timestamp",
+        "date-time"
+      ]
+    },
+    "partial-date": {
+      "type": "object",
+      "properties": {
+        "date-parts": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "description": "Contains an ordered array of year, month, day of month. Note that the field contains a nested array, e.g. [ [ 2006, 5, 19 ] ] to conform to citeproc JSON dates",
+          "minItems": 0,
+          "uniqueItems": false
+        }
+      },
+      "required": [
+        "date-parts"
+      ]
+    },
+    "update": {
+      "type": "object",
+      "properties": {
+        "updated": {
+          "type": {
+            "$ref": "#/definitions/assertion-group"
+          },
+          "description": "Date on which the update was published"
+        },
+        "DOI": {
+          "type": "string",
+          "description": "DOI of the updated work"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of update, for example retraction or correction"
+        },
+        "label": {
+          "type": "string",
+          "description": "A display-friendly label for the update type"
+        }
+      },
+      "required": [
+        "updated",
+        "DOI",
+        "type"
+      ]
+    },
+    "assertion": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": ""
+        },
         "value": {
           "type": "string",
           "description": ""
         },
-        "type": {
+        "URL": {
+          "$ref": "#/definitions/url"
+        },
+        "explanation": {
+          "$ref": "#/definitions/url"
+        },
+        "label": {
           "type": "string",
-          "description": "One of eissn, pissn or lissn"
+          "description": ""
+        },
+        "order": {
+          "type": "number",
+          "description": ""
+        },
+        "group": {
+          "$ref": "#/definitions/assertion-group"
         }
       },
       "required": [
-        "value",
-        "type"
+        "name"
+      ]
+    },
+    "assertion-group": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "label": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "license": {
+      "type": "object",
+      "properties": {
+        "content-version": {
+          "type": "string",
+          "description": "Either vor (version of record,) am (accepted manuscript,) tdm (text and data mining) or unspecified"
+        },
+        "delay-in-days": {
+          "type": "number",
+          "description": "Number of days between the publication date of the work and the start date of this license"
+        },
+        "start": {
+          "type": {
+            "$ref": "#/definitions/partial-date"
+          },
+          "description": "Date on which this license begins to take effect"
+        },
+        "URL": {
+          "type": {
+            "$ref": "#/definitions/url"
+          },
+          "description": "Link to a web page describing this license"
+        }
+      },
+      "required": [
+        "content-version",
+        "delay-in-days",
+        "start",
+        "URL"
+      ]
+    },
+    "resource-link": {
+      "type": "object",
+      "properties": {
+        "intended-application": {
+          "type": "string",
+          "description": "Either text-mining, similarity-checking or unspecified"
+        },
+        "content-version": {
+          "type": "string",
+          "description": "Either vor (version of record,) am (accepted manuscript) or unspecified"
+        },
+        "URL": {
+          "type": {
+            "$ref": "#/definitions/url"
+          },
+          "description": "Direct link to a full-text download location"
+        },
+        "content-type": {
+          "type": "string",
+          "description": "Content type (or MIME type) of the full-text object"
+        }
+      },
+      "required": [
+        "intended-application",
+        "content-version",
+        "URL"
       ]
     },
     "reference": {
@@ -199,288 +373,108 @@
         "key"
       ]
     },
-    "resource-link": {
+    "issn-with-type": {
       "type": "object",
       "properties": {
-        "intended-application": {
-          "type": "string",
-          "description": "Either text-mining, similarity-checking or unspecified"
-        },
-        "content-version": {
-          "type": "string",
-          "description": "Either vor (version of record,) am (accepted manuscript) or unspecified"
-        },
-        "URL": {
-          "type": {
-            "$ref": "#/definitions/url"
-          },
-          "description": "Direct link to a full-text download location"
-        },
-        "content-type": {
-          "type": "string",
-          "description": "Content type (or MIME type) of the full-text object"
-        }
-      },
-      "required": [
-        "intended-application",
-        "content-version",
-        "URL"
-      ]
-    },
-    "license": {
-      "type": "object",
-      "properties": {
-        "content-version": {
-          "type": "string",
-          "description": "Either vor (version of record,) am (accepted manuscript,) tdm (text and data mining) or unspecified"
-        },
-        "delay-in-days": {
-          "type": "number",
-          "description": "Number of days between the publication date of the work and the start date of this license"
-        },
-        "start": {
-          "type": "partial date",
-          "description": "Date on which this license begins to take effect"
-        },
-        "URL": {
-          "type": {
-            "$ref": "#/definitions/url"
-          },
-          "description": "Link to a web page describing this license"
-        }
-      },
-      "required": [
-        "content-version",
-        "delay-in-days",
-        "start",
-        "URL"
-      ]
-    },
-    "assertion-group": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": ""
-        },
-        "label": {
-          "type": "string",
-          "description": ""
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
-    "assertion": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": ""
-        },
         "value": {
           "type": "string",
           "description": ""
         },
-        "URL": {
-          "type": {
-            "$ref": "#/definitions/url"
-          },
-          "description": ""
-        },
-        "explanation": {
-          "type": {
-            "$ref": "#/definitions/url"
-          },
-          "description": ""
-        },
-        "label": {
-          "type": "string",
-          "description": ""
-        },
-        "order": {
-          "type": "number",
-          "description": ""
-        },
-        "group": {
-          "type": {
-            "$ref": "#/definitions/assertion-group"
-          },
-          "description": ""
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
-    "clinical-trial-number": {
-      "type": "object",
-      "properties": {
-        "clinical-trial-number": {
-          "type": "string",
-          "description": "Identifier of the clinical trial"
-        },
-        "registry": {
-          "type": "string",
-          "description": "DOI of the clinical trial regsitry that assigned the trial number"
-        },
         "type": {
           "type": "string",
-          "description": "One of preResults, results or postResults"
+          "description": "One of eissn, pissn or lissn"
         }
       },
       "required": [
-        "clinical-trial-number",
-        "registry"
-      ]
-    },
-    "update": {
-      "type": "object",
-      "properties": {
-        "updated": {
-          "type": {
-            "$ref": "#/definitions/assertion-group"
-          },
-          "description": "Date on which the update was published"
-        },
-        "DOI": {
-          "type": "string",
-          "description": "DOI of the updated work"
-        },
-        "type": {
-          "type": "string",
-          "description": "The type of update, for example retraction or correction"
-        },
-        "label": {
-          "type": "string",
-          "description": "A display-friendly label for the update type"
-        }
-      },
-      "required": [
-        "updated",
-        "DOI",
+        "value",
         "type"
       ]
     },
-    "funder": {
+    "content-domain": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "description": "Funding body primary name"
-        },
-        "DOI": {
-          "type": "string",
-          "description": "Optional Open Funder Registry DOI uniquely identifing the funding body"
-        },
-        "award": {
+        "domain": {
           "type": "array",
           "items": {
             "type": "string"
           },
-          "description": "Award number(s) for awards given by the funding body",
-          "minItems": 0,
-          "uniqueItems": false
-        },
-        "doi-asserted-by": {
-          "type": "string",
-          "description": "Either crossref or publisher"
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
-    "partial-date": {
-      "type": "object",
-      "properties": {
-        "date-parts": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          },
-          "description": "Contains an ordered array of year, month, day of month. Note that the field contains a nested array, e.g. [ [ 2006, 5, 19 ] ] to conform to citeproc JSON dates",
-          "minItems": 0,
-          "uniqueItems": false
-        }
-      },
-      "required": [
-        "date-parts"
-      ]
-    },
-    "date": {
-      "type": "object",
-      "properties": {
-        "date-parts": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          },
-          "description": "Contains an ordered array of year, month, day of month. Note that the field contains a nested array, e.g. [ [ 2006, 5, 19 ] ] to conform to citeproc JSON dates",
-          "minItems": 0,
-          "uniqueItems": false
-        },
-        "timestamp": {
-          "type": "number",
-          "description": "Seconds since UNIX epoch"
-        },
-        "date-time": {
-          "type": "string",
-          "description": "ISO 8601 date time"
-        }
-      },
-      "required": [
-        "date-parts",
-        "timestamp",
-        "date-time"
-      ]
-    },
-    "affiliation": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string",
-          "description": ""
-        }
-      },
-      "required": [
-        "name"
-      ]
-    },
-    "contributor": {
-      "type": "object",
-      "properties": {
-        "family": {
-          "type": "string",
-          "description": ""
-        },
-        "given": {
-          "type": "string",
-          "description": ""
-        },
-        "ORCID": {
-          "type": {
-            "$ref": "#/definitions/url"
-          },
-          "description": "URL-form of an ORCID identifier"
-        },
-        "authenticated-orcid": {
-          "type": "boolean",
-          "description": "If true, record owner asserts that the ORCID user completed ORCID OAuth authentication"
-        },
-        "affiliation": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/affiliation"
-          },
           "description": "",
           "minItems": 0,
           "uniqueItems": false
+        },
+        "crossmark-restriction": {
+          "type": "boolean",
+          "description": ""
         }
       },
       "required": [
-        "family"
+        "domain",
+        "crossmark-restriction"
+      ]
+    },
+    "relation": {
+      "type": "object",
+      "properties": {
+        "id-type": {
+          "type": "string",
+          "description": ""
+        },
+        "id": {
+          "type": "string",
+          "description": ""
+        },
+        "asserted-by": {
+          "type": "string",
+          "description": "One of subject or object"
+        }
+      },
+      "required": [
+        "id-type",
+        "id",
+        "asserted-by"
+      ]
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "running-number": {
+          "type": "string",
+          "description": ""
+        },
+        "revision-round": {
+          "type": "string",
+          "description": ""
+        },
+        "stage": {
+          "type": "string",
+          "description": "One of pre-publication or post-publication"
+        },
+        "recommendation": {
+          "type": "string",
+          "description": "One of major-revision or minor-revision or reject or reject-with-resubmit or accept"
+        },
+        "type": {
+          "type": "string",
+          "description": "One of referee-report or editor-report or author-comment or community-comment or aggregate"
+        },
+        "competing-interest-statement": {
+          "type": "string",
+          "description": ""
+        },
+        "language": {
+          "type": "string",
+          "description": ""
+        }
+      }
+    },
+    "url": {
+      "type": "object",
+      "properties": {
+        "uri": "string"
+      },
+      "description": "Definition of url, custom not part of the CR specification",
+      "required": [
+        "uri"
       ]
     }
   },
@@ -604,13 +598,8 @@
       "description": "Full titles of the containing work (usually a book or journal)"
     },
     "short-container-title": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      },
-      "description": "Abbreviated titles of the containing work",
-      "minItems": 0,
-      "uniqueItems": false
+      "type": "string",
+      "description": "Abbreviated titles of the containing work"
     },
     "group-title": {
       "type": "string",
@@ -692,9 +681,7 @@
     "license": {
       "type": "array",
       "items": {
-        "type": {
-          "$ref": "#/definitions/license"
-        }
+        "$ref": "#/definitions/license"
       },
       "description": "",
       "minItems": 0,
@@ -703,9 +690,7 @@
     "funder": {
       "type": "array",
       "items": {
-        "type": {
-          "$ref": "#/definitions/funder"
-        }
+        "$ref": "#/definitions/funder"
       },
       "description": "",
       "minItems": 0,
@@ -714,7 +699,7 @@
     "assertion": {
       "type": "array",
       "items": {
-        "type": "assertion"
+        "$ref": "#/definitions/assertion"
       },
       "description": "",
       "minItems": 0,
@@ -759,7 +744,7 @@
     "update-to": {
       "type": "array",
       "items": {
-        "type": "update"
+        "$ref": "#/definitions/update"
       },
       "description": "",
       "minItems": 0,
@@ -783,15 +768,20 @@
     "clinical-trial-number": {
       "type": "array",
       "items": {
-        "type": "clinical trial number"
+        "$ref": "#/definitions/clinical-trial-number"
       },
       "description": "",
       "minItems": 0,
       "uniqueItems": false
     },
     "alternative-id": {
-      "type": "string",
-      "description": "Other identifiers for the work provided by the depositing member"
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Other identifiers for the work provided by the depositing member",
+      "minItems": 0,
+      "uniqueItems": false
     },
     "reference": {
       "type": "array",
@@ -803,15 +793,21 @@
       "uniqueItems": false
     },
     "content-domain": {
-      "type": "content domain",
+      "type": {
+        "$ref": "#/definitions/content-domain"
+      },
       "description": "Information on domains that support Crossmark for this work"
     },
     "relation": {
-      "type": "relations",
+      "type": {
+        "$ref": "#/definitions/relation"
+      },
       "description": "Relations to other works"
     },
     "review": {
-      "type": "review",
+      "type": {
+        "$ref": "#/definitions/review"
+      },
       "description": "Peer review metadata"
     }
   },
