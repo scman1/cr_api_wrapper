@@ -11,7 +11,7 @@ schemer = JSONSchemer.schema(schema)
 
 puts(schemer)
 
-test_file = './json_files/cr_test_retrieved_01.json'
+test_file = './json_files/cr_test_retrieved_02.json'
 json_file = nil
 File.open(test_file,"r") do |f|
   json_file = JSON.parse(f.read)

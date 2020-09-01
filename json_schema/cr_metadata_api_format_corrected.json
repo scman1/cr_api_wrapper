@@ -188,7 +188,9 @@
           "$ref": "#/definitions/url"
         },
         "explanation": {
-          "$ref": "#/definitions/url"
+          "URL": {
+            "$ref": "#/definitions/url"
+          }
         },
         "label": {
           "type": "string",
@@ -199,7 +201,9 @@
           "description": ""
         },
         "group": {
-          "$ref": "#/definitions/assertion-group"
+          "type": {
+            "$ref": "#/definitions/assertion-group"
+          }
         }
       },
       "required": [
@@ -468,14 +472,8 @@
       }
     },
     "url": {
-      "type": "object",
-      "properties": {
-        "uri": "string"
-      },
-      "description": "Definition of url, custom not part of the CR specification",
-      "required": [
-        "uri"
-      ]
+      "type": "string",
+      "description": "Definition of url, custom not part of the CR specification"
     }
   },
   "type": "object",
