@@ -107,8 +107,10 @@ def verify_with_schema(test_file)
   end
   if schemer.valid?(json_file)
     puts test_file + " matches " + schema_file
+    return true
   else
     puts "** "+test_file + " does not match " + schema_file
+    return false
   end
 end
 
@@ -126,40 +128,47 @@ def get_cr_json_object(cr_doi)
       crr = JSON.parse(f.read)
     end
   end
-  puts "**********************************************************************"
-  verify_with_schema(doi_file)
-  return crr
+  # verify that the recoverd object matches the schema
+  if verify_with_schema(doi_file)
+    return crr
+  else
+    return nil
+  end
 end
 
 # read a list of objects and create an object schema which is common to all
 # use json_schema generator to build the schemas
 # use json_schema validator to verify if they all match
 
-doi_list = CSV.read("doi_list_short.csv", headers: true)
+doi_list = CSV.read("doi_list.csv", headers: true)
 puts doi_list.by_col[0]
 doi_list = doi_list.by_col[0]
 
 doi_list.each do |cr_doi|
   crr = get_cr_json_object(cr_doi)
-  puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s  + " **References: " + crr['is-referenced-by-count'].to_s
-  cr_object = build_cr_record_object(crr, "CrArticle")
-  puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
+  if crr != nil
+    puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s  + " **References: " + crr['is-referenced-by-count'].to_s
+  else
+    break
+  end
+  #cr_object = build_cr_record_object(crr, "CrArticle")
+  #puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
 end
 
-cr_doi = "10.1039/c9sc04905c"
-crr = get_cr_pub_data(cr_doi)
-
-puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s + crr['title'].to_s + " **References: " + crr['is-referenced-by-count'].to_s
-cr_object = build_cr_record_object(crr,"CrArticle")
-puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
-#puts crr
-underscored = underscore(CrApiWrapper.to_s)
-puts CrApiWrapper.to_s + " is " + underscored
-puts underscored + " is " + camelise(underscored)
-cr_object.instance_variables.each do |instance_variable|
-  val = cr_object.instance_variable_get(instance_variable)
-  puts "var " + instance_variable.to_s + " value " +  val.to_s
-end
-puts "Deposited date: " + cr_object.deposited.date_parts.to_s
-puts "Deposited date_tiem: " + cr_object.deposited.date_time.to_s
-puts "Deposited timestamp: " + cr_object.deposited.timestamp.to_s
+# cr_doi = "10.1039/c9sc04905c"
+# crr = get_cr_pub_data(cr_doi)
+#
+# puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s + crr['title'].to_s + " **References: " + crr['is-referenced-by-count'].to_s
+# cr_object = build_cr_record_object(crr,"CrArticle")
+# puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
+# #puts crr
+# underscored = underscore(CrApiWrapper.to_s)
+# puts CrApiWrapper.to_s + " is " + underscored
+# puts underscored + " is " + camelise(underscored)
+# cr_object.instance_variables.each do |instance_variable|
+#   val = cr_object.instance_variable_get(instance_variable)
+#   puts "var " + instance_variable.to_s + " value " +  val.to_s
+# end
+# puts "Deposited date: " + cr_object.deposited.date_parts.to_s
+# puts "Deposited date_tiem: " + cr_object.deposited.date_time.to_s
+# puts "Deposited timestamp: " + cr_object.deposited.timestamp.to_s
