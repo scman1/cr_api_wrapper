@@ -4,6 +4,394 @@
   "title": "CRWork",
   "description": "A published work indexed by crossref, Generated according to description",
   "definitions": {
+    "url": {
+      "type": "object",
+      "properties": {
+        "uri": "string"
+      },
+      "required": [
+        "uri"
+      ]
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "running-number": {
+          "type": "string",
+          "description": ""
+        },
+        "revision-round": {
+          "type": "string",
+          "description": ""
+        },
+        "stage": {
+          "type": "string",
+          "description": "One of pre-publication or post-publication"
+        },
+        "recommendation": {
+          "type": "string",
+          "description": "One of major-revision or minor-revision or reject or reject-with-resubmit or accept"
+        },
+        "type": {
+          "type": "string",
+          "description": "One of referee-report or editor-report or author-comment or community-comment or aggregate"
+        },
+        "competing-interest-statement": {
+          "type": "string",
+          "description": ""
+        },
+        "language": {
+          "type": "string",
+          "description": ""
+        }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "properties": {
+        "id-type": {
+          "type": "string",
+          "description": ""
+        },
+        "id": {
+          "type": "string",
+          "description": ""
+        },
+        "asserted-by": {
+          "type": "string",
+          "description": "One of subject or object"
+        }
+      },
+      "required": [
+        "id-type",
+        "id",
+        "asserted-by"
+      ]
+    },
+    "content-domain": {
+      "type": "object",
+      "properties": {
+        "domain": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "",
+          "minItems": 0,
+          "uniqueItems": false
+        },
+        "crossmark-restriction": {
+          "type": "boolean",
+          "description": ""
+        }
+      },
+      "required": [
+        "domain",
+        "crossmark-restriction"
+      ]
+    },
+    "issn-with-type": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "description": ""
+        },
+        "type": {
+          "type": "string",
+          "description": "One of eissn, pissn or lissn"
+        }
+      },
+      "required": [
+        "value",
+        "type"
+      ]
+    },
+    "reference": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": ""
+        },
+        "DOI": {
+          "type": "string",
+          "description": ""
+        },
+        "doi-asserted-by": {
+          "type": "string",
+          "description": "One of crossref or publisher"
+        },
+        "issue": {
+          "type": "string",
+          "description": ""
+        },
+        "first-page": {
+          "type": "string",
+          "description": ""
+        },
+        "volume": {
+          "type": "string",
+          "description": ""
+        },
+        "edition": {
+          "type": "string",
+          "description": ""
+        },
+        "component": {
+          "type": "string",
+          "description": ""
+        },
+        "standard-designator": {
+          "type": "string",
+          "description": ""
+        },
+        "standards-body": {
+          "type": "string",
+          "description": ""
+        },
+        "author": {
+          "type": "string",
+          "description": ""
+        },
+        "year": {
+          "type": "string",
+          "description": ""
+        },
+        "unstructured": {
+          "type": "string",
+          "description": ""
+        },
+        "journal-title": {
+          "type": "string",
+          "description": ""
+        },
+        "article-title": {
+          "type": "string",
+          "description": ""
+        },
+        "series-title": {
+          "type": "string",
+          "description": ""
+        },
+        "volume-title": {
+          "type": "string",
+          "description": ""
+        },
+        "ISSN": {
+          "type": "string",
+          "description": ""
+        },
+        "issn-type": {
+          "type": "string",
+          "description": "One of pissn or eissn"
+        },
+        "ISBN": {
+          "type": "string",
+          "description": ""
+        },
+        "isbn-type": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "key"
+      ]
+    },
+    "resource-link": {
+      "type": "object",
+      "properties": {
+        "intended-application": {
+          "type": "string",
+          "description": "Either text-mining, similarity-checking or unspecified"
+        },
+        "content-version": {
+          "type": "string",
+          "description": "Either vor (version of record,) am (accepted manuscript) or unspecified"
+        },
+        "URL": {
+          "type": {
+            "$ref": "#/definitions/url"
+          },
+          "description": "Direct link to a full-text download location"
+        },
+        "content-type": {
+          "type": "string",
+          "description": "Content type (or MIME type) of the full-text object"
+        }
+      },
+      "required": [
+        "intended-application",
+        "content-version",
+        "URL"
+      ]
+    },
+    "license": {
+      "type": "object",
+      "properties": {
+        "content-version": {
+          "type": "string",
+          "description": "Either vor (version of record,) am (accepted manuscript,) tdm (text and data mining) or unspecified"
+        },
+        "delay-in-days": {
+          "type": "number",
+          "description": "Number of days between the publication date of the work and the start date of this license"
+        },
+        "start": {
+          "type": "partial date",
+          "description": "Date on which this license begins to take effect"
+        },
+        "URL": {
+          "type": {
+            "$ref": "#/definitions/url"
+          },
+          "description": "Link to a web page describing this license"
+        }
+      },
+      "required": [
+        "content-version",
+        "delay-in-days",
+        "start",
+        "URL"
+      ]
+    },
+    "assertion-group": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "label": {
+          "type": "string",
+          "description": ""
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "assertion": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": ""
+        },
+        "value": {
+          "type": "string",
+          "description": ""
+        },
+        "URL": {
+          "type": {
+            "$ref": "#/definitions/url"
+          },
+          "description": ""
+        },
+        "explanation": {
+          "type": {
+            "$ref": "#/definitions/url"
+          },
+          "description": ""
+        },
+        "label": {
+          "type": "string",
+          "description": ""
+        },
+        "order": {
+          "type": "number",
+          "description": ""
+        },
+        "group": {
+          "type": {
+            "$ref": "#/definitions/assertion-group"
+          },
+          "description": ""
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
+    "clinical-trial-number": {
+      "type": "object",
+      "properties": {
+        "clinical-trial-number": {
+          "type": "string",
+          "description": "Identifier of the clinical trial"
+        },
+        "registry": {
+          "type": "string",
+          "description": "DOI of the clinical trial regsitry that assigned the trial number"
+        },
+        "type": {
+          "type": "string",
+          "description": "One of preResults, results or postResults"
+        }
+      },
+      "required": [
+        "clinical-trial-number",
+        "registry"
+      ]
+    },
+    "update": {
+      "type": "object",
+      "properties": {
+        "updated": {
+          "type": {
+            "$ref": "#/definitions/assertion-group"
+          },
+          "description": "Date on which the update was published"
+        },
+        "DOI": {
+          "type": "string",
+          "description": "DOI of the updated work"
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of update, for example retraction or correction"
+        },
+        "label": {
+          "type": "string",
+          "description": "A display-friendly label for the update type"
+        }
+      },
+      "required": [
+        "updated",
+        "DOI",
+        "type"
+      ]
+    },
+    "funder": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Funding body primary name"
+        },
+        "DOI": {
+          "type": "string",
+          "description": "Optional Open Funder Registry DOI uniquely identifing the funding body"
+        },
+        "award": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Award number(s) for awards given by the funding body",
+          "minItems": 0,
+          "uniqueItems": false
+        },
+        "doi-asserted-by": {
+          "type": "string",
+          "description": "Either crossref or publisher"
+        }
+      },
+      "required": [
+        "name"
+      ]
+    },
     "partial-date": {
       "type": "object",
       "properties": {
@@ -72,7 +460,9 @@
           "description": ""
         },
         "ORCID": {
-          "type": "url",
+          "type": {
+            "$ref": "#/definitions/url"
+          },
           "description": "URL-form of an ORCID identifier"
         },
         "authenticated-orcid": {
@@ -123,7 +513,7 @@
       "uniqueItems": false
     },
     "abstract": {
-      "type": "xml string",
+      "type": "string",
       "description": "Abstract as a JSON string or a JATS XML snippet encoded into a JSON string"
     },
     "reference-count": {
@@ -151,7 +541,9 @@
       "description": "DOI of the work"
     },
     "URL": {
-      "type": "url",
+      "type": {
+        "$ref": "#/definitions/url"
+      },
       "description": "URL form of the work's DOI"
     },
     "member": {
@@ -273,7 +665,7 @@
     "issn-type": {
       "type": "array",
       "items": {
-        "type": "issn with type"
+        "$ref": "#/definitions/issn-with-type"
       },
       "description": "List of ISSNs with ISSN type information",
       "minItems": 0,
@@ -300,7 +692,9 @@
     "license": {
       "type": "array",
       "items": {
-        "type": "license"
+        "type": {
+          "$ref": "#/definitions/license"
+        }
       },
       "description": "",
       "minItems": 0,
@@ -309,7 +703,9 @@
     "funder": {
       "type": "array",
       "items": {
-        "type": "funder"
+        "type": {
+          "$ref": "#/definitions/funder"
+        }
       },
       "description": "",
       "minItems": 0,
@@ -370,13 +766,15 @@
       "uniqueItems": false
     },
     "update-policy": {
-      "type": "url",
+      "type": {
+        "$ref": "#/definitions/url"
+      },
       "description": "Link to an update policy covering Crossmark updates for this work"
     },
     "link": {
       "type": "array",
       "items": {
-        "type": "resource link"
+        "$ref": "#/definitions/resource-link"
       },
       "description": "URLs to full-text locations",
       "minItems": 0,
