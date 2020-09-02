@@ -126,10 +126,16 @@ def build_cr_objects(cr_json_object, object_classes)
       # a hash is the representation of a nested object
       # handle this as a hash
       new_class_name = "Cr" + camelise(instance_var)
+      cr_nested_object = nil
       if object_classes.has_key?(new_class_name)
         cr_nested_object = object_classes[new_class_name].new
+      elsif ["indexed" , "created", "deposited"].include?(instance_var)
+        cr_nested_object = object_classes["date"].new
+      elsif ["posted" , "issued"].include?(instance_var)
+        cr_nested_object = object_classes["partial-date"].new
+      end
+      if cr_nested_object != nil
         CrApiWrapper::CrObjectFactory.assing_attributes cr_nested_object, field_value
-        puts cr_nested_object
       end
       #puts "***************************************************************"
       cro_main.instance_variable_set("@#{instance_var}", cr_nested_object)
@@ -283,7 +289,7 @@ puts "-----------------------------All classes-------------------------------"
 puts cr_classes
 puts "*******************************Build object******************************"
 # build an object from a CR record
-cr_doi = "10.1038/s41563-019-0562-6"
+cr_doi = "10.1002/9783527804085.ch10"
 crr = get_cr_json_object(cr_doi)
 
 #
@@ -297,6 +303,6 @@ cr_object.instance_variables.each do |instance_variable|
  val = cr_object.instance_variable_get(instance_variable)
  puts "var " + instance_variable.to_s + "\t\t\t ||value: " +  val.to_s
 end
-# puts "Deposited date: " + cr_object.deposited.date_parts.to_s
-# puts "Deposited date_tiem: " + cr_object.deposited.date_time.to_s
-# puts "Deposited timestamp: " + cr_object.deposited.timestamp.to_s
+puts "Deposited date: " + cr_object.deposited.date_parts.to_s
+puts "Deposited date_tiem: " + cr_object.deposited.date_time.to_s
+puts "Deposited timestamp: " + cr_object.deposited.timestamp.to_s
