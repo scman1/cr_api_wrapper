@@ -97,6 +97,20 @@ def build_object_from_record(cr_json_object, object_class)
   return new_cro
 end
 
+
+def get_type_from_schema(key_string)
+  schema_file = './json_schema/cr_metadata_api_format_corrected.json'
+  crs = get_cr_json_schema(schema_file)
+  # search in properties
+  type_lbl = ""
+  if crs['properties'].keys.include?(key_string)
+    type_lbl = crs['properties'][key_string]['type']['$ref']
+    type_lbl.slice!("#/definitions/")
+  end
+  return type_lbl
+end
+
+
 # use class to build CR objects
 def build_cr_objects(cr_json_object, object_classes)
   # use object_classes
@@ -125,14 +139,10 @@ def build_cr_objects(cr_json_object, object_classes)
     if field_type == Hash
       # a hash is the representation of a nested object
       # handle this as a hash
-      new_class_name = "Cr" + camelise(instance_var)
+      field_class = get_type_from_schema(field)
       cr_nested_object = nil
-      if object_classes.has_key?(new_class_name)
-        cr_nested_object = object_classes[new_class_name].new
-      elsif ["indexed" , "created", "deposited"].include?(instance_var)
-        cr_nested_object = object_classes["date"].new
-      elsif ["posted" , "issued"].include?(instance_var)
-        cr_nested_object = object_classes["partial-date"].new
+      if object_classes.has_key?(field_class)
+        cr_nested_object = object_classes[field_class].new
       end
       if cr_nested_object != nil
         CrApiWrapper::CrObjectFactory.assing_attributes cr_nested_object, field_value
