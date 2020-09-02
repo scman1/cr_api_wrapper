@@ -145,10 +145,12 @@ def build_cr_objects(cr_json_object, object_classes)
         cr_list_object = nil
         if fvs.class == Hash
           new_class_name = "Cr" + camelise(instance_var)
-          if object_classes.has_key?(new_class_name)
-            cr_list_object = object_classes[new_class_name].new
-            CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, field_value
-            puts cr_nested_object
+          if new_class_name == "CrAuthor"
+            cr_list_object = object_classes["contributor"].new
+            CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, fvs
+          elsif object_classes.has_key?(instance_var)
+            cr_list_object = object_classes[instance_var].new
+            CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, fvs
           end
         else
           cr_list_object = fvs
@@ -290,15 +292,11 @@ crr = get_cr_json_object(cr_doi)
 # puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
 #
 #puts crr
-underscored = underscore(CrApiWrapper.to_s)
-puts CrApiWrapper.to_s + " is " + underscored
-puts underscored + " is " + camelise(underscored)
-build_cr_objects(crr, cr_classes)
-
-# cr_object.instance_variables.each do |instance_variable|
-#   val = cr_object.instance_variable_get(instance_variable)
-#   puts "var " + instance_variable.to_s + " value " +  val.to_s
-# end
+cr_object = build_cr_objects(crr, cr_classes)
+cr_object.instance_variables.each do |instance_variable|
+ val = cr_object.instance_variable_get(instance_variable)
+ puts "var " + instance_variable.to_s + "\t\t\t ||value: " +  val.to_s
+end
 # puts "Deposited date: " + cr_object.deposited.date_parts.to_s
 # puts "Deposited date_tiem: " + cr_object.deposited.date_time.to_s
 # puts "Deposited timestamp: " + cr_object.deposited.timestamp.to_s
