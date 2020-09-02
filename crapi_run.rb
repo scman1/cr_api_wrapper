@@ -97,6 +97,70 @@ def build_object_from_record(cr_json_object, object_class)
   return new_cro
 end
 
+# use class to build CR objects
+def build_cr_objects(cr_json_object, object_classes)
+  # use object_classes
+  # CrWork is the main object
+  cro_main = object_classes['CrWork'].new
+  puts cro_main
+  cro_properties = cr_json_object.keys
+  cra_keys = nil
+  cro_class = nil
+  cro_properties.each do |instance_var|
+    if cra_keys == nil or !cra_keys.include?(instance_var)
+      cra_keys = cro_properties
+      break
+    end
+  end
+  # C. assing object values in content to class instance
+  CrApiWrapper::CrObjectFactory.assing_attributes cro_main, cr_json_object
+  # now handle nested objects
+  cro_properties.each do |field|
+    instance_var = field.gsub('/','_').downcase()
+    instance_var.gsub!(' ','_')
+    instance_var = instance_var.gsub('-','_')
+    field_value = cro_main.instance_variable_get("@#{instance_var}")
+    field_type = field_value.class
+    #puts "Field: " + instance_var + " Type: "  + field_type.to_s + " Value: " + field_value.to_s
+    if field_type == Hash
+      # a hash is the representation of a nested object
+      # handle this as a hash
+      new_class_name = "Cr" + camelise(instance_var)
+      if object_classes.has_key?(new_class_name)
+        cr_nested_object = object_classes[new_class_name].new
+        CrApiWrapper::CrObjectFactory.assing_attributes cr_nested_object, field_value
+        puts cr_nested_object
+      end
+      #puts "***************************************************************"
+      cro_main.instance_variable_set("@#{instance_var}", cr_nested_object)
+    elsif field_type == Array
+      values_list = []
+      # an array can contain many objects
+      # treat each array elemen as a nested object
+      #puts "***************************************************************"
+      #puts "handle this as an Array"
+      #puts field_value[0]
+      #puts "***************************************************************"
+      field_value.each do |fvs|
+        cr_list_object = nil
+        if fvs.class == Hash
+          new_class_name = "Cr" + camelise(instance_var)
+          if object_classes.has_key?(new_class_name)
+            cr_list_object = object_classes[new_class_name].new
+            CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, field_value
+            puts cr_nested_object
+          end
+        else
+          cr_list_object = fvs
+        end
+        values_list.append(cr_list_object)
+      end
+      cro_main.instance_variable_set("@#{instance_var}", values_list)
+    end
+  end
+  return cro_main
+end
+
 # create a class name from an attribute name
 def cr_class_name(attr_name)
   instance_var = attr_name.gsub('/','_').downcase()
@@ -225,11 +289,11 @@ crr = get_cr_json_object(cr_doi)
 # cr_object = build_object_from_record(crr,"CrArticle")
 # puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
 #
-puts crr
+#puts crr
 underscored = underscore(CrApiWrapper.to_s)
 puts CrApiWrapper.to_s + " is " + underscored
 puts underscored + " is " + camelise(underscored)
-
+build_cr_objects(crr, cr_classes)
 
 # cr_object.instance_variables.each do |instance_variable|
 #   val = cr_object.instance_variable_get(instance_variable)
