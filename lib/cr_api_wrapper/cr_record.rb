@@ -20,7 +20,6 @@ module CrApiWrapper
       doi_list = Serrano.random_dois(sample: sample_size)
       return doi_list
     end
-
   end
   #create objects dinamically
   class CrObjectFactory

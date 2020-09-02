@@ -39,8 +39,9 @@ def get_cr_pub_data(doi_text)
   return crr
 end
 
-def build_cr_record_object(cr_json_object, object_class)
-  # B. build new class using schema
+# build object from a CR record
+def build_object_from_record(cr_json_object, object_class)
+  # B. build new class using object keys
   cro_properties = cr_json_object.keys
   cra_keys = nil
   cro_class = nil
@@ -68,7 +69,7 @@ def build_cr_record_object(cr_json_object, object_class)
       # handle this as a hash
       new_class_name = "Cr" + camelise(instance_var)
       #puts "handle this as a Hash create class " + new_class_name
-      cr_nested_object = build_cr_record_object(field_value, new_class_name)
+      cr_nested_object = build_object_from_record(field_value, new_class_name)
       #puts cr_nested_object
       #puts "***************************************************************"
       new_cro.instance_variable_set("@#{instance_var}", cr_nested_object)
@@ -84,7 +85,7 @@ def build_cr_record_object(cr_json_object, object_class)
         cr_list_object = nil
         if fvs.class == Hash
           new_class_name = "Cr" + camelise(instance_var)
-          cr_list_object = build_cr_record_object(fvs, new_class_name)
+          cr_list_object = build_object_from_record(fvs, new_class_name)
         else
           cr_list_object = fvs
         end
@@ -95,6 +96,51 @@ def build_cr_record_object(cr_json_object, object_class)
   end
   return new_cro
 end
+
+# create a class name from an attribute name
+def cr_class_name(attr_name)
+  instance_var = attr_name.gsub('/','_').downcase()
+  instance_var.gsub!(' ','_')
+  instance_var = instance_var.gsub('-','_')
+  class_name = "Cr" + camelise(instance_var)
+  return class_name
+end
+
+# build object from CR Schema
+def build_class_from_schema(cr_json_schema, object_class)
+  # A. Build all nested objects
+  cr_classes = {}
+  if cr_json_schema.keys.include?('definitions')
+    cr_definitions = cr_json_schema['definitions'].keys
+    #puts "-----**********----- Definitions -----**********-----"
+    #puts cr_definitions.to_s
+    cr_json_schema['definitions'].each do |key, nested_object|
+      #puts key + ":" + nested_object.to_s
+      new_class_name = cr_class_name(key)
+      #puts new_class_name
+      cr_nested_class = build_simple_class(nested_object, new_class_name)
+      cr_classes[key] = cr_nested_class
+    end
+  end
+  # B. build main class using object properties
+  cr_class = build_simple_class(cr_json_schema, object_class)
+  #cr_properties = cr_json_schema['properties'].keys
+  #cr_class = CrApiWrapper::CrObjectFactory.create_class object_class, cr_properties
+  cr_classes[object_class] = cr_class
+  # return the hash of cr classes
+  return cr_classes
+end
+
+def build_simple_class(cr_json_schema, object_class)
+  cr_class = nil
+  if cr_json_schema.keys.include?('properties')
+    cr_properties = cr_json_schema['properties'].keys
+    cr_class = CrApiWrapper::CrObjectFactory.create_class object_class, cr_properties
+    return cr_class
+  end
+  return cr_class
+end
+
 
 # verify returned files against schema
 def verify_with_schema(test_file)
@@ -136,11 +182,20 @@ def get_cr_json_object(cr_doi)
   end
 end
 
-# read a list of objects and create an object schema which is common to all
-# use json_schema generator to build the schemas
-# use json_schema validator to verify if they all match
+# get a json object and save it locally if not recovered yet.
+def get_cr_json_schema(schema_file)
+  crs = nil
+  if File.exists?(schema_file)
+    File.open(schema_file,"r") do |f|
+      crs = JSON.parse(f.read)
+    end
+  end
+  return crs
+end
 
-doi_list = CSV.read("doi_list.csv", headers: true)
+# Use json schema created according to CR specification
+# use json_schema validator to verify if articles match schema
+doi_list = CSV.read("doi_list_short.csv", headers: true)
 puts doi_list.by_col[0]
 doi_list = doi_list.by_col[0]
 
@@ -151,20 +206,31 @@ doi_list.each do |cr_doi|
   else
     break
   end
-  #cr_object = build_cr_record_object(crr, "CrArticle")
-  #puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
 end
 
-# cr_doi = "10.1039/c9sc04905c"
-# crr = get_cr_pub_data(cr_doi)
+# build a class from a CR schema
+schema_file = './json_schema/cr_metadata_api_format_corrected.json'
+crs = get_cr_json_schema(schema_file)
+# create the cr class from the schema
+cr_classes =  build_class_from_schema(crs, "CrWork")
+puts "-----------------------------All classes-------------------------------"
+puts cr_classes
+puts "*******************************Build object******************************"
+# build an object from a CR record
+cr_doi = "10.1038/s41563-019-0562-6"
+crr = get_cr_json_object(cr_doi)
+
 #
 # puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s + crr['title'].to_s + " **References: " + crr['is-referenced-by-count'].to_s
-# cr_object = build_cr_record_object(crr,"CrArticle")
+# cr_object = build_object_from_record(crr,"CrArticle")
 # puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
-# #puts crr
-# underscored = underscore(CrApiWrapper.to_s)
-# puts CrApiWrapper.to_s + " is " + underscored
-# puts underscored + " is " + camelise(underscored)
+#
+puts crr
+underscored = underscore(CrApiWrapper.to_s)
+puts CrApiWrapper.to_s + " is " + underscored
+puts underscored + " is " + camelise(underscored)
+
+
 # cr_object.instance_variables.each do |instance_variable|
 #   val = cr_object.instance_variable_get(instance_variable)
 #   puts "var " + instance_variable.to_s + " value " +  val.to_s
