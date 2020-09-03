@@ -104,12 +104,15 @@ def get_type_from_schema(key_string)
   # search in properties
   type_lbl = ""
   if crs['properties'].keys.include?(key_string)
-    type_lbl = crs['properties'][key_string]['type']['$ref']
+    if crs['properties'][key_string]['type'] == "array"
+      type_lbl = crs['properties'][key_string]['items']['$ref']
+    else
+      type_lbl = crs['properties'][key_string]['type']['$ref']
+    end
     type_lbl.slice!("#/definitions/")
   end
   return type_lbl
 end
-
 
 # use class to build CR objects
 def build_cr_objects(cr_json_object, object_classes)
@@ -160,14 +163,21 @@ def build_cr_objects(cr_json_object, object_classes)
       field_value.each do |fvs|
         cr_list_object = nil
         if fvs.class == Hash
-          new_class_name = "Cr" + camelise(instance_var)
-          if new_class_name == "CrAuthor"
-            cr_list_object = object_classes["contributor"].new
-            CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, fvs
-          elsif object_classes.has_key?(instance_var)
-            cr_list_object = object_classes[instance_var].new
+          field_class = get_type_from_schema(field)
+          if object_classes.has_key?(field_class)
+            cr_list_object = object_classes[field_class].new
+          end
+          if cr_list_object != nil
             CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, fvs
           end
+          #new_class_name = "Cr" + camelise(instance_var)
+          # if new_class_name == "CrAuthor"
+          #   cr_list_object = object_classes["contributor"].new
+          #   CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, fvs
+          # elsif object_classes.has_key?(instance_var)
+          #   cr_list_object = object_classes[instance_var].new
+          #   CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, fvs
+          # end
         else
           cr_list_object = fvs
         end
@@ -316,3 +326,5 @@ end
 puts "Deposited date: " + cr_object.deposited.date_parts.to_s
 puts "Deposited date_tiem: " + cr_object.deposited.date_time.to_s
 puts "Deposited timestamp: " + cr_object.deposited.timestamp.to_s
+puts "Content domain: " + cr_object.content_domain.domain.to_s
+puts "Content crossmark: " + cr_object.content_domain.crossmark_restriction.to_s

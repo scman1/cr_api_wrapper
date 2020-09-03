@@ -820,7 +820,7 @@
     "reference": {
       "type": "array",
       "items": {
-        "type": "reference"
+          "$ref": "#/definitions/reference"
       },
       "description": "List of references made by the work",
       "minItems": 0,
