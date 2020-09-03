@@ -114,7 +114,7 @@ def build_cr_objects(cr_json_object, object_classes)
   # use object_classes
   # CrWork is the main object
   cro_main = object_classes['CrWork'].new
-  puts cro_main
+  # puts cro_main
   cro_properties = cr_json_object.keys
   cra_keys = nil
   cro_class = nil
@@ -233,10 +233,10 @@ def verify_with_schema(test_file)
     json_file = JSON.parse(f.read)
   end
   if schemer.valid?(json_file)
-    puts test_file + " matches " + schema_file
+    # puts test_file + " matches " + schema_file
     return true
   else
-    puts "** "+test_file + " does not match " + schema_file
+    # puts "** "+test_file + " does not match " + schema_file
     return false
   end
 end
@@ -369,21 +369,25 @@ def map_csv_work(cr_object, work_id)
   author_order = 1
   cr_object.author.each do |cr_author|
     csv_author = {}
-    csv_author["order"] = author_order
     csv_author["work_id"] = work_id
     csv_author["given_name"] = cr_author.given
     csv_author["family_name"] = cr_author.family
-    csv_author["sequence"] = cr_author.sequence.to_s
     csv_author["orcid"] = cr_author.orcid.to_s
-    author_order += 1
+    csv_author["sequence"] = cr_author.sequence.to_s
+    csv_author["order"] = author_order
     csv_authors << csv_author
     csv_affiliations = []
+    affi_order = 1
     cr_author.affiliation.each do |cr_affiliation|
       csv_affiliation = {}
+      csv_affiliation['id'] = work_id + author_order / 100.0
       csv_affiliation["name"] = cr_affiliation.name
+      csv_affiliation["order"] = affi_order
       csv_affiliations << csv_affiliation
+      affi_order += 1
     end
     csv_author["affiliation"] = csv_affiliations
+    author_order += 1
   end
   csv_record['author'] = csv_authors
   return csv_record
@@ -391,36 +395,37 @@ end
 # Use json schema created according to CR specification
 # use json_schema validator to verify if articles match schema
 doi_list = CSV.read("doi_list_short.csv", headers: true)
-puts doi_list.by_col[0]
+# puts doi_list.by_col[0]
 doi_list = doi_list.by_col[0]
 
-doi_list.each do |cr_doi|
-  crr = get_cr_json_object(cr_doi)
-  if crr != nil
-    puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s  + " **References: " + crr['is-referenced-by-count'].to_s
-  else
-    break
-  end
-end
+# doi_list.each do |cr_doi|
+#   crr = get_cr_json_object(cr_doi)
+#   if crr != nil
+#     puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s  + " **References: " + crr['is-referenced-by-count'].to_s
+#   else
+#     break
+#   end
+# end
 
 # get class from the CR schema
 cr_classes =  get_schema_class
 # get the json object
-cr_doi = "10.1002/9783527804085.ch10"
-crr = get_cr_json_object(cr_doi)
-cr_object = build_cr_objects(crr, cr_classes)
+# cr_doi = "10.1002/9783527804085.ch10"
+# crr = get_cr_json_object(cr_doi)
+# cr_object = build_cr_objects(crr, cr_classes)
+#
+# cr_object.instance_variables.each do |instance_variable|
+#  val = cr_object.instance_variable_get(instance_variable)
+#  puts instance_variable.to_s + "|" + val.to_s
+# end
+# #******************************************************************************
+# print_cr_object(cr_object)
 
-cr_object.instance_variables.each do |instance_variable|
- val = cr_object.instance_variable_get(instance_variable)
- puts instance_variable.to_s + "|" + val.to_s
-end
-#******************************************************************************
-print_cr_object(cr_object)
+# csv_works = []
+#
+# csv_works << map_csv_work(cr_object, 1)
 
-csv_works = []
-
-csv_works << map_csv_work(cr_object, 1)
-
+cr_objects = {'csv_works'=>[], 'csv_authors'=>[], 'csv_affiliations' => [] }
 csv_works = []
 work_id = 1
 doi_list.each do |cr_doi|
@@ -429,6 +434,7 @@ doi_list.each do |cr_doi|
   csv_works << map_csv_work(cr_object, work_id)
   work_id += 1
 end
+
 
 CSV.open("new_works.csv", "wb") do |csv|
   csv << csv_works.first.keys # adds the attributes name on the first line
