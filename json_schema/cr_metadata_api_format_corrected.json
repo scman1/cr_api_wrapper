@@ -482,10 +482,7 @@
     "journal-issue": {
       "type": "object",
       "properties": {
-        "published-print": {
-          "type": {"$ref": "#/definitions/partial_date"},
-          "description": "date when journal issue was published in print"
-        },
+        "published-print": {"$ref": "#/definitions/partial_date"},
         "issue": {
           "type": "number",
           "description": "journal issue"

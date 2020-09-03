@@ -134,6 +134,7 @@ def build_cr_objects(cr_json_object, object_classes)
     field_value = cro_main.instance_variable_get("@#{instance_var}")
     field_type = field_value.class
     #puts "Field: " + instance_var + " Type: "  + field_type.to_s + " Value: " + field_value.to_s
+
     if field_type == Hash
       # a hash is the representation of a nested object
       # handle this as a hash
@@ -144,6 +145,12 @@ def build_cr_objects(cr_json_object, object_classes)
       end
       if cr_nested_object != nil
         CrApiWrapper::CrObjectFactory.assing_attributes cr_nested_object, field_value
+      end
+      if field_class == "journal-issue"
+        date_value = cr_nested_object.published_print
+        date_object = object_classes['partial-date'].new
+        CrApiWrapper::CrObjectFactory.assing_attributes date_object, date_value
+        cr_nested_object.published_print = date_object
       end
       cro_main.instance_variable_set("@#{instance_var}", cr_nested_object)
     elsif field_type == Array
@@ -222,7 +229,6 @@ def build_simple_class(cr_json_schema, object_class)
   return cr_class
 end
 
-
 # verify returned files against schema
 def verify_with_schema(test_file)
   schema_file = './json_schema/cr_metadata_api_format_corrected.json'
@@ -298,9 +304,11 @@ def print_cr_object(cr_object)
   puts "container title:  " + cr_object.container_title
   puts "volume:           " + cr_object.volume.to_s
   puts "issue:            " + cr_object.issue.to_s
-  puts "page:             " + cr_object.page
+  puts "page:             " + cr_object.page.to_s
   puts "published print:  " + cr_object.published_print.to_s
-  puts "published online: " + cr_object.published_online.date_parts[0].to_s
+  if cr_object.published_online != nil
+    puts "published online: " + cr_object.published_online.date_parts[0].to_s
+  end
   puts "license:          " + cr_object.license.to_s
   puts "license:          " + cr_object.license.to_s
   puts "reference count:  " + cr_object.references_count.to_s
@@ -308,10 +316,10 @@ def print_cr_object(cr_object)
   puts "link:             " + cr_object.link.to_s
   puts "url:              " + cr_object.url.to_s
   puts "abstract:         " + cr_object.abstract.to_s
-  puts "journal issue:    " + cr_object.journal_issue.to_s
+  puts "journal issue:    " + cr_object.journal_issue.issue.to_s + cr_object.journal_issue.published_print.to_s
   puts "**************************Authors*************************************"
   cr_object.author.each do |cr_author|
-    puts "given:            " + cr_author.given
+    puts "given:            " + cr_author.given.to_s
     puts "family:           " + cr_author.family
     puts "sequence:         " + cr_author.sequence.to_s
     puts "orcid:            " + cr_author.orcid.to_s
@@ -356,9 +364,16 @@ def map_csv_work(cr_object, work_id)
     csv_record['pub_print_month'] = ""
     csv_record['pub_print_day'] = ""
   end
-  csv_record['pub_ol_year'] = cr_object.published_online.date_parts[0][0]
-  csv_record['pub_ol_month'] = cr_object.published_online.date_parts[0][1]
-  csv_record['pub_ol_day'] = cr_object.published_online.date_parts[0][2]
+  if cr_object.published_online != nil and
+    cr_object.published_online.date_parts[0] != nil
+    csv_record['pub_ol_year'] = cr_object.published_online.date_parts[0][0]
+    csv_record['pub_ol_month'] = cr_object.published_online.date_parts[0][1]
+    csv_record['pub_ol_day'] = cr_object.published_online.date_parts[0][2]
+  else
+    csv_record['pub_ol_day'] = ""
+    csv_record['pub_ol_day'] = ""
+    csv_record['pub_ol_day'] = ""
+  end
   csv_record['references'] = cr_object.references_count
   csv_record['citations'] = cr_object.is_referenced_by_count
   csv_record['link'] = cr_object.link[0].url
@@ -391,6 +406,83 @@ def map_csv_work(cr_object, work_id)
   end
   csv_record['author'] = csv_authors
   return csv_record
+end
+
+def map_csv_objects(cr_objects, cr_object, work_id)
+  csv_record = {}
+  csv_record['id'] = work_id
+  csv_record['doi'] = cr_object.doi
+  csv_record['title'] = cr_object.title
+  csv_record['year'] = cr_object.issued.date_parts[0][0]
+  csv_record['type'] = cr_object.type
+  csv_record['publisher'] = cr_object.publisher
+  csv_record['container'] = cr_object.container_title
+  csv_record['volume'] = cr_object.volume
+  # issue can come by itself or from journal_issue
+  if cr_object.issue != nil
+    csv_record['issue'] = cr_object.volume
+  elsif cr_object.journal_issue != nil
+    csv_record['issue'] = cr_object.journal_issue.issue
+  else
+    csv_record['issue'] = ""
+  end
+  csv_record['page'] = cr_object.page
+  if cr_object.published_print != nil and
+    cr_object.published_print.date_parts[0] != nil
+    csv_record['pub_print_year'] = cr_object.published_print.date_parts[0][0]
+    csv_record['pub_print_month'] = cr_object.published_print.date_parts[0][1]
+    csv_record['pub_print_day'] = cr_object.published_print.date_parts[0][2]
+  elsif cr_object.journal_issue != nil and
+    cr_object.journal_issue.published_print != nil
+    #***************************************************************************
+    puts cr_object.journal_issue.published_print
+    csv_record['pub_print_year'] = cr_object.journal_issue.published_print.date_parts[0][0]
+    csv_record['pub_print_month'] = cr_object.journal_issue.published_print.date_parts[0][1]
+    csv_record['pub_print_day'] = cr_object.journal_issue.published_print.date_parts[0][2]
+  else
+    csv_record['pub_print_year'] = ""
+    csv_record['pub_print_month'] = ""
+    csv_record['pub_print_day'] = ""
+  end
+  if cr_object.published_online != nil and
+    cr_object.published_online.date_parts[0] != nil
+    csv_record['pub_ol_year'] = cr_object.published_online.date_parts[0][0]
+    csv_record['pub_ol_month'] = cr_object.published_online.date_parts[0][1]
+    csv_record['pub_ol_day'] = cr_object.published_online.date_parts[0][2]
+  else
+    csv_record['pub_ol_day'] = ""
+    csv_record['pub_ol_day'] = ""
+    csv_record['pub_ol_day'] = ""
+  end
+  csv_record['references'] = cr_object.references_count
+  csv_record['citations'] = cr_object.is_referenced_by_count
+  csv_record['link'] = cr_object.link[0].url
+  csv_record['url'] = cr_object.url
+  csv_record['abstract'] = cr_object.abstract
+  csv_record['status'] = "Added"
+  csv_authors = []
+  author_order = 1
+  cr_object.author.each do |cr_author|
+    csv_author = {}
+    csv_author["work_id"] = work_id
+    csv_author["given_name"] = cr_author.given
+    csv_author["family_name"] = cr_author.family
+    csv_author["orcid"] = cr_author.orcid.to_s
+    csv_author["sequence"] = cr_author.sequence.to_s
+    csv_author["order"] = author_order
+    cr_objects['csv_authors'] << csv_author
+    affi_order = 1
+    cr_author.affiliation.each do |cr_affiliation|
+      csv_affiliation = {}
+      csv_affiliation['id'] = work_id + author_order / 100.0
+      csv_affiliation["name"] = cr_affiliation.name
+      csv_affiliation["order"] = affi_order
+      cr_objects['csv_affiliations'] << csv_affiliation
+      affi_order += 1
+    end
+    author_order += 1
+  end
+  cr_objects['csv_works'] << csv_record
 end
 # Use json schema created according to CR specification
 # use json_schema validator to verify if articles match schema
@@ -425,20 +517,36 @@ cr_classes =  get_schema_class
 #
 # csv_works << map_csv_work(cr_object, 1)
 
-cr_objects = {'csv_works'=>[], 'csv_authors'=>[], 'csv_affiliations' => [] }
+cr_objects = {'csv_works'=>[], 'csv_authors'=>[], 'csv_affiliations'=>[] }
 csv_works = []
 work_id = 1
 doi_list.each do |cr_doi|
   crr = get_cr_json_object(cr_doi)
   cr_object = build_cr_objects(crr, cr_classes)
-  csv_works << map_csv_work(cr_object, work_id)
+  #csv_works << map_csv_work(cr_object, work_id)
+  #print_cr_object(cr_object)
+  map_csv_objects(cr_objects, cr_object, work_id)
   work_id += 1
 end
 
 
 CSV.open("new_works.csv", "wb") do |csv|
-  csv << csv_works.first.keys # adds the attributes name on the first line
-  csv_works.each do |hash|
+  csv << cr_objects['csv_works'].first.keys # adds the attributes name on the first line
+  cr_objects['csv_works'].each do |hash|
+    csv << hash.values
+  end
+end
+
+CSV.open("new_authors.csv", "wb") do |csv|
+  csv << cr_objects['csv_authors'].first.keys # adds the attributes name on the first line
+  cr_objects['csv_authors'].each do |hash|
+    csv << hash.values
+  end
+end
+
+CSV.open("new_affiliations.csv", "wb") do |csv|
+  csv << cr_objects['csv_affiliations'].first.keys # adds the attributes name on the first line
+  cr_objects['csv_affiliations'].each do |hash|
     csv << hash.values
   end
 end
