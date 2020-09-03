@@ -77,10 +77,6 @@ def build_object_from_record(cr_json_object, object_class)
       values_list = []
       # an array can contain many objects
       # treat each array elemen as a nested object
-      #puts "***************************************************************"
-      #puts "handle this as an Array"
-      #puts field_value[0]
-      #puts "***************************************************************"
       field_value.each do |fvs|
         cr_list_object = nil
         if fvs.class == Hash
@@ -96,7 +92,6 @@ def build_object_from_record(cr_json_object, object_class)
   end
   return new_cro
 end
-
 
 def get_type_from_schema(key_string)
   schema_file = './json_schema/cr_metadata_api_format_corrected.json'
@@ -150,16 +145,9 @@ def build_cr_objects(cr_json_object, object_classes)
       if cr_nested_object != nil
         CrApiWrapper::CrObjectFactory.assing_attributes cr_nested_object, field_value
       end
-      #puts "***************************************************************"
       cro_main.instance_variable_set("@#{instance_var}", cr_nested_object)
     elsif field_type == Array
       values_list = []
-      # an array can contain many objects
-      # treat each array elemen as a nested object
-      #puts "***************************************************************"
-      #puts "handle this as an Array"
-      #puts field_value[0]
-      #puts "***************************************************************"
       field_value.each do |fvs|
         cr_list_object = nil
         if fvs.class == Hash
@@ -169,15 +157,16 @@ def build_cr_objects(cr_json_object, object_classes)
           end
           if cr_list_object != nil
             CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, fvs
+            if field_class == "contributor"
+              affi_objects = []
+              cr_list_object.affiliation.each do |affi_value|
+                affi_object = object_classes['affiliation'].new
+                CrApiWrapper::CrObjectFactory.assing_attributes affi_object, affi_value
+                affi_objects << affi_object
+              end
+              cr_list_object.affiliation = affi_objects
+            end
           end
-          #new_class_name = "Cr" + camelise(instance_var)
-          # if new_class_name == "CrAuthor"
-          #   cr_list_object = object_classes["contributor"].new
-          #   CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, fvs
-          # elsif object_classes.has_key?(instance_var)
-          #   cr_list_object = object_classes[instance_var].new
-          #   CrApiWrapper::CrObjectFactory.assing_attributes cr_list_object, fvs
-          # end
         else
           cr_list_object = fvs
         end
@@ -312,12 +301,6 @@ puts "*******************************Build object******************************"
 cr_doi = "10.1002/9783527804085.ch10"
 crr = get_cr_json_object(cr_doi)
 
-#
-# puts "DOI: " + crr['DOI'].to_s + " Title: " + crr['title'].to_s + crr['title'].to_s + " **References: " + crr['is-referenced-by-count'].to_s
-# cr_object = build_object_from_record(crr,"CrArticle")
-# puts "DOI: " + cr_object.doi.to_s + " Title: " + cr_object.title.to_s + " **References: " + cr_object.is_referenced_by_count.to_s
-#
-#puts crr
 cr_object = build_cr_objects(crr, cr_classes)
 cr_object.instance_variables.each do |instance_variable|
  val = cr_object.instance_variable_get(instance_variable)
@@ -328,3 +311,4 @@ puts "Deposited date_tiem: " + cr_object.deposited.date_time.to_s
 puts "Deposited timestamp: " + cr_object.deposited.timestamp.to_s
 puts "Content domain: " + cr_object.content_domain.domain.to_s
 puts "Content crossmark: " + cr_object.content_domain.crossmark_restriction.to_s
+puts "Authors: " + cr_object.author[0].family
