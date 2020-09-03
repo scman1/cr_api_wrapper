@@ -75,6 +75,10 @@
           "type": "boolean",
           "description": "If true, record owner asserts that the ORCID user completed ORCID OAuth authentication"
         },
+        "sequence": {
+          "type": "string",
+          "description": ""
+        },
         "affiliation": {
           "type": "array",
           "items": {
@@ -474,6 +478,19 @@
     "url": {
       "type": "string",
       "description": "Definition of url, custom not part of the CR specification"
+    },
+    "journal-issue": {
+      "type": "object",
+      "properties": {
+        "published-print": {
+          "type": {"$ref": "#/definitions/partial_date"},
+          "description": "date when journal issue was published in print"
+        },
+        "issue": {
+          "type": "number",
+          "description": "journal issue"
+        }
+      }
     }
   },
   "type": "object",
@@ -847,6 +864,12 @@
     "event": {
       "type": "string",
       "description": "Name of conference, workshop where work was presesnted"
+    },
+    "journal-issue": {
+      "type": {
+        "$ref": "#/definitions/journal-issue"
+      },
+      "description": "Details of journal issue"
     }
   },
   "required": [
