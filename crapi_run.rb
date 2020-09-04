@@ -147,10 +147,17 @@ def build_cr_objects(cr_json_object, object_classes)
         CrApiWrapper::CrObjectFactory.assing_attributes cr_nested_object, field_value
       end
       if field_class == "journal-issue"
-        date_value = cr_nested_object.published_print
-        date_object = object_classes['partial-date'].new
-        CrApiWrapper::CrObjectFactory.assing_attributes date_object, date_value
-        cr_nested_object.published_print = date_object
+        if cr_nested_object.published_print != nil
+          date_value = cr_nested_object.published_print
+          date_object = object_classes['partial-date'].new
+          CrApiWrapper::CrObjectFactory.assing_attributes date_object, date_value
+          cr_nested_object.published_print = date_object
+        elsif cr_nested_object.published_online != nil
+          date_value = cr_nested_object.published_online
+          date_object = object_classes['partial-date'].new
+          CrApiWrapper::CrObjectFactory.assing_attributes date_object, date_value
+          cr_nested_object.published_online = date_object
+        end
       end
       cro_main.instance_variable_set("@#{instance_var}", cr_nested_object)
     elsif field_type == Array
@@ -301,7 +308,7 @@ def print_cr_object(cr_object)
   puts "pub year:         " + cr_object.issued.date_parts[0][0].to_s + + cr_object.issued.date_parts[0].to_s
   puts "pub type:         " + cr_object.type
   puts "publisher:        " + cr_object.publisher
-  puts "container title:  " + cr_object.container_title
+  puts "container title:  " + cr_object.container_title.to_s
   puts "volume:           " + cr_object.volume.to_s
   puts "issue:            " + cr_object.issue.to_s
   puts "page:             " + cr_object.page.to_s
@@ -316,7 +323,9 @@ def print_cr_object(cr_object)
   puts "link:             " + cr_object.link.to_s
   puts "url:              " + cr_object.url.to_s
   puts "abstract:         " + cr_object.abstract.to_s
-  puts "journal issue:    " + cr_object.journal_issue.issue.to_s + cr_object.journal_issue.published_print.to_s
+  if cr_object.journal_issue != nil
+    puts "journal issue:    " + cr_object.journal_issue.issue.to_s + cr_object.journal_issue.published_print.to_s
+  end
   puts "**************************Authors*************************************"
   cr_object.author.each do |cr_author|
     puts "given:            " + cr_author.given.to_s
@@ -427,6 +436,10 @@ def map_csv_objects(cr_objects, cr_object, work_id)
     csv_record['issue'] = ""
   end
   csv_record['page'] = cr_object.page
+
+  csv_record['pub_print_year'] = ""
+  csv_record['pub_print_month'] = ""
+  csv_record['pub_print_day'] = ""
   if cr_object.published_print != nil and
     cr_object.published_print.date_parts[0] != nil
     csv_record['pub_print_year'] = cr_object.published_print.date_parts[0][0]
@@ -434,26 +447,25 @@ def map_csv_objects(cr_objects, cr_object, work_id)
     csv_record['pub_print_day'] = cr_object.published_print.date_parts[0][2]
   elsif cr_object.journal_issue != nil and
     cr_object.journal_issue.published_print != nil
-    #***************************************************************************
-    puts cr_object.journal_issue.published_print
     csv_record['pub_print_year'] = cr_object.journal_issue.published_print.date_parts[0][0]
     csv_record['pub_print_month'] = cr_object.journal_issue.published_print.date_parts[0][1]
     csv_record['pub_print_day'] = cr_object.journal_issue.published_print.date_parts[0][2]
-  else
-    csv_record['pub_print_year'] = ""
-    csv_record['pub_print_month'] = ""
-    csv_record['pub_print_day'] = ""
   end
+  csv_record['pub_ol_year'] = ""
+  csv_record['pub_ol_month'] = ""
+  csv_record['pub_ol_day'] = ""
   if cr_object.published_online != nil and
     cr_object.published_online.date_parts[0] != nil
     csv_record['pub_ol_year'] = cr_object.published_online.date_parts[0][0]
     csv_record['pub_ol_month'] = cr_object.published_online.date_parts[0][1]
     csv_record['pub_ol_day'] = cr_object.published_online.date_parts[0][2]
-  else
-    csv_record['pub_ol_day'] = ""
-    csv_record['pub_ol_day'] = ""
-    csv_record['pub_ol_day'] = ""
+  elsif cr_object.journal_issue != nil and
+    cr_object.journal_issue.published_online != nil
+    csv_record['pub_ol_year'] = cr_object.journal_issue.published_online.date_parts[0][0]
+    csv_record['pub_ol_month'] = cr_object.journal_issue.published_online.date_parts[0][1]
+    csv_record['pub_ol_day'] = cr_object.journal_issue.published_online.date_parts[0][2]
   end
+
   csv_record['references'] = cr_object.references_count
   csv_record['citations'] = cr_object.is_referenced_by_count
   csv_record['link'] = cr_object.link[0].url
@@ -486,7 +498,7 @@ def map_csv_objects(cr_objects, cr_object, work_id)
 end
 # Use json schema created according to CR specification
 # use json_schema validator to verify if articles match schema
-doi_list = CSV.read("doi_list_short.csv", headers: true)
+doi_list = CSV.read("doi_list.csv", headers: true)
 # puts doi_list.by_col[0]
 doi_list = doi_list.by_col[0]
 
@@ -528,7 +540,6 @@ doi_list.each do |cr_doi|
   map_csv_objects(cr_objects, cr_object, work_id)
   work_id += 1
 end
-
 
 CSV.open("new_works.csv", "wb") do |csv|
   csv << cr_objects['csv_works'].first.keys # adds the attributes name on the first line

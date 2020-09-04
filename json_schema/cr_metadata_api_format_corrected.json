@@ -483,6 +483,7 @@
       "type": "object",
       "properties": {
         "published-print": {"$ref": "#/definitions/partial_date"},
+        "published-online": {"$ref": "#/definitions/partial_date"},
         "issue": {
           "type": "number",
           "description": "journal issue"
