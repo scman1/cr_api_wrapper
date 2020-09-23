@@ -480,12 +480,12 @@ def map_csv_objects(cr_objects, cr_object, work_id)
     csv_author["given_name"] = cr_author.given
     csv_author["family_name"] = cr_author.family
     csv_author["orcid"] = cr_author.orcid.to_s
+    csv_affiliation = {}
     csv_author["sequence"] = cr_author.sequence.to_s
     csv_author["order"] = author_order
     cr_objects['csv_authors'] << csv_author
     affi_order = 1
     cr_author.affiliation.each do |cr_affiliation|
-      csv_affiliation = {}
       csv_affiliation['id'] = work_id + author_order / 100.0
       csv_affiliation["name"] = cr_affiliation.name
       csv_affiliation["order"] = affi_order
