@@ -311,77 +311,6 @@ def is_complex(an_item)
   end
 end
 
-def is_complex2(an_item)
-  occurrence_counter = 0
-  #verify if item has two or more affilition elements
-  found_items = []
-  found_this = get_institution(an_item)
-  found_this != nil ? found_items.append(found_this) : print(" no institution")
-  found_this = get_department(an_item)
-  found_this != nil ? found_items.append(found_this) : print(" no department")
-  found_this = get_faculty(an_item)
-  found_this != nil ? found_items.append(found_this) : print(" no faculty")
-  found_this = get_workgroup(an_item)
-  found_this != nil ? found_items.append(found_this) : print(" no workgroup")
-  #found_this = get_country(an_item)
-  #found_this != nil ? found_items.append(found_this) : print(" no country")
-  # if more than one affilition element, treat as complex
-  if found_items.length > 1
-    print found_items
-    return true
-  else
-    return(false)
-  end
-end
-
-def is_complex3(an_item)
-  occurrence_counter = 0
-  #verify if item has two or more affilition elements
-  found_items = []
-  found_inst = get_institution(an_item)
-  found_dept = get_department(an_item)
-  found_facu = get_faculty(an_item)
-  found_wkgr = get_workgroup(an_item)
-  #found_ctry = get_country(an_item)
-
-  found_this != nil ? an_item.gsub!(found_this, "").to_s.strip! : print(" no country")
-  # if more than one affilition element, treat as complex
-  if an_item.length > 1
-    print an_item
-    return true
-  else
-    return(false)
-  end
-end
-
-def is_complex4(an_item)
-  local_item = an_item
-  occurrence_counter = 0
-  #verify if item has two or more affilition elements
-  found_items = []
-  found_this = get_institution(an_item)
-  if found_this != nil then found_items.append(found_this) end
-  found_this = get_department(an_item)
-  if found_this != nil then found_items.append(found_this) end
-  found_this = get_faculty(an_item)
-  if found_this != nil then found_items.append(found_this) end
-  found_this = get_workgroup(an_item)
-  if found_this != nil then found_items.append(found_this) end
-  #found_this = get_country(an_item)
-  #if found_this != nil then found_items.append(found_this) end
-  # if more than one affilition element, treat as complex
-  found_items.each do |f_itm|
-    local_item = local_item.gsub(f_itm, "").strip
-  end
-  printf "This is left: %s", local_item
-  if found_items.length > 1
-    print found_items
-    return true
-  else
-    return(false)
-  end
-end
-
 def is_simple(an_item)
   #verify if item has two or more affilition elements
   found_this = get_institution(an_item)
@@ -447,7 +376,7 @@ begin
           puts "\n************************Missing country**********************\n"
         end
         printf "\nID: %d affiliation: %s affiliation short: %s country: %s\n", auth_affi.article_author_id, auth_affi.name, auth_affi.short_name, auth_affi.country
-        printf "\nAddress: %s, %s, %s, %s, %s\n", auth_affi.add_01, auth_affi.add_02, auth_affi.add_03,auth_affi.add_04, auth_affi.add_05        
+        printf "\nAddress: %s, %s, %s, %s, %s\n", auth_affi.add_01, auth_affi.add_02, auth_affi.add_03,auth_affi.add_04, auth_affi.add_05
       else
         print("\n***************parse each as complex")
         names_list.each do |an_item|
