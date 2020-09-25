@@ -139,8 +139,9 @@ def create_affi_obj(tokens, auth_id)
   tkn_idx = 0
   auth_affi = Author_Affiliation.new()
   auth_affi.article_author_id = auth_id
+  inst_found = false
   while tkn_idx < tokens.count
-    a_token = tokens[tkn_idx].strip
+    a_token = tokens[tkn_idx].strip    
     if tkn_idx == 0
       auth_affi.name = a_token
     elsif $affi_countries.include?(a_token)
@@ -167,57 +168,67 @@ def split_by_separator(affi_string, auth_id, separator)
   return create_affi_obj(tokens, auth_id)
 end
 
-def split_by_keywords(affi_string, auth_id)
-  #try with country and institution
-  tokens = []
-  found_inst = found_country = ""
+def get_institution(affi_string)
   $affi_institutions.each do |institution|
     if affi_string.include?(institution)
-      found_inst = institution
-      break
+      return institution
     end
   end
+end
+
+def get_country(affi_string)
   $affi_countries.each do |country|
     if affi_string.include?(country)
-      found_country = country
-      break
+      return country
     end
   end
-  if found_country == ""
-    $country_synonyms.keys.each do |ctry_key|
-      if affi_string.include?(ctry_key.to_s)
-        found_country = $country_synonyms[ctry_key]
-        break
-      end
+  $country_synonyms.keys.each do |ctry_key|
+    if affi_string.include?(ctry_key.to_s)
+      return $country_synonyms[ctry_key]
     end
   end
-  if found_inst != ""
+end
+
+def drop_country(affi_string)
+  $affi_countries.each do |country|
+    if affi_string.include?(country)
+      return affi_string.gsub!(country,"").strip
+    end
+  end
+  $country_synonyms.keys.each do |ctry_key|
+    if affi_string.include?(ctry_key.to_s)
+      return affi_string.gsub!(ctry_key.to_s,"").strip
+    end
+  end
+end
+
+
+def split_by_keywords(affi_string, auth_id)
+  # build affiliation object directly
+  # try with country and institution
+  affi_obj = Author_Affiliation.new()
+  affi_obj.article_author_id = auth_id
+  found_inst = found_country = ""
+  found_inst = get_institution(affi_string)
+  found_country = get_country(affi_string)
+  if found_inst.to_s != ""
     ins_idx = affi_string.index(found_inst)
-    ctry_idx = affi_string.index(found_country)
-    affi_start= affi_mid = affi_rest = ""
     affi_len = affi_string.length
     inst_len = found_inst.length
     if ins_idx == 0
-      affi_start =  found_inst
+      affi_obj.name = found_inst
       affi_rest = affi_string[inst_len-1, affi_len-inst_len].strip
+      affi_obj.add_01 = drop_country(affi_rest)
     else
-      affi_start =  affi_string[0, ins_idx].strip
-      affi_mid = found_inst
+      affi_obj.name = affi_string[0, ins_idx].strip + ", " + found_inst
+      affi_obj.short_name = found_inst
       affi_rest = affi_string[ins_idx+inst_len, affi_len-inst_len].strip
+      affi_obj.add_01 = drop_country(affi_rest)
     end
-    if affi_start != ""
-      tokens.append(affi_start)
+    if found_country.to_s != ""
+      affi_obj.country = found_country
     end
-    if affi_mid != ""
-      tokens.append(affi_mid)
-    end
-    if affi_rest != ""
-      tokens.append(affi_rest)
-    end
-    if found_country != ""
-      tokens.append(found_country)
-    end
-    return create_affi_obj(tokens, auth_id)
+    return affi_obj
   end
 end
 
@@ -252,7 +263,10 @@ begin
       printf("\nAuthor %d Single affilition parse as complex \n", auth_id)
       print names_list
       auth_affi = parse_complex(names_list[0], auth_id)
-      printf "\nID: %d affiliation: %s country: %s\n", auth_affi.article_author_id, auth_affi.name, auth_affi.country
+      if auth_affi.country == nil
+        puts "\n************************Missing country**********************\n"
+      end
+      printf "\nID: %d affiliation: %s affiliation short: %s country: %s\n", auth_affi.article_author_id, auth_affi.name, auth_affi.short_name, auth_affi.country
       printf "\nAddress: %s, %s, %s, %s, %s\n", auth_affi.add_01, auth_affi.add_02, auth_affi.add_03,auth_affi.add_04, auth_affi.add_05
     else
       printf("\nAuthor %d Mutiple affilitions complex or singles?\n", auth_id)
@@ -262,50 +276,7 @@ begin
       break
     end
   end
-  # cr_affiliation
-  # db = get_db
-  # stm = db.prepare "SELECT * FROM cr_affiliations;"
-  # rs = stm.execute
-  # ctr_idx = 0
-  # author_id = 0
-  # $affi_names = []
-  # rs.each do |row|
-  #   this_name = row['name']
-  #   this_author = row['article_author_id']
-  #   printf "%s\t%s\tAuthor: %s\n", row['id'], this_name, this_author
-  #   if ctr_idx >= 18
-  #     break
-  #   end
-  #
-  #   $synonyms={"UK":"United Kingdom", "U.K.":"United Kingdom",
-  #      "PRC":"Peoples Republic of China"}
-  #   # if $affi_institutions.include?(this_name)
-  #   #   printf "\n***** %s is in institutions list\n", this_name
-  #   # elsif $affi_departments.include?(this_name)
-  #   #   printf("\n***** %s is in departments list\n", this_name)
-  #   # elsif $affi_faculties.include?(this_name)
-  #   #   printf("\n***** %s is in faculties list\n", this_name)
-  #   # elsif $affi_work_groups.include?(this_name)
-  #   #   printf("\n***** %s is in work groups list\n", this_name)
-  #   # elsif $affi_countries.include?(this_name)
-  #   #   printf("\n***** %s is in countries list\n", this_name)
-  #   # end
-  #   if author_id == 0
-  #     author_id = this_author
-  #     $affi_names.append(this_name)
-  #   elsif author_id == this_author
-  #     $affi_names.append(this_name)
-  #   else
-  #     # parse affi names
-  #     printf "\nNeed to parse:\n"
-  #     print $affi_names
-  #     printf "\nFor author: %d\n", author_id
-  #     author_id = this_author
-  #     $affi_names = [this_name]
-  #   end
-  #
-  #   ctr_idx += 1
-  # end
+
 
 rescue SQLite3::Exception => e
     puts "Exception occurred"
