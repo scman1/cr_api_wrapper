@@ -141,11 +141,17 @@ def create_affi_obj(tokens, auth_id)
   auth_affi.article_author_id = auth_id
   inst_found = false
   while tkn_idx < tokens.count
-    a_token = tokens[tkn_idx].strip    
+    a_token = tokens[tkn_idx].strip
+    # first is commonly the affilition name
     if tkn_idx == 0
       auth_affi.name = a_token
     elsif $affi_countries.include?(a_token)
       auth_affi.country = a_token
+    elsif $affi_institutions.include?(a_token)
+      if auth_affi.name != nil
+        auth_affi.name = auth_affi.name + ", " + a_token
+        auth_affi.short_name = a_token
+      end
     elsif auth_affi.add_01 == nil
       auth_affi.add_01 = a_token
     elsif auth_affi.add_02 == nil
@@ -156,8 +162,26 @@ def create_affi_obj(tokens, auth_id)
       auth_affi.add_04 = a_token
     elsif auth_affi.add_05 == nil
       auth_affi.add_05 = a_token
+    elsif auth_affi.add_05 != nil # case more than 5 tokes in address
+      auth_affi.add_05 += ", " + a_token
     end
     tkn_idx += 1
+  end
+  # if country is missing get check all addres lines in object
+  if auth_affi.country == nil
+    auth_affi.instance_variables.each do |instance_variable|
+      if instance_variable.to_s.include?("add_0")
+        print instance_variable
+        value = auth_affi.instance_variable_get(instance_variable)
+        ctry = get_country(value.to_s)
+        if ctry != nil
+          auth_affi.country = ctry
+          value = drop_country(value)
+          auth_affi.instance_variable_set(instance_variable, value)
+          break
+        end
+      end
+    end
   end
   return auth_affi
 end
@@ -174,6 +198,7 @@ def get_institution(affi_string)
       return institution
     end
   end
+  return nil
 end
 
 def get_country(affi_string)
@@ -187,6 +212,7 @@ def get_country(affi_string)
       return $country_synonyms[ctry_key]
     end
   end
+  return nil
 end
 
 def drop_country(affi_string)
