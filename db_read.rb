@@ -201,6 +201,33 @@ def get_institution(affi_string)
   return nil
 end
 
+def get_department(affi_string)
+  $affi_departments.each do |department|
+    if affi_string.include?(department)
+      return department
+    end
+  end
+  return nil
+end
+
+def get_faculty(affi_string)
+  $affi_faculties.each do |faculty|
+    if affi_string.include?(faculty)
+      return faculty
+    end
+  end
+  return nil
+end
+
+def get_workgroup(affi_string)
+  $affi_work_groups.each do |workgroup|
+    if affi_string.include?(workgroup)
+      return workgroup
+    end
+  end
+  return nil
+end
+
 def get_country(affi_string)
   $affi_countries.each do |country|
     if affi_string.include?(country)
@@ -268,13 +295,117 @@ def parse_complex(affi_string, auth_id)
   end
 end
 
+def is_complex(an_item)
+  occurrence_counter = 0
+  #verify if item has two or more affilition elements
+  get_institution(an_item) != nil ? occurrence_counter += 1 : printf(" no institution %d", occurrence_counter)
+  get_country(an_item) != nil ? occurrence_counter += 1 : printf(" no country %d", occurrence_counter )
+  get_department(an_item) != nil ? occurrence_counter += 1 : printf(" no department %d", occurrence_counter)
+  get_faculty(an_item) != nil ? occurrence_counter += 1 : printf(" no faculty %d", occurrence_counter)
+  get_workgroup(an_item) != nil ? occurrence_counter += 1 : printf(" no workgroup %d", occurrence_counter)
+  # if more than one affilition element, treat as complex
+  if occurrence_counter > 1
+    return true
+  else
+    return(false)
+  end
+end
+
+def is_complex2(an_item)
+  occurrence_counter = 0
+  #verify if item has two or more affilition elements
+  found_items = []
+  found_this = get_institution(an_item)
+  found_this != nil ? found_items.append(found_this) : print(" no institution")
+  found_this = get_department(an_item)
+  found_this != nil ? found_items.append(found_this) : print(" no department")
+  found_this = get_faculty(an_item)
+  found_this != nil ? found_items.append(found_this) : print(" no faculty")
+  found_this = get_workgroup(an_item)
+  found_this != nil ? found_items.append(found_this) : print(" no workgroup")
+  #found_this = get_country(an_item)
+  #found_this != nil ? found_items.append(found_this) : print(" no country")
+  # if more than one affilition element, treat as complex
+  if found_items.length > 1
+    print found_items
+    return true
+  else
+    return(false)
+  end
+end
+
+def is_complex3(an_item)
+  occurrence_counter = 0
+  #verify if item has two or more affilition elements
+  found_items = []
+  found_inst = get_institution(an_item)
+  found_dept = get_department(an_item)
+  found_facu = get_faculty(an_item)
+  found_wkgr = get_workgroup(an_item)
+  #found_ctry = get_country(an_item)
+
+  found_this != nil ? an_item.gsub!(found_this, "").to_s.strip! : print(" no country")
+  # if more than one affilition element, treat as complex
+  if an_item.length > 1
+    print an_item
+    return true
+  else
+    return(false)
+  end
+end
+
+def is_complex4(an_item)
+  local_item = an_item
+  occurrence_counter = 0
+  #verify if item has two or more affilition elements
+  found_items = []
+  found_this = get_institution(an_item)
+  if found_this != nil then found_items.append(found_this) end
+  found_this = get_department(an_item)
+  if found_this != nil then found_items.append(found_this) end
+  found_this = get_faculty(an_item)
+  if found_this != nil then found_items.append(found_this) end
+  found_this = get_workgroup(an_item)
+  if found_this != nil then found_items.append(found_this) end
+  #found_this = get_country(an_item)
+  #if found_this != nil then found_items.append(found_this) end
+  # if more than one affilition element, treat as complex
+  found_items.each do |f_itm|
+    local_item = local_item.gsub(f_itm, "").strip
+  end
+  printf "This is left: %s", local_item
+  if found_items.length > 1
+    print found_items
+    return true
+  else
+    return(false)
+  end
+end
+
+def is_simple(an_item)
+  #verify if item has two or more affilition elements
+  found_this = get_institution(an_item)
+  if found_this != nil and found_this.downcase().strip == an_item.downcase().strip then return true end
+  found_this = get_department(an_item)
+  if found_this != nil and found_this.downcase().strip == an_item.downcase().strip then return true end
+  found_this = get_faculty(an_item)
+  if found_this != nil and found_this.downcase().strip == an_item.downcase().strip then return true end
+  found_this = get_workgroup(an_item)
+  if found_this != nil and found_this.downcase().strip == an_item.downcase().strip then return true end
+  found_this = get_country(an_item)
+  if found_this != nil and found_this.downcase().strip == an_item.downcase().strip then return true end
+  if found_this != nil and found_this.length > an_item.length then return true end # found a country synonym
+  return false
+end
+
+
 $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
     "U. K.":"United Kingdom", "PRC":"Peoples Republic of China",
     "P.R.C.":"Peoples Republic of China",
     "P.R.China":"Peoples Republic of China",
     "P.R. China":"Peoples Republic of China",
     "USA":"United States of America","U.S.A.":"United States of America",
-    "U.S.":"United States of America", "U. S. A.":"United States of America",
+    "U. S. A.":"United States of America", "U.S.":"United States of America",
     "U. S.":"United States of America","US":"United States of America"}
 
 begin
@@ -297,6 +428,37 @@ begin
     else
       printf("\nAuthor %d Mutiple affilitions complex or singles?\n", auth_id)
       print names_list
+      single_ctr = 0
+      names_list.each do |an_item|
+        if is_simple(an_item) then
+          printf("\n%s Single", an_item)
+          single_ctr += 1
+        elsif is_complex(an_item) then
+          printf("\n%s Complex", an_item)
+        else
+          printf("\n%s Single", an_item)
+          single_ctr += 1
+        end
+      end
+      if single_ctr > 1
+        print("\n***************parse list as a sigle affilition")
+        auth_affi = create_affi_obj(names_list, auth_id)
+        if auth_affi.country == nil
+          puts "\n************************Missing country**********************\n"
+        end
+        printf "\nID: %d affiliation: %s affiliation short: %s country: %s\n", auth_affi.article_author_id, auth_affi.name, auth_affi.short_name, auth_affi.country
+        printf "\nAddress: %s, %s, %s, %s, %s\n", auth_affi.add_01, auth_affi.add_02, auth_affi.add_03,auth_affi.add_04, auth_affi.add_05        
+      else
+        print("\n***************parse each as complex")
+        names_list.each do |an_item|
+          auth_affi = parse_complex(an_item, auth_id)
+          if auth_affi.country == nil
+            puts "\n************************Missing country**********************\n"
+          end
+          printf "\nID: %d affiliation: %s affiliation short: %s country: %s\n", auth_affi.article_author_id, auth_affi.name, auth_affi.short_name, auth_affi.country
+          printf "\nAddress: %s, %s, %s, %s, %s\n", auth_affi.add_01, auth_affi.add_02, auth_affi.add_03,auth_affi.add_04, auth_affi.add_05
+        end
+      end
     end
     if auth_id > 60
       break
