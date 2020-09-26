@@ -327,6 +327,24 @@ def is_simple(an_item)
   return false
 end
 
+def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
+  # problem: missing country
+  if affi_object.country == nil
+    if parsed_complex = false
+      printf("\nAuthor %d affilition parsed as complex \n", auth_id)
+    else
+      printf("\nAuthor %d affilition parse as single \n", auth_id)
+    end
+    print names_list
+    puts "\n************************Missing country**********************\n"
+    printf "\nID: %d affiliation: %s affiliation short: %s country: %s\n", affi_object.article_author_id, affi_object.name, affi_object.short_name, affi_object.country
+    printf "\nAddress: %s, %s, %s, %s, %s\n", affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05
+    return false
+  else
+    return true
+  end
+
+end
 
 $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
     "U. K.":"United Kingdom", "PRC":"Peoples Republic of China",
@@ -345,15 +363,12 @@ begin
   print aut_list
   aut_list.each do |auth_id|
     names_list = get_author_cr_affiliations(auth_id)
+    auth_affi = nil
+    parse_complex = false
     if names_list.count == 1
-      printf("\nAuthor %d Single affilition parse as complex \n", auth_id)
-      print names_list
+      parse_complex = true
       auth_affi = parse_complex(names_list[0], auth_id)
-      if auth_affi.country == nil
-        puts "\n************************Missing country**********************\n"
-      end
-      printf "\nID: %d affiliation: %s affiliation short: %s country: %s\n", auth_affi.article_author_id, auth_affi.name, auth_affi.short_name, auth_affi.country
-      printf "\nAddress: %s, %s, %s, %s, %s\n", auth_affi.add_01, auth_affi.add_02, auth_affi.add_03,auth_affi.add_04, auth_affi.add_05
+      affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
     else
       printf("\nAuthor %d Mutiple affilitions complex or singles?\n", auth_id)
       print names_list
@@ -372,28 +387,20 @@ begin
       if single_ctr > 1
         print("\n***************parse list as a sigle affilition")
         auth_affi = create_affi_obj(names_list, auth_id)
-        if auth_affi.country == nil
-          puts "\n************************Missing country**********************\n"
-        end
-        printf "\nID: %d affiliation: %s affiliation short: %s country: %s\n", auth_affi.article_author_id, auth_affi.name, auth_affi.short_name, auth_affi.country
-        printf "\nAddress: %s, %s, %s, %s, %s\n", auth_affi.add_01, auth_affi.add_02, auth_affi.add_03,auth_affi.add_04, auth_affi.add_05
+        affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
       else
         print("\n***************parse each as complex")
         names_list.each do |an_item|
           auth_affi = parse_complex(an_item, auth_id)
-          if auth_affi.country == nil
-            puts "\n************************Missing country**********************\n"
-          end
-          printf "\nID: %d affiliation: %s affiliation short: %s country: %s\n", auth_affi.article_author_id, auth_affi.name, auth_affi.short_name, auth_affi.country
-          printf "\nAddress: %s, %s, %s, %s, %s\n", auth_affi.add_01, auth_affi.add_02, auth_affi.add_03,auth_affi.add_04, auth_affi.add_05
+          affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
         end
       end
     end
+
     if auth_id > 60
       break
     end
   end
-
 
 rescue SQLite3::Exception => e
     puts "Exception occurred"
