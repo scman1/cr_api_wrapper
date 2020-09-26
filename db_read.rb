@@ -448,7 +448,9 @@ $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
 $institution_synonyms = {"The ISIS facility":"ISIS Neutron and Muon Source",
     "STFC":"Science and Technology Facilities Councils",
     "Oxford University":"University of Oxford",
-    "University of St Andrews":"University of St. Andrews"}
+    "University of St Andrews":"University of St. Andrews",
+    "Diamond Light Source":"Diamond Light Source Ltd.",
+    "ISIS Facility":"ISIS Neutron and Muon Source"}
 
 begin
   start_lists
@@ -494,7 +496,6 @@ begin
     printf " Revising: %s\n", auth_id
     print_affiliation(auth_affi)
     if auth_id > 2500 then
-      print_affiliation(auth_affi)
       break
     end
 
