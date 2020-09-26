@@ -171,7 +171,7 @@ def create_affi_obj(tokens, auth_id)
   if auth_affi.country == nil
     auth_affi.instance_variables.each do |instance_variable|
       if instance_variable.to_s.include?("add_0")
-        print instance_variable
+        #print instance_variable
         value = auth_affi.instance_variable_get(instance_variable)
         ctry = get_country(value.to_s)
         if ctry != nil
@@ -255,7 +255,6 @@ def drop_country(affi_string)
   end
 end
 
-
 def split_by_keywords(affi_string, auth_id)
   # build affiliation object directly
   # try with country and institution
@@ -298,11 +297,11 @@ end
 def is_complex(an_item)
   occurrence_counter = 0
   #verify if item has two or more affilition elements
-  get_institution(an_item) != nil ? occurrence_counter += 1 : printf(" no institution %d", occurrence_counter)
-  get_country(an_item) != nil ? occurrence_counter += 1 : printf(" no country %d", occurrence_counter )
-  get_department(an_item) != nil ? occurrence_counter += 1 : printf(" no department %d", occurrence_counter)
-  get_faculty(an_item) != nil ? occurrence_counter += 1 : printf(" no faculty %d", occurrence_counter)
-  get_workgroup(an_item) != nil ? occurrence_counter += 1 : printf(" no workgroup %d", occurrence_counter)
+  if get_institution(an_item) != nil then occurrence_counter += 1 end
+  if get_country(an_item) != nil then occurrence_counter += 1 end
+  if get_department(an_item) != nil then occurrence_counter += 1 end
+  if get_faculty(an_item) != nil then occurrence_counter += 1 end
+  if get_workgroup(an_item) != nil then occurrence_counter += 1 end
   # if more than one affilition element, treat as complex
   if occurrence_counter > 1
     return true
@@ -330,7 +329,7 @@ end
 def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
   # problem: missing country
   if affi_object.country == nil
-    if parsed_complex = false
+    if parsed_complex == false
       printf("\nAuthor %d affilition parsed as complex \n", auth_id)
     else
       printf("\nAuthor %d affilition parse as single \n", auth_id)
@@ -343,7 +342,6 @@ def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
   else
     return true
   end
-
 end
 
 $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
@@ -360,7 +358,7 @@ begin
   sanity_checks
   # get the list of author ids from affiliations
   aut_list = get_unique_values_list("cr_affiliations","article_author_id")
-  print aut_list
+  #print aut_list
   aut_list.each do |auth_id|
     names_list = get_author_cr_affiliations(auth_id)
     auth_affi = nil
@@ -370,26 +368,26 @@ begin
       auth_affi = parse_complex(names_list[0], auth_id)
       affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
     else
-      printf("\nAuthor %d Mutiple affilitions complex or singles?\n", auth_id)
-      print names_list
+      #printf("\nAuthor %d Mutiple affilitions complex or singles?\n", auth_id)
+      #print names_list
       single_ctr = 0
       names_list.each do |an_item|
         if is_simple(an_item) then
-          printf("\n%s Single", an_item)
+          #printf("\n%s Single", an_item)
           single_ctr += 1
         elsif is_complex(an_item) then
-          printf("\n%s Complex", an_item)
+          #printf("\n%s Complex", an_item)
         else
-          printf("\n%s Single", an_item)
+          #printf("\n%s Single", an_item)
           single_ctr += 1
         end
       end
       if single_ctr > 1
-        print("\n***************parse list as a sigle affilition")
+        parse_complex = false
         auth_affi = create_affi_obj(names_list, auth_id)
         affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
       else
-        print("\n***************parse each as complex")
+        parse_complex = true
         names_list.each do |an_item|
           auth_affi = parse_complex(an_item, auth_id)
           affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
