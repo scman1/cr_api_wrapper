@@ -105,6 +105,21 @@ def get_unique_values_list(table, field)
   return values_list
 end
 
+def get_value(table, field_val, field_ftr, filter_val)
+  #print filter_val
+  sql_statement = "SELECT " + field_val + " FROM " + table + " WHERE " + \
+   field_ftr + " = '" + filter_val + "';"
+   print sql_statement
+  db = get_db()
+  stm = db.prepare sql_statement
+  rs = stm.execute
+  retun_val = nil
+  rs.each do |row|
+    retun_val = row[field_val]
+  end
+  return retun_val
+end
+
 def get_author_cr_affiliations(auth_id)
   sql_statement = \
     "SELECT name FROM cr_affiliations WHERE article_author_id = " + auth_id.to_s + ";"
@@ -122,7 +137,7 @@ def create_affi_obj(tokens, auth_id)
   tkn_idx = 0
   auth_affi = Author_Affiliation.new()
   auth_affi.article_author_id = auth_id
-  inst_found = false
+  inst_found = ""
   while tkn_idx < tokens.count
     a_token = tokens[tkn_idx].strip
     # first element is designated as the affilition
@@ -141,6 +156,19 @@ def create_affi_obj(tokens, auth_id)
           auth_affi.short_name = a_token
         else
           auth_affi.short_name = auth_affi.name
+        end
+      end
+    elsif $institution_synonyms.keys.include?(a_token.to_sym) then
+      if auth_affi.name != nil
+        # if the affiliation name is not an institution
+        # add institution to name and make short name the institution
+        # otherwise shot name is the same as name
+        if !$affi_institutions.include?(auth_affi.name) and \
+          !$institution_synonyms.keys.include?(auth_affi.name.to_sym) then
+          auth_affi.name = auth_affi.name + ", " + $institution_synonyms[a_token.to_sym]
+          auth_affi.short_name =  $institution_synonyms[a_token.to_sym]
+        else
+          auth_affi.short_name =  $institution_synonyms[a_token.to_sym]
         end
       end
     elsif auth_affi.add_01 == nil
@@ -171,16 +199,34 @@ def create_affi_obj(tokens, auth_id)
           auth_affi.country = ctry
           value = drop_country(value)
           auth_affi.instance_variable_set(instance_variable, value)
-          got_it = true
           break
         end
       end
     end
     # look for country in affiliation name
-    if !got_it  then
+    if auth_affi.country.to_s == ""  then
       ctry = get_country(auth_affi.name)
       auth_affi.country = ctry
-      got_it = true
+    end
+    # look for country in institution table
+    # print auth_affi.country
+    #
+    if auth_affi.country.to_s == ""  then
+      #printf "\n Before if %s", auth_affi.name
+      inst_found = auth_affi.name
+      if $affi_institutions.include?(auth_affi.name) or \
+        $institution_synonyms.keys.include?(auth_affi.name.to_sym) then
+        inst_found = auth_affi.name
+        #printf "\n Before sendig %s", inst_found
+        ctry = get_value("Affiliations", "country", "institution", inst_found.strip)
+        auth_affi.country = ctry
+      elsif $affi_institutions.include?(auth_affi.short_name) or \
+        $institution_synonyms.keys.include?(auth_affi.short_name.to_s.to_sym) then
+        inst_found = auth_affi.short_name
+        #printf "\n Before sendig %s", inst_found
+        ctry = get_value("Affiliations", "country", "institution", inst_found.strip)
+        auth_affi.country = ctry
+      end
     end
   end
   ## just for debugging
@@ -188,10 +234,27 @@ def create_affi_obj(tokens, auth_id)
   return auth_affi
 end
 
-def split_by_separator(affi_string, auth_id, separator)
+def split_by_separator(affi_string, auth_id)
   tokens = []
-  tokens = affi_string.split(separator)
-  return create_affi_obj(tokens, auth_id)
+  if affi_string.include?(",") and affi_string.include?(";")
+    tokens = affi_string.split(";")
+    tokens.each do |token|
+      if token.include?(",")
+        split_idx = tokens.find_index(token)
+        temp_tkns = token.split(",")
+        tokens = tokens[1..split_idx-1].concat(temp_tkns).concat(tokens[split_idx+1..])
+      end
+    end
+  elsif affi_string.include?(",")
+    tokens = affi_string.split(",")
+  elsif affi_string.include?(";")
+    tokens = affi_string.split(";")
+  end
+  if tokens != []
+    return create_affi_obj(tokens, auth_id)
+  else
+    return nil
+  end
 end
 
 def get_institution(affi_string)
@@ -273,8 +336,8 @@ end
 def split_by_keywords(affi_string, auth_id)
   # build affiliation object directly
   # try with country and institution
-  printf "\n************************** SPLITTING BY KEYWORD *****************\n"
-  printf "Affiliation: %s\n", affi_string
+  #printf "\n************************** SPLITTING BY KEYWORD *****************\n"
+  #printf "Affiliation: %s\n", affi_string
   tokens=[]
   found_inst = found_country = ""
   found_inst = get_institution(affi_string)
@@ -289,7 +352,7 @@ def split_by_keywords(affi_string, auth_id)
     inst_len = found_inst.length
     if ins_idx == 0
       tokens.append found_inst
-      tokens.append drop_country(affi_string[inst_len-1, affi_len-inst_len].strip)
+      tokens.append drop_country(affi_string[inst_len, affi_len-inst_len].strip)
       tokens.append found_country
       affi_rest = affi_string[inst_len-1, affi_len-inst_len].strip
     else
@@ -299,18 +362,16 @@ def split_by_keywords(affi_string, auth_id)
       tokens.append found_country
     end
     affi_obj = create_affi_obj(tokens, auth_id)
-    printf"\n****************************************************************\n"
-    print tokens
-    printf"\n****************************************************************\n"
+    #printf"\n****************************************************************\n"
+    #print tokens
+    #printf"\n****************************************************************\n"
     return affi_obj
   end
 end
 
 def parse_complex(affi_string, auth_id)
-  if affi_string.include?(",")
-    return split_by_separator(affi_string, auth_id, ",")
-  elsif affi_string.include?(";")
-    return split_by_separator(affi_string, auth_id, ";")
+  if affi_string.include?(",") or affi_string.include?(";")
+    return split_by_separator(affi_string, auth_id)
   else
     return split_by_keywords(affi_string, auth_id)
   end
@@ -349,8 +410,12 @@ def is_simple(an_item)
 end
 
 def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
+  # problem: affi_object nil
+  if affi_object == nil
+    puts "\n********************* Affiliation is nil **********************\n"
+    print name_list
   # problem: missing country
-  if affi_object.country == nil
+  elsif affi_object.country == nil
     if parsed_complex == false
       printf("\nAuthor %d affilition parsed as complex \n", auth_id)
     else
@@ -381,7 +446,9 @@ $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
     "U. S.":"United States of America","US":"United States of America"}
 
 $institution_synonyms = {"The ISIS facility":"ISIS Neutron and Muon Source",
-    "STFC":"Science and Technology Facilities Councils"}
+    "STFC":"Science and Technology Facilities Councils",
+    "Oxford University":"University of Oxford",
+    "University of St Andrews":"University of St. Andrews"}
 
 begin
   start_lists
@@ -425,7 +492,8 @@ begin
       end
     end
     printf " Revising: %s\n", auth_id
-    if auth_id > 60 then
+    print_affiliation(auth_affi)
+    if auth_id > 2500 then
       print_affiliation(auth_affi)
       break
     end
