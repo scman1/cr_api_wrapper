@@ -63,23 +63,6 @@ end
 
 def sanity_checks
   # Sanity checks
-  # printf("\n**************************************************************\n")
-  # printf("%d Institutions\n", $affi_institutions.count)
-  # print $affi_institutions
-  # printf("\n**************************************************************\n")
-  # printf("%d Departments\n", $affi_departments.count)
-  # print $affi_departments
-  # printf("\n**************************************************************\n")
-  # printf("%d Faculties\n", $affi_faculties.count)
-  # print $affi_faculties
-  # printf("\n**************************************************************\n")
-  # printf("%d Work groups\n", $affi_work_groups.count)
-  # print $affi_work_groups
-  # printf("\n**************************************************************\n")
-  # printf("%d Countries\n", $affi_countries.count)
-  # print $affi_countries
-  # printf("\n**************************************************************\n")
-  # check ovelapping in institution, departments, faculties and workgroups
   over_ins_dep = $affi_institutions.intersection($affi_departments)
   if over_ins_dep.count > 0
     printf("%d Overlap institutions and departments\n", over_ins_dep.count)
@@ -142,15 +125,23 @@ def create_affi_obj(tokens, auth_id)
   inst_found = false
   while tkn_idx < tokens.count
     a_token = tokens[tkn_idx].strip
-    # first is commonly the affilition name
+    # first element is designated as the affilition
     if tkn_idx == 0
       auth_affi.name = a_token
     elsif $affi_countries.include?(a_token)
       auth_affi.country = a_token
     elsif $affi_institutions.include?(a_token)
       if auth_affi.name != nil
-        auth_affi.name = auth_affi.name + ", " + a_token
-        auth_affi.short_name = a_token
+        # if the affiliation name is not an institution
+        # add institution to name and make short name the institution
+        # otherwise shot name is the same as name
+        if !$affi_institutions.include?(auth_affi.name) or \
+          !$institution_synonyms.keys.include?(auth_affi.name.to_sym) then
+          auth_affi.name = auth_affi.name + ", " + a_token
+          auth_affi.short_name = a_token
+        else
+          auth_affi.short_name = auth_affi.name
+        end
       end
     elsif auth_affi.add_01 == nil
       auth_affi.add_01 = a_token
@@ -169,20 +160,31 @@ def create_affi_obj(tokens, auth_id)
   end
   # if country is missing get check all addres lines in object
   if auth_affi.country == nil
+    got_it = false
     auth_affi.instance_variables.each do |instance_variable|
-      if instance_variable.to_s.include?("add_0")
+      # look for country name in address strings
+      if instance_variable.to_s.include?("add_0") then
         #print instance_variable
         value = auth_affi.instance_variable_get(instance_variable)
         ctry = get_country(value.to_s)
-        if ctry != nil
+        if ctry != nil then
           auth_affi.country = ctry
           value = drop_country(value)
           auth_affi.instance_variable_set(instance_variable, value)
+          got_it = true
           break
         end
       end
     end
+    # look for country in affiliation name
+    if !got_it  then
+      ctry = get_country(auth_affi.name)
+      auth_affi.country = ctry
+      got_it = true
+    end
   end
+  ## just for debugging
+  #print_affiliation(auth_affi)
   return auth_affi
 end
 
@@ -196,6 +198,16 @@ def get_institution(affi_string)
   $affi_institutions.each do |institution|
     if affi_string.include?(institution)
       return institution
+    end
+  end
+  return nil
+end
+
+def get_institution_synonym(affi_string)
+  print affi_string
+  $institution_synonyms.keys.each do |inst_key|
+    if affi_string.include?(inst_key.to_s)
+      return inst_key.to_s
     end
   end
   return nil
@@ -243,43 +255,53 @@ def get_country(affi_string)
 end
 
 def drop_country(affi_string)
+  dropped_country = affi_string
   $affi_countries.each do |country|
-    if affi_string.include?(country)
-      return affi_string.gsub!(country,"").strip
+    if dropped_country.include?(country)
+      dropped_country = dropped_country.gsub(country,"").strip
     end
   end
   $country_synonyms.keys.each do |ctry_key|
-    if affi_string.include?(ctry_key.to_s)
-      return affi_string.gsub!(ctry_key.to_s,"").strip
-    end
+     if affi_string.include?(ctry_key.to_s)
+       dropped_country = dropped_country.gsub(ctry_key.to_s,"").strip
+     end
   end
+  return dropped_country
 end
 
+# split first, then build
 def split_by_keywords(affi_string, auth_id)
   # build affiliation object directly
   # try with country and institution
-  affi_obj = Author_Affiliation.new()
-  affi_obj.article_author_id = auth_id
+  printf "\n************************** SPLITTING BY KEYWORD *****************\n"
+  printf "Affiliation: %s\n", affi_string
+  tokens=[]
   found_inst = found_country = ""
   found_inst = get_institution(affi_string)
+  if found_inst == nil then
+    found_inst = get_institution_synonym(affi_string)
+    #printf "Institution: %s\n", found_inst
+  end
   found_country = get_country(affi_string)
   if found_inst.to_s != ""
     ins_idx = affi_string.index(found_inst)
     affi_len = affi_string.length
     inst_len = found_inst.length
     if ins_idx == 0
-      affi_obj.name = found_inst
+      tokens.append found_inst
+      tokens.append drop_country(affi_string[inst_len-1, affi_len-inst_len].strip)
+      tokens.append found_country
       affi_rest = affi_string[inst_len-1, affi_len-inst_len].strip
-      affi_obj.add_01 = drop_country(affi_rest)
     else
-      affi_obj.name = affi_string[0, ins_idx].strip + ", " + found_inst
-      affi_obj.short_name = found_inst
-      affi_rest = affi_string[ins_idx+inst_len, affi_len-inst_len].strip
-      affi_obj.add_01 = drop_country(affi_rest)
+      tokens.append affi_string[0, ins_idx].strip
+      tokens.append found_inst
+      tokens.append drop_country(affi_string[affi_string[ins_idx+inst_len, affi_len-inst_len].strip].strip)
+      tokens.append found_country
     end
-    if found_country.to_s != ""
-      affi_obj.country = found_country
-    end
+    affi_obj = create_affi_obj(tokens, auth_id)
+    printf"\n****************************************************************\n"
+    print tokens
+    printf"\n****************************************************************\n"
     return affi_obj
   end
 end
@@ -334,24 +356,32 @@ def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
     else
       printf("\nAuthor %d affilition parse as single \n", auth_id)
     end
-    print names_list
+    print name_list
     puts "\n************************Missing country**********************\n"
-    printf "\nID: %d affiliation: %s affiliation short: %s country: %s\n", affi_object.article_author_id, affi_object.name, affi_object.short_name, affi_object.country
-    printf "\nAddress: %s, %s, %s, %s, %s\n", affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05
+    print_affiliation(affi_object)
     return false
   else
     return true
   end
 end
 
+def print_affiliation(affi_object)
+  printf "\nAuthor ID: %d affiliation: %s affiliation short: %s country: %s\n", affi_object.article_author_id, affi_object.name, affi_object.short_name, affi_object.country
+  printf "\nAddress: %s, %s, %s, %s, %s\n", affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05
+end
+
 $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
-    "U. K.":"United Kingdom", "PRC":"Peoples Republic of China",
-    "P.R.C.":"Peoples Republic of China",
+    "U. K.":"United Kingdom", "U.K":"United Kingdom",
+    "PRC":"Peoples Republic of China", "P.R.C.":"Peoples Republic of China",
+    "China":"Peoples Republic of China",
     "P.R.China":"Peoples Republic of China",
     "P.R. China":"Peoples Republic of China",
     "USA":"United States of America","U.S.A.":"United States of America",
     "U. S. A.":"United States of America", "U.S.":"United States of America",
     "U. S.":"United States of America","US":"United States of America"}
+
+$institution_synonyms = {"The ISIS facility":"ISIS Neutron and Muon Source",
+    "STFC":"Science and Technology Facilities Councils"}
 
 begin
   start_lists
@@ -366,7 +396,7 @@ begin
     if names_list.count == 1
       parse_complex = true
       auth_affi = parse_complex(names_list[0], auth_id)
-      affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
+      continue = affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
     else
       #printf("\nAuthor %d Mutiple affilitions complex or singles?\n", auth_id)
       #print names_list
@@ -385,17 +415,23 @@ begin
       if single_ctr > 1
         parse_complex = false
         auth_affi = create_affi_obj(names_list, auth_id)
-        affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
+        continue = affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
       else
         parse_complex = true
         names_list.each do |an_item|
           auth_affi = parse_complex(an_item, auth_id)
-          affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
+          continue = affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
         end
       end
     end
+    printf " Revising: %s\n", auth_id
+    if auth_id > 60 then
+      print_affiliation(auth_affi)
+      break
+    end
 
-    if auth_id > 60
+    if !continue then
+      print auth_id
       break
     end
   end
