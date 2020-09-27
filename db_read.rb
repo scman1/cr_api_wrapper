@@ -12,12 +12,6 @@ class Author_Affiliation
   @short_name = @add_01 = @add_02 = @add_03 = @add_04 = @add_05 = @country = ""
 end
 
-# check two strings similarity
-def similar(a, b)
-  jarow = FuzzyStringMatch::JaroWinkler.create( :pure )
-  return jarow.getDistance( a, b)
-end
-
 $affi_countries = []
 $affi_institutions = []
 $affi_departments = []
@@ -35,7 +29,6 @@ def start_lists
   puts db.get_first_value 'SELECT SQLITE_VERSION()'
   stm = db.prepare "SELECT * FROM affiliations;"
   rs = stm.execute
-
   rs.each do |row|
     # printf "%s\t%s\t%s\t%s\n", row['id'], row['institution'], row['department'], row['faculty'], row['work_group'], row['country']
     if !$affi_institutions.include?(row['institution']) and row['institution']!= "" \
@@ -105,6 +98,7 @@ def get_unique_values_list(table, field)
   return values_list
 end
 
+# get the first value matching the filter_val
 def get_value(table, field_val, field_ftr, filter_val)
   #print filter_val
   sql_statement = "SELECT " + field_val + " FROM " + table + " WHERE " + \
@@ -120,6 +114,7 @@ def get_value(table, field_val, field_ftr, filter_val)
   return retun_val
 end
 
+# get all affiliations for author
 def get_author_cr_affiliations(auth_id)
   sql_statement = \
     "SELECT id, name FROM cr_affiliations WHERE article_author_id = " + auth_id.to_s + ";"
@@ -133,6 +128,7 @@ def get_author_cr_affiliations(auth_id)
   return values_hash
 end
 
+# create a new affiliation object from a list of string values
 def create_affi_obj(lines_list, auth_id)
   tkn_idx = 0
   auth_affi = Author_Affiliation.new()
@@ -237,6 +233,7 @@ def create_affi_obj(lines_list, auth_id)
   return auth_affi
 end
 
+# split the affiliation string by "," and ";" separators
 def split_by_separator(affi_string, auth_id)
   tokens = []
   if affi_string.include?(",") and affi_string.include?(";")
@@ -260,6 +257,7 @@ def split_by_separator(affi_string, auth_id)
   end
 end
 
+# if a value in the institutions list is in string, return that value
 def get_institution(affi_string)
   $affi_institutions.each do |institution|
     if affi_string.include?(institution)
@@ -269,6 +267,7 @@ def get_institution(affi_string)
   return nil
 end
 
+# if a value in the institution sysnonyms list is in string, return that value
 def get_institution_synonym(affi_string)
   print affi_string
   $institution_synonyms.keys.each do |inst_key|
@@ -279,6 +278,7 @@ def get_institution_synonym(affi_string)
   return nil
 end
 
+# if a value in the departments list is in string, return that value
 def get_department(affi_string)
   $affi_departments.each do |department|
     if affi_string.include?(department)
@@ -288,6 +288,7 @@ def get_department(affi_string)
   return nil
 end
 
+# if a value in the faculties list is in string, return that value
 def get_faculty(affi_string)
   $affi_faculties.each do |faculty|
     if affi_string.include?(faculty)
@@ -297,6 +298,7 @@ def get_faculty(affi_string)
   return nil
 end
 
+# if a value in the workgroups list is in string, return that value
 def get_workgroup(affi_string)
   $affi_work_groups.each do |workgroup|
     if affi_string.include?(workgroup)
@@ -306,6 +308,8 @@ def get_workgroup(affi_string)
   return nil
 end
 
+# if a value in the country exeptions list is in string, remove that value
+# before looking up for country
 def country_exclude(affi_string)
   $country_exceptions.each do |not_a_country|
     if affi_string.include?(not_a_country)
@@ -316,6 +320,8 @@ def country_exclude(affi_string)
   return affi_string
 end
 
+# if a value in the country or country sysnonyms lists is in string, return that
+# value (verify first that there are no country exceptions in string)
 def get_country(affi_string)
   cleared_affi_string = country_exclude(affi_string)
   $affi_countries.each do |country|
@@ -331,6 +337,8 @@ def get_country(affi_string)
   return nil
 end
 
+# if a value in the country or country sysnonyms lists is in string, remove that
+# value from the string
 def drop_country(affi_string)
   dropped_country = affi_string
   $affi_countries.each do |country|
@@ -346,7 +354,8 @@ def drop_country(affi_string)
   return dropped_country
 end
 
-# split first, then build
+# split an affiliation string using the institution and country lists and then
+# build the object
 def split_by_keywords(affi_string, auth_id)
   # build affiliation object directly
   # try with country and institution
@@ -383,7 +392,9 @@ def split_by_keywords(affi_string, auth_id)
   end
 end
 
-def parse_complex(affi_string, auth_id)
+# determine if the string needs to be split by delimiters or by keywords and
+# call the corresponding method to build the affiliation object
+def split_complex(affi_string, auth_id)
   if affi_string.include?(",") or affi_string.include?(";")
     return split_by_separator(affi_string, auth_id)
   else
@@ -391,6 +402,8 @@ def parse_complex(affi_string, auth_id)
   end
 end
 
+# determine if an affilition string is complex by checking if it
+# contains 2 or more keywords from the common lists
 def is_complex(an_item)
   occurrence_counter = 0
   #verify if item has two or more affilition elements
@@ -407,6 +420,8 @@ def is_complex(an_item)
   end
 end
 
+# determine if an affilition string is simple by checking if it fully matches
+# one of the keywords from the common lists
 def is_simple(an_item)
   #verify if item has two or more affilition elements
   found_this = get_institution(an_item)
@@ -423,6 +438,9 @@ def is_simple(an_item)
   return false
 end
 
+# verify if the affiliation object is well formed it should have a country,
+# a name and a valid author ID
+# (make into a method of the affi_object)
 def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
   # problem: affi_object nil
   if affi_object == nil
@@ -439,11 +457,35 @@ def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
     puts "\n************************Missing country**********************\n"
     print_affiliation(affi_object)
     return false
+  # problem: missing name
+  elsif affi_object.name == nil
+    if parsed_complex == false
+      printf("\nAuthor %d affilition parsed as complex \n", auth_id)
+    else
+      printf("\nAuthor %d affilition parse as single \n", auth_id)
+    end
+    print name_list
+    puts "\n************************ Missing name **********************\n"
+    print_affiliation(affi_object)
+    return false
+  # problem: missing author or author_affiliation_id incorrect
+elsif affi_object.article_author_id == nil or \
+   affi_object.article_author_id != auth_id
+    if parsed_complex == false
+      printf("\nAuthor %d affilition parsed as complex \n", auth_id)
+    else
+      printf("\nAuthor %d affilition parse as single \n", auth_id)
+    end
+    print name_list
+    puts "\n************************ Wrong Author ID **********************\n"
+    print_affiliation(affi_object)
+    return false
   else
     return true
   end
 end
 
+# insert new objects in the DB (leave for rails)
 def insert_author_affiliation(affi_object, cd_affi_ids)
   # insert the object
   # get the id of the inserted object
@@ -458,11 +500,15 @@ def insert_author_affiliation(affi_object, cd_affi_ids)
      affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05, affi_object.country,'2020-09-27','2020-09-27')
 end
 
+# print the contents of the affiliation object
+# (make into a method of the affi_object)
 def print_affiliation(affi_object)
   printf "\nAuthor ID: %d affiliation: %s affiliation short: %s country: %s\n", affi_object.article_author_id, affi_object.name, affi_object.short_name, affi_object.country
   printf "\nAddress: %s, %s, %s, %s, %s\n", affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05
 end
 
+# list of country sysnonyms
+# (need to persist somewhere)
 $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
     "U. K.":"United Kingdom", "U.K":"United Kingdom",
     "PRC":"Peoples Republic of China", "P.R.C.":"Peoples Republic of China",
@@ -473,6 +519,8 @@ $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
     "U. S. A.":"United States of America", "U.S.":"United States of America",
     "U. S.":"United States of America","US":"United States of America"}
 
+# list of institution sysnonyms
+# (need to persist somewhere)
 $institution_synonyms = {"The ISIS facility":"ISIS Neutron and Muon Source",
     "STFC":"Science and Technology Facilities Councils",
     "Oxford University":"University of Oxford",
@@ -480,8 +528,12 @@ $institution_synonyms = {"The ISIS facility":"ISIS Neutron and Muon Source",
     "Diamond Light Source":"Diamond Light Source Ltd.",
     "ISIS Facility":"ISIS Neutron and Muon Source"}
 
+# list ofstrings which contain country names but are not countries, such as
+# streets, institution names, etc.
+# (need to persist somewhere)
 $country_exceptions = ["Denmark Hill", "UK Catalysis Hub"]
 
+# main method
 begin
   start_lists
   sanity_checks
@@ -491,13 +543,13 @@ begin
   aut_list.each do |auth_id|
     affi_lines_hash = get_author_cr_affiliations(auth_id)
     auth_affi = nil
-    parse_complex = false
+    split_complex = false
     # if there is only one affilition record parse as complex
     if affi_lines_hash.count == 1
-      parse_complex = true
+      split_complex = true
       affi_line_id, affi_line_value = affi_lines_hash.first
-      auth_affi = parse_complex(affi_line_value, auth_id)
-      continue = affi_object_well_formed(auth_affi, affi_lines_hash, parse_complex, auth_id)
+      auth_affi = split_complex(affi_line_value, auth_id)
+      continue = affi_object_well_formed(auth_affi, affi_lines_hash, split_complex, auth_id)
     else
       #printf("\nAuthor %d Mutiple affilitions complex or singles?\n", auth_id)
       #print affi_lines_hash
@@ -514,18 +566,18 @@ begin
         end
       end
       if single_ctr > 1
-        parse_complex = false
+        split_complex = false
         auth_affi = create_affi_obj(affi_lines_hash.values, auth_id)
-        continue = affi_object_well_formed(auth_affi, affi_lines_hash, parse_complex, auth_id)
+        continue = affi_object_well_formed(auth_affi, affi_lines_hash, split_complex, auth_id)
         # if continue then
         #   insert_author_affiliation(auth_affi, affi_lines_hash.keys)
         # end
       else
-        parse_complex = true
+        split_complex = true
         affi_lines_hash.keys.each do |line_id|
           an_affi = affi_lines_hash[line_id]
-          auth_affi = parse_complex(an_affi, auth_id)
-          continue = affi_object_well_formed(auth_affi, affi_lines_hash, parse_complex, auth_id)
+          auth_affi = split_complex(an_affi, auth_id)
+          continue = affi_object_well_formed(auth_affi, affi_lines_hash, split_complex, auth_id)
         end
       end
     end
@@ -534,16 +586,12 @@ begin
     if auth_id > 2325 then
       break
     end
-
     if !continue then
       print auth_id
       break
     end
   end
-
 rescue SQLite3::Exception => e
     puts "Exception occurred"
     puts e
-#ensure
-#    db.close if db
 end
