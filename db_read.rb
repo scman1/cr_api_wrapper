@@ -444,6 +444,20 @@ def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
   end
 end
 
+def insert_author_affiliation(affi_object, cd_affi_ids)
+  # insert the object
+  # get the id of the inserted object
+  # update all cr_affiliations with the author_affiliation_id
+  sql_statement = \
+    "SELECT id, name FROM cr_affiliations WHERE article_author_id = " + affi_object.article_author_id.to_s + ";"
+  db = get_db()
+  #stm = db.prepare sql_statement
+  #rs = stm.execute
+
+  db.execute("INSERT INTO Author_Affiliations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 1, affi_object.article_author_id, affi_object.name, affi_object.short_name,
+     affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05, affi_object.country,'2020-09-27','2020-09-27')
+end
+
 def print_affiliation(affi_object)
   printf "\nAuthor ID: %d affiliation: %s affiliation short: %s country: %s\n", affi_object.article_author_id, affi_object.name, affi_object.short_name, affi_object.country
   printf "\nAddress: %s, %s, %s, %s, %s\n", affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05
@@ -503,6 +517,9 @@ begin
         parse_complex = false
         auth_affi = create_affi_obj(affi_lines_hash.values, auth_id)
         continue = affi_object_well_formed(auth_affi, affi_lines_hash, parse_complex, auth_id)
+        # if continue then
+        #   insert_author_affiliation(auth_affi, affi_lines_hash.keys)
+        # end
       else
         parse_complex = true
         affi_lines_hash.keys.each do |line_id|
