@@ -122,67 +122,70 @@ end
 
 def get_author_cr_affiliations(auth_id)
   sql_statement = \
-    "SELECT name FROM cr_affiliations WHERE article_author_id = " + auth_id.to_s + ";"
+    "SELECT id, name FROM cr_affiliations WHERE article_author_id = " + auth_id.to_s + ";"
   db = get_db()
   stm = db.prepare sql_statement
   rs = stm.execute
-  values_list = []
+  values_hash = {}
   rs.each do |row|
-    values_list.append(row["name"])
+    values_hash[row["id"]] = row["name"]
   end
-  return values_list
+  return values_hash
 end
 
-def create_affi_obj(tokens, auth_id)
+def create_affi_obj(lines_list, auth_id)
   tkn_idx = 0
   auth_affi = Author_Affiliation.new()
   auth_affi.article_author_id = auth_id
   inst_found = ""
-  while tkn_idx < tokens.count
-    a_token = tokens[tkn_idx].strip
+  #while tkn_idx < lines_list.count
+  while tkn_idx < lines_list.count
+    a_line = lines_list[tkn_idx].strip
+  # lines_hash.keys.each do |line_key|
+  #   a_line = lines_hash[line_key].strip
     # first element is designated as the affilition
     if tkn_idx == 0
-      auth_affi.name = a_token
-    elsif $affi_countries.include?(a_token)
-      auth_affi.country = a_token
-    elsif $affi_institutions.include?(a_token)
+      auth_affi.name = a_line
+    elsif $affi_countries.include?(a_line)
+      auth_affi.country = a_line
+    elsif $affi_institutions.include?(a_line)
       if auth_affi.name != nil
         # if the affiliation name is not an institution
         # add institution to name and make short name the institution
         # otherwise shot name is the same as name
         if !$affi_institutions.include?(auth_affi.name) or \
           !$institution_synonyms.keys.include?(auth_affi.name.to_sym) then
-          auth_affi.name = auth_affi.name + ", " + a_token
-          auth_affi.short_name = a_token
+          auth_affi.name = auth_affi.name + ", " + a_line
+          auth_affi.short_name = a_line
         else
           auth_affi.short_name = auth_affi.name
         end
       end
-    elsif $institution_synonyms.keys.include?(a_token.to_sym) then
+    elsif $institution_synonyms.keys.include?(a_line.to_sym) then
       if auth_affi.name != nil
         # if the affiliation name is not an institution
         # add institution to name and make short name the institution
         # otherwise shot name is the same as name
         if !$affi_institutions.include?(auth_affi.name) and \
           !$institution_synonyms.keys.include?(auth_affi.name.to_sym) then
-          auth_affi.name = auth_affi.name + ", " + $institution_synonyms[a_token.to_sym]
-          auth_affi.short_name =  $institution_synonyms[a_token.to_sym]
+          auth_affi.name = auth_affi.name + ", " + $institution_synonyms[a_line.to_sym]
+          auth_affi.short_name =  $institution_synonyms[a_line.to_sym]
         else
-          auth_affi.short_name =  $institution_synonyms[a_token.to_sym]
+          auth_affi.short_name =  $institution_synonyms[a_line.to_sym]
         end
       end
     elsif auth_affi.add_01 == nil
-      auth_affi.add_01 = a_token
+      auth_affi.add_01 = a_line
     elsif auth_affi.add_02 == nil
-      auth_affi.add_02 = a_token
+      auth_affi.add_02 = a_line
     elsif auth_affi.add_03 == nil
-      auth_affi.add_03 = a_token
+      auth_affi.add_03 = a_line
     elsif auth_affi.add_04 == nil
-      auth_affi.add_04 = a_token
+      auth_affi.add_04 = a_line
     elsif auth_affi.add_05 == nil
-      auth_affi.add_05 = a_token
+      auth_affi.add_05 = a_line
     elsif auth_affi.add_05 != nil # case more than 5 tokes in address
-      auth_affi.add_05 += ", " + a_token
+      auth_affi.add_05 += ", " + a_line
     end
     tkn_idx += 1
   end
@@ -303,14 +306,25 @@ def get_workgroup(affi_string)
   return nil
 end
 
+def country_exclude(affi_string)
+  $country_exceptions.each do |not_a_country|
+    if affi_string.include?(not_a_country)
+      return affi_string.gsub(not_a_country, "")
+    end
+  end
+  # if notting is removed
+  return affi_string
+end
+
 def get_country(affi_string)
+  cleared_affi_string = country_exclude(affi_string)
   $affi_countries.each do |country|
-    if affi_string.include?(country)
+    if cleared_affi_string.include?(country)
       return country
     end
   end
   $country_synonyms.keys.each do |ctry_key|
-    if affi_string.include?(ctry_key.to_s)
+    if cleared_affi_string.include?(ctry_key.to_s)
       return $country_synonyms[ctry_key]
     end
   end
@@ -336,8 +350,8 @@ end
 def split_by_keywords(affi_string, auth_id)
   # build affiliation object directly
   # try with country and institution
-  #printf "\n************************** SPLITTING BY KEYWORD *****************\n"
-  #printf "Affiliation: %s\n", affi_string
+  # printf "\n************************** SPLITTING BY KEYWORD *****************\n"
+  # printf "Affiliation: %s\n", affi_string
   tokens=[]
   found_inst = found_country = ""
   found_inst = get_institution(affi_string)
@@ -361,10 +375,10 @@ def split_by_keywords(affi_string, auth_id)
       tokens.append drop_country(affi_string[affi_string[ins_idx+inst_len, affi_len-inst_len].strip].strip)
       tokens.append found_country
     end
+    # printf"\n****************************************************************\n"
+    # print tokens
+    # printf"\n****************************************************************\n"
     affi_obj = create_affi_obj(tokens, auth_id)
-    #printf"\n****************************************************************\n"
-    #print tokens
-    #printf"\n****************************************************************\n"
     return affi_obj
   end
 end
@@ -452,6 +466,8 @@ $institution_synonyms = {"The ISIS facility":"ISIS Neutron and Muon Source",
     "Diamond Light Source":"Diamond Light Source Ltd.",
     "ISIS Facility":"ISIS Neutron and Muon Source"}
 
+$country_exceptions = ["Denmark Hill", "UK Catalysis Hub"]
+
 begin
   start_lists
   sanity_checks
@@ -459,22 +475,24 @@ begin
   aut_list = get_unique_values_list("cr_affiliations","article_author_id")
   #print aut_list
   aut_list.each do |auth_id|
-    names_list = get_author_cr_affiliations(auth_id)
+    affi_lines_hash = get_author_cr_affiliations(auth_id)
     auth_affi = nil
     parse_complex = false
-    if names_list.count == 1
+    # if there is only one affilition record parse as complex
+    if affi_lines_hash.count == 1
       parse_complex = true
-      auth_affi = parse_complex(names_list[0], auth_id)
-      continue = affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
+      affi_line_id, affi_line_value = affi_lines_hash.first
+      auth_affi = parse_complex(affi_line_value, auth_id)
+      continue = affi_object_well_formed(auth_affi, affi_lines_hash, parse_complex, auth_id)
     else
       #printf("\nAuthor %d Mutiple affilitions complex or singles?\n", auth_id)
-      #print names_list
+      #print affi_lines_hash
       single_ctr = 0
-      names_list.each do |an_item|
-        if is_simple(an_item) then
+      affi_lines_hash.keys.each do |line_id|
+        if is_simple(affi_lines_hash[line_id]) then
           #printf("\n%s Single", an_item)
           single_ctr += 1
-        elsif is_complex(an_item) then
+        elsif is_complex(affi_lines_hash[line_id]) then
           #printf("\n%s Complex", an_item)
         else
           #printf("\n%s Single", an_item)
@@ -483,19 +501,20 @@ begin
       end
       if single_ctr > 1
         parse_complex = false
-        auth_affi = create_affi_obj(names_list, auth_id)
-        continue = affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
+        auth_affi = create_affi_obj(affi_lines_hash.values, auth_id)
+        continue = affi_object_well_formed(auth_affi, affi_lines_hash, parse_complex, auth_id)
       else
         parse_complex = true
-        names_list.each do |an_item|
-          auth_affi = parse_complex(an_item, auth_id)
-          continue = affi_object_well_formed(auth_affi, names_list, parse_complex, auth_id)
+        affi_lines_hash.keys.each do |line_id|
+          an_affi = affi_lines_hash[line_id]
+          auth_affi = parse_complex(an_affi, auth_id)
+          continue = affi_object_well_formed(auth_affi, affi_lines_hash, parse_complex, auth_id)
         end
       end
     end
     printf " Revising: %s\n", auth_id
     print_affiliation(auth_affi)
-    if auth_id > 2500 then
+    if auth_id > 2325 then
       break
     end
 
