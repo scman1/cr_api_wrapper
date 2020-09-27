@@ -10,6 +10,13 @@ class Author_Affiliation
   @article_author_id = 0
   @name = ""
   @short_name = @add_01 = @add_02 = @add_03 = @add_04 = @add_05 = @country = ""
+
+  # print the contents of the affiliation object
+  def print()
+    printf "\nAuthor ID: %d affiliation: %s affiliation short: %s country: %s\n", self.article_author_id, self.name, self.short_name, self.country
+    printf "\nAddress: %s, %s, %s, %s, %s\n", self.add_01, self.add_02, self.add_03,self.add_04, self.add_05
+  end
+
 end
 
 $affi_countries = []
@@ -229,7 +236,7 @@ def create_affi_obj(lines_list, auth_id)
     end
   end
   ## just for debugging
-  #print_affiliation(auth_affi)
+  #auth_affi.print()
   return auth_affi
 end
 
@@ -455,7 +462,7 @@ def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
     end
     print name_list
     puts "\n************************Missing country**********************\n"
-    print_affiliation(affi_object)
+    affi_object.print()
     return false
   # problem: missing name
   elsif affi_object.name == nil
@@ -466,7 +473,7 @@ def affi_object_well_formed(affi_object, name_list, parsed_complex, auth_id)
     end
     print name_list
     puts "\n************************ Missing name **********************\n"
-    print_affiliation(affi_object)
+    affi_object.print()
     return false
   # problem: missing author or author_affiliation_id incorrect
 elsif affi_object.article_author_id == nil or \
@@ -478,7 +485,7 @@ elsif affi_object.article_author_id == nil or \
     end
     print name_list
     puts "\n************************ Wrong Author ID **********************\n"
-    print_affiliation(affi_object)
+    affi_object.print()
     return false
   else
     return true
@@ -498,13 +505,6 @@ def insert_author_affiliation(affi_object, cd_affi_ids)
 
   db.execute("INSERT INTO Author_Affiliations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 1, affi_object.article_author_id, affi_object.name, affi_object.short_name,
      affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05, affi_object.country,'2020-09-27','2020-09-27')
-end
-
-# print the contents of the affiliation object
-# (make into a method of the affi_object)
-def print_affiliation(affi_object)
-  printf "\nAuthor ID: %d affiliation: %s affiliation short: %s country: %s\n", affi_object.article_author_id, affi_object.name, affi_object.short_name, affi_object.country
-  printf "\nAddress: %s, %s, %s, %s, %s\n", affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05
 end
 
 # list of country sysnonyms
@@ -582,7 +582,7 @@ begin
       end
     end
     printf " Revising: %s\n", auth_id
-    print_affiliation(auth_affi)
+    auth_affi.print()
     if auth_id > 2325 then
       break
     end
