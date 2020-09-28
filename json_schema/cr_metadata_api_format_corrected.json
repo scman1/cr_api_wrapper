@@ -482,8 +482,12 @@
     "journal-issue": {
       "type": "object",
       "properties": {
-        "published-print": {"$ref": "#/definitions/partial_date"},
-        "published-online": {"$ref": "#/definitions/partial_date"},
+        "published-print": {
+          "$ref": "#/definitions/partial_date"
+        },
+        "published-online": {
+          "$ref": "#/definitions/partial_date"
+        },
         "issue": {
           "type": "number",
           "description": "journal issue"
@@ -835,7 +839,7 @@
     "reference": {
       "type": "array",
       "items": {
-          "$ref": "#/definitions/reference"
+        "$ref": "#/definitions/reference"
       },
       "description": "List of references made by the work",
       "minItems": 0,

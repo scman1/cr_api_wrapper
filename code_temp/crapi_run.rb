@@ -9,7 +9,7 @@ require 'pathname'
 
 
 # Run the gem on a random sample of publications from crossref
-require './lib/cr_api_wrapper'
+require '../lib/cr_api_wrapper'
 
 # from code found on:
 # https://stackoverflow.com/questions/5622435/how-do-i-convert-a-ruby-class-name-to-a-underscore-delimited-symbol
@@ -94,7 +94,7 @@ def build_object_from_record(cr_json_object, object_class)
 end
 
 def get_type_from_schema(key_string)
-  schema_file = './json_schema/cr_metadata_api_format_corrected.json'
+  schema_file = '../json_schema/cr_metadata_api_format_corrected.json'
   crs = get_cr_json_schema(schema_file)
   # search in properties
   type_lbl = ""
@@ -238,7 +238,7 @@ end
 
 # verify returned files against schema
 def verify_with_schema(test_file)
-  schema_file = './json_schema/cr_metadata_api_format_corrected.json'
+  schema_file = '../json_schema/cr_metadata_api_format_corrected.json'
   schema = Pathname.new(schema_file)
   schemer = JSONSchemer.schema(schema)
   json_file = nil
@@ -257,7 +257,7 @@ end
 # get a json object and save it locally if not recovered yet.
 def get_cr_json_object(cr_doi)
   crr = nil
-  doi_file = './json_files/' + cr_doi.gsub('/','_').downcase() + '.json'
+  doi_file = '../json_files/' + cr_doi.gsub('/','_').downcase() + '.json'
   if !File.exists?(doi_file)
     crr = CrApiWrapper::CrRecord.find(cr_doi)
     File.open(doi_file,"w") do |f|
@@ -287,7 +287,7 @@ def get_cr_json_schema(schema_file)
   return crs
 end
 def get_schema_class()
-  schema_file = './json_schema/cr_metadata_api_format_corrected.json'
+  schema_file = '../json_schema/cr_metadata_api_format_corrected.json'
   crs = get_cr_json_schema(schema_file)
   # create the cr class from the schema
   cr_classes =  build_class_from_schema(crs, "CrWork")
@@ -498,7 +498,7 @@ def map_csv_objects(cr_objects, cr_object, work_id)
 end
 # Use json schema created according to CR specification
 # use json_schema validator to verify if articles match schema
-doi_list = CSV.read("doi_list.csv", headers: true)
+doi_list = CSV.read("doi_list_short.csv", headers: true)
 # puts doi_list.by_col[0]
 doi_list = doi_list.by_col[0]
 
@@ -556,8 +556,10 @@ CSV.open("new_authors.csv", "wb") do |csv|
 end
 
 CSV.open("new_affiliations.csv", "wb") do |csv|
-  csv << cr_objects['csv_affiliations'].first.keys # adds the attributes name on the first line
-  cr_objects['csv_affiliations'].each do |hash|
-    csv << hash.values
+  if cr_objects['csv_affiliations'].first != nil
+    csv << cr_objects['csv_affiliations'].first.keys # adds the attributes name on the first line
+    cr_objects['csv_affiliations'].each do |hash|
+      csv << hash.values
+    end
   end
 end

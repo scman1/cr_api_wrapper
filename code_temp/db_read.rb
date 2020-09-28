@@ -26,7 +26,7 @@ $affi_faculties = []
 $affi_work_groups = []
 
 def get_db
-  db = SQLite3::Database.open "../ukchapp/db/development.sqlite3"
+  db = SQLite3::Database.open "../../ukchapp/db/development.sqlite3"
   db.results_as_hash = true
   return db
 end
