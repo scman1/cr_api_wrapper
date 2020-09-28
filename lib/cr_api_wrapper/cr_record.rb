@@ -1,4 +1,4 @@
-#lib/cordra_rest_cliet/cr_record.rb
+#lib/cr_api_wrapper/cr_record.rb
 require 'serrano'
 require 'faraday'
 require 'json'
