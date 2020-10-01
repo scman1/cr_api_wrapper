@@ -16,7 +16,6 @@ class Author_Affiliation
     printf "\nAuthor ID: %d affiliation: %s affiliation short: %s country: %s\n", self.article_author_id, self.name, self.short_name, self.country
     printf "\nAddress: %s, %s, %s, %s, %s\n", self.add_01, self.add_02, self.add_03,self.add_04, self.add_05
   end
-
 end
 
 $affi_countries = []
@@ -506,6 +505,31 @@ def insert_author_affiliation(affi_object, cd_affi_ids)
   db.execute("INSERT INTO Author_Affiliations VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", 1, affi_object.article_author_id, affi_object.name, affi_object.short_name,
      affi_object.add_01, affi_object.add_02, affi_object.add_03,affi_object.add_04, affi_object.add_05, affi_object.country,'2020-09-27','2020-09-27')
 end
+# Update cr affiliations in DB (repace newline characters before processing)
+def update_cr_affis(affi_lines)
+  db = get_db()
+  affi_lines.each do |cr_affi|
+    cr_affi_id = cr_affi[0]
+    cr_affi_name = cr_affi[1]
+    sql_cmd = ""
+    # puts "\n££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££"
+    # print "\naffiliation STRING: " +  cr_affi_name
+    # puts "\n££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££"
+    if cr_affi_name.include?("\n") then
+      puts "££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££"
+      sql_cmd = "UPDATE cr_affiliations SET name =\"" + cr_affi_name.gsub("\n", " ") + "\" WHERE  id = " + cr_affi_id.to_s + ";"
+      puts sql_cmd
+      puts "££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££"
+    end
+    if cr_affi_name.include?("\r") then
+      puts "££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££"
+      sql_cmd = "UPDATE cr_affiliations SET name =\"" + cr_affi_name.gsub("\r", " ") + "\" WHERE  id = " + cr_affi_id.to_s + ";"
+      puts sql_cmd
+      puts "££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££"
+    end
+    if sql_cmd != "" then  db.execute(sql_cmd) end
+  end
+end
 
 # list of country sysnonyms
 # (need to persist somewhere)
@@ -516,6 +540,7 @@ $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
     "P.R.China":"Peoples Republic of China",
     "P.R. China":"Peoples Republic of China",
     "USA":"United States of America","U.S.A.":"United States of America",
+    "United States":"United States of America",
     "U. S. A.":"United States of America", "U.S.":"United States of America",
     "U. S.":"United States of America","US":"United States of America"}
 
@@ -542,6 +567,7 @@ begin
   #print aut_list
   aut_list.each do |auth_id|
     affi_lines_hash = get_author_cr_affiliations(auth_id)
+    update_cr_affis(affi_lines_hash)
     auth_affi = nil
     split_complex = false
     # if there is only one affilition record parse as complex
