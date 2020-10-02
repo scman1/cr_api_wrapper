@@ -531,10 +531,52 @@ def update_cr_affis(affi_lines)
   end
 end
 
+def process_multi(affi_lines)
+  affi_lines.each do |cr_line|
+    if cr_line[1].include?('&amp;') then
+      affi_parts = cr_line[1].split('&amp;')
+      print "\n Length = " + cr_line[1].length.to_s + "\t" + cr_line[1]
+      # check if there are more than one institutions in cr affiliation
+      found_insts = []
+      affi_parts.each do |affi_part|
+        puts affi_part
+        inst_in_part = get_institution(affi_part)
+        # also try with sysnonyms
+        if inst_in_part == nil
+          inst_in_part = get_institution_synonym(affi_part)
+        end
+        if inst_in_part != nil
+          found_insts.append(inst_in_part)
+        end
+      end
+      if found_insts.count > 1
+        print "\nThere are two affiliations"
+        affi_parts.each do |affi_part|
+          if cr_line[1].index(affi_part) == 0
+            print "\nUpdate " + cr_line[0].to_s + " to: " + affi_part
+            affi_lines[cr_line[0]] = affi_part
+          else
+            print "\nAdd new affi: " + affi_part
+            #affi_lines[cr_line[0]*100] = affi_part
+          end
+        end
+      else
+        print found_insts
+        print "\nIt is a single affilition"
+        print "\nUpdate " + cr_line[0].to_s + " to: " + cr_line[1].gsub('&amp;','&')
+        affi_lines[cr_line[0]] =  cr_line[1].gsub('&amp;','&')
+      end
+      print affi_lines
+    end
+  end
+
+  return affi_lines
+end
+
 # list of country sysnonyms
 # (need to persist somewhere)
 $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
-    "U. K.":"United Kingdom", "U.K":"United Kingdom",
+    "U. K.":"United Kingdom", "U.K":"United Kingdom", "(UK)":"United Kingdom",
     "PRC":"Peoples Republic of China", "P.R.C.":"Peoples Republic of China",
     "China":"Peoples Republic of China",
     "P.R.China":"Peoples Republic of China",
@@ -551,7 +593,8 @@ $institution_synonyms = {"The ISIS facility":"ISIS Neutron and Muon Source",
     "Oxford University":"University of Oxford",
     "University of St Andrews":"University of St. Andrews",
     "Diamond Light Source":"Diamond Light Source Ltd.",
-    "ISIS Facility":"ISIS Neutron and Muon Source"}
+    "ISIS Facility":"ISIS Neutron and Muon Source",
+    "University College of London":"University College London"}
 
 # list ofstrings which contain country names but are not countries, such as
 # streets, institution names, etc.
@@ -570,12 +613,7 @@ begin
   # affiliation and add a new affiliation for author
   aut_list.each do |auth_id|
     affi_lines = get_author_cr_affiliations(auth_id)
-    affi_lines.each do |cr_line|
-      if cr_line[1].include?('&amp;') then
-        split_firt = cr_line[1].split('&amp;')
-        print "\n Length = " + cr_line[1].length.to_s + "\t" + cr_line[1]
-      end
-    end
+    affi_lines = process_multi(affi_lines)
   end
   aut_list.each do |auth_id|
     break
