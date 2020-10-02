@@ -531,10 +531,22 @@ def update_cr_affis(affi_lines)
   end
 end
 
-def process_multi(affi_lines)
+def execute_sql(sql_cmd)
+  db = get_db()
+  if sql_cmd != "" then  db.execute(sql_cmd) end
+end
+
+def process_multi(affi_lines, auth_id)
   affi_lines.each do |cr_line|
+    # if there is an &amp: there might be two affiliations
+    affi_parts = []
     if cr_line[1].include?('&amp;') then
       affi_parts = cr_line[1].split('&amp;')
+    # if there is an ' and ' there might be two affiliations
+    elsif cr_line[1].include?(' and ') then
+      affi_parts = cr_line[1].split(' and ')
+    end
+    if affi_parts != []
       print "\n Length = " + cr_line[1].length.to_s + "\t" + cr_line[1]
       # check if there are more than one institutions in cr affiliation
       found_insts = []
@@ -549,27 +561,44 @@ def process_multi(affi_lines)
           found_insts.append(inst_in_part)
         end
       end
+      sql_cmd = ""
       if found_insts.count > 1
         print "\nThere are two affiliations"
         affi_parts.each do |affi_part|
           if cr_line[1].index(affi_part) == 0
             print "\nUpdate " + cr_line[0].to_s + " to: " + affi_part
             affi_lines[cr_line[0]] = affi_part
+            sql_cmd = "UPDATE cr_affiliations SET name =\"" + affi_part + "\" WHERE  id = " + cr_line[0].to_s + ";"
           else
             print "\nAdd new affi: " + affi_part
+            sql_cmd = "INSERT INTO cr_affiliations (name, article_author_id, created_at, updated_at) Values(\"" \
+               + affi_part.strip + "\", " + auth_id.to_s + ", datetime('2020-10-02'), datetime('2020-10-02'));"
             #affi_lines[cr_line[0]*100] = affi_part
           end
+          puts "\n££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££\n"
+          puts sql_cmd
+          puts "\n££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££\n"
+          execute_sql(sql_cmd)
         end
       else
-        print found_insts
-        print "\nIt is a single affilition"
-        print "\nUpdate " + cr_line[0].to_s + " to: " + cr_line[1].gsub('&amp;','&')
-        affi_lines[cr_line[0]] =  cr_line[1].gsub('&amp;','&')
+        # only change if '&amp;'
+        if cr_line[1].include?('&amp;') then
+          print found_insts
+          print "\nIt is a single affilition"
+          print "\nUpdate " + cr_line[0].to_s + " to: " + cr_line[1].gsub('&amp;','&').strip
+          sql_cmd = "UPDATE cr_affiliations SET name =\"" + cr_line[1].gsub('&amp;','&') + "\" WHERE  id = " + cr_line[0].to_s + ";"
+          affi_lines[cr_line[0]] =  cr_line[1].gsub('&amp;','&')
+          puts "\n££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££\n"
+          puts sql_cmd
+          puts "\n££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££££\n"
+          execute_sql(sql_cmd)
+        end
       end
+      print "\nAffi lines"
       print affi_lines
     end
   end
-
+  affi_lines = get_author_cr_affiliations(auth_id)
   return affi_lines
 end
 
@@ -613,59 +642,44 @@ begin
   # affiliation and add a new affiliation for author
   aut_list.each do |auth_id|
     affi_lines = get_author_cr_affiliations(auth_id)
-    affi_lines = process_multi(affi_lines)
-  end
-  aut_list.each do |auth_id|
-    break
-    affi_lines_hash = get_author_cr_affiliations(auth_id)
-    update_cr_affis(affi_lines_hash)
-    auth_affi = nil
-    split_complex = false
-    # if there is only one affilition record parse as complex
-    if affi_lines_hash.count == 1
-      split_complex = true
-      affi_line_id, affi_line_value = affi_lines_hash.first
-      auth_affi = split_complex(affi_line_value, auth_id)
-      continue = affi_object_well_formed(auth_affi, affi_lines_hash, split_complex, auth_id)
-    else
-      #printf("\nAuthor %d Mutiple affilitions complex or singles?\n", auth_id)
-      #print affi_lines_hash
-      single_ctr = 0
-      affi_lines_hash.keys.each do |line_id|
-        if is_simple(affi_lines_hash[line_id]) then
-          #printf("\n%s Single", an_item)
-          single_ctr += 1
-        elsif is_complex(affi_lines_hash[line_id]) then
-          #printf("\n%s Complex", an_item)
-        else
-          #printf("\n%s Single", an_item)
-          single_ctr += 1
-        end
-      end
-      if single_ctr > 1
-        split_complex = false
-        auth_affi = create_affi_obj(affi_lines_hash.values, auth_id)
-        continue = affi_object_well_formed(auth_affi, affi_lines_hash, split_complex, auth_id)
-        # if continue then
-        #   insert_author_affiliation(auth_affi, affi_lines_hash.keys)
-        # end
+    num_lines = affi_lines.count
+    # check if affi lines may contian more than one affiliation
+    affi_lines = process_multi(affi_lines, auth_id)
+    if affi_lines.count > num_lines
+      break # stop if a line is added
+    end
+    # check if a group of affiliation lines correspods to a single affiliation
+    # or to many
+    single_ctr = 0
+    affi_lines.keys.each do |line_id|
+      if is_simple(affi_lines[line_id]) then
+        printf("\n%s Single", affi_lines[line_id])
+        single_ctr += 1
+      elsif is_complex(affi_lines[line_id]) then
+        single_ctr = 0
+        printf("\n%s Complex", affi_lines[line_id])
       else
-        split_complex = true
-        affi_lines_hash.keys.each do |line_id|
-          an_affi = affi_lines_hash[line_id]
-          auth_affi = split_complex(an_affi, auth_id)
-          continue = affi_object_well_formed(auth_affi, affi_lines_hash, split_complex, auth_id)
-        end
+        printf("\n%s Single", affi_lines[line_id])
+        single_ctr += 1
       end
     end
-    printf " Revising: %s\n", auth_id
-    auth_affi.print()
-    if auth_id > 2325 then
-      break
-    end
-    if !continue then
-      print auth_id
-      break
+    if single_ctr > 1
+      print "\n"
+      print affi_lines
+      print "\nProcess all lines as one affiliation"
+      auth_affi = create_affi_obj(affi_lines.values, auth_id)
+      continue = affi_object_well_formed(auth_affi, affi_lines, false, auth_id)
+      auth_affi.print()
+    else
+      print "\n"
+      print affi_lines
+      print "\nProcess each line as complex affiliation(s)"
+      affi_lines.keys.each do |line_id|
+        an_affi = affi_lines[line_id]
+        auth_affi = split_complex(an_affi, auth_id)
+        continue = affi_object_well_formed(auth_affi, affi_lines, true, auth_id)
+        auth_affi.print()
+      end
     end
   end
 rescue SQLite3::Exception => e

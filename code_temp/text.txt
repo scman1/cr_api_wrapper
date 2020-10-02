@@ -1,0 +1,768 @@
+3.22.0
+
+ Length = 168	Catalysis Institute and c*change (DST-NRF Centre of Excellence in Catalysis), Department of Chemical Engineering, University of Cape Town, Rondebosch 7701, South AfricaCatalysis Institute
+Catalysis Institutec*change (DST-NRF Centre of Excellence in Catalysis), Department of Chemical Engineering, University of Cape Town, Rondebosch 7701, South Africa
+
+Affi lines{192=>"Catalysis Institute and c*change (DST-NRF Centre of Excellence in Catalysis), Department of Chemical Engineering, University of Cape Town, Rondebosch 7701, South Africa"}
+ Length = 168	Catalysis Institute and c*change (DST-NRF Centre of Excellence in Catalysis), Department of Chemical Engineering, University of Cape Town, Rondebosch 7701, South AfricaCatalysis Institute
+Catalysis Institutec*change (DST-NRF Centre of Excellence in Catalysis), Department of Chemical Engineering, University of Cape Town, Rondebosch 7701, South Africa
+
+Affi lines{193=>"Catalysis Institute and c*change (DST-NRF Centre of Excellence in Catalysis), Department of Chemical Engineering, University of Cape Town, Rondebosch 7701, South Africa"}
+ Length = 106	Harwell Science and Innovation Campus, Diamond Light Source Ltd., Chilton, Didcot OX11 0DE, United KingdomHarwell Science
+Harwell ScienceInnovation Campus, Diamond Light Source Ltd., Chilton, Didcot OX11 0DE, United Kingdom
+
+Affi lines{199=>"UK Catalysis Hub, Research Complex at Harwell, Rutherford Appleton Laboratory, Harwell, Oxon OX11 0FA, United Kingdom", 200=>"School of Chemistry, University of Southampton, University Road, Southampton SO17 1BJ, United Kingdom", 201=>"Harwell Science and Innovation Campus, Diamond Light Source Ltd., Chilton, Didcot OX11 0DE, United Kingdom"}
+ Length = 168	Catalysis Institute and c*change (DST-NRF Centre of Excellence in Catalysis), Department of Chemical Engineering, University of Cape Town, Rondebosch 7701, South AfricaCatalysis Institute
+Catalysis Institutec*change (DST-NRF Centre of Excellence in Catalysis), Department of Chemical Engineering, University of Cape Town, Rondebosch 7701, South Africa
+
+Affi lines{205=>"Catalysis Institute and c*change (DST-NRF Centre of Excellence in Catalysis), Department of Chemical Engineering, University of Cape Town, Rondebosch 7701, South Africa"}
+ Length = 126	Diamond Light Source, Diamond House Harwell Science and Innovation Campus Harwell, Didcot, Oxfordshire OX11 0DE United KingdomDiamond Light Source, Diamond House Harwell Science
+Diamond Light Source, Diamond House Harwell ScienceInnovation Campus Harwell, Didcot, Oxfordshire OX11 0DE United Kingdom
+Innovation Campus Harwell, Didcot, Oxfordshire OX11 0DE United Kingdom
+Affi lines{3=>"Diamond Light Source, Diamond House Harwell Science and Innovation Campus Harwell, Didcot, Oxfordshire OX11 0DE United Kingdom"}
+ Length = 123	Present address: Institute of Psychiatry, Psychology &amp; NeuroscienceKing's College London Denmark Hill London SE5 8AF UKPresent address: Institute of Psychiatry, Psychology 
+Present address: Institute of Psychiatry, Psychology  NeuroscienceKing's College London Denmark Hill London SE5 8AF UK
+["King's College London"]
+It is a single affilition
+Update 142 to: Present address: Institute of Psychiatry, Psychology & NeuroscienceKing's College London Denmark Hill London SE5 8AF UK
+Affi lines{142=>"Present address: Institute of Psychiatry, Psychology & NeuroscienceKing's College London Denmark Hill London SE5 8AF UK"}
+ Length = 133	Bioinspired Homo- &amp; Heterogeneous Catalysis, Leibniz Institute for Catalysis, Albert-Einstein-Strasse 29a, 18059 Rostock, GermanyBioinspired Homo- 
+Bioinspired Homo-  Heterogeneous Catalysis, Leibniz Institute for Catalysis, Albert-Einstein-Strasse 29a, 18059 Rostock, Germany
+["Leibniz Institute for Catalysis"]
+It is a single affilition
+Update 158 to: Bioinspired Homo- & Heterogeneous Catalysis, Leibniz Institute for Catalysis, Albert-Einstein-Strasse 29a, 18059 Rostock, Germany
+Affi lines{157=>"School of Chemistry, University of St Andrews, North Haugh, St. Andrews, Fife, KY16 9ST, United Kingdom", 158=>"Bioinspired Homo- & Heterogeneous Catalysis, Leibniz Institute for Catalysis, Albert-Einstein-Strasse 29a, 18059 Rostock, Germany"}
+ Length = 127	School of Chemistry, Faculty of Science and Engineering, University of Manchester, 131 Princess Street, Manchester M1 7DN, U.K.School of Chemistry, Faculty of Science
+School of Chemistry, Faculty of ScienceEngineering, University of Manchester, 131 Princess Street, Manchester M1 7DN, U.K.
+Engineering, University of Manchester, 131 Princess Street, Manchester M1 7DN, U.K.
+Affi lines{229=>"School of Chemistry, Faculty of Science and Engineering, University of Manchester, 131 Princess Street, Manchester M1 7DN, U.K."}
+ Length = 127	School of Chemistry, Faculty of Science and Engineering, University of Manchester, 131 Princess Street, Manchester M1 7DN, U.K.School of Chemistry, Faculty of Science
+School of Chemistry, Faculty of ScienceEngineering, University of Manchester, 131 Princess Street, Manchester M1 7DN, U.K.
+Engineering, University of Manchester, 131 Princess Street, Manchester M1 7DN, U.K.
+Affi lines{230=>"School of Chemistry, Faculty of Science and Engineering, University of Manchester, 131 Princess Street, Manchester M1 7DN, U.K."}
+ Length = 149	School of Chemistry &amp; Manchester Institute of Biotechnology, The University of Manchester, 131 Princess Street, Manchester M1 7DN, United KingdomSchool of Chemistry 
+School of Chemistry  Manchester Institute of Biotechnology, The University of Manchester, 131 Princess Street, Manchester M1 7DN, United Kingdom
+["The University of Manchester"]
+It is a single affilition
+Update 235 to: School of Chemistry & Manchester Institute of Biotechnology, The University of Manchester, 131 Princess Street, Manchester M1 7DN, United Kingdom
+Affi lines{235=>"School of Chemistry & Manchester Institute of Biotechnology, The University of Manchester, 131 Princess Street, Manchester M1 7DN, United Kingdom"}
+ Length = 82	Diamond Light Source, Harwell Science and Innovation Campus, Didcot OX11 0DE, U.K.Diamond Light Source, Harwell Science
+Diamond Light Source, Harwell ScienceInnovation Campus, Didcot OX11 0DE, U.K.
+Innovation Campus, Didcot OX11 0DE, U.K.
+Affi lines{248=>"Diamond Light Source, Harwell Science and Innovation Campus, Didcot OX11 0DE, U.K."}
+ Length = 82	Diamond Light Source, Harwell Science and Innovation Campus, Didcot OX11 0DE, U.K.Diamond Light Source, Harwell Science
+Diamond Light Source, Harwell ScienceInnovation Campus, Didcot OX11 0DE, U.K.
+Innovation Campus, Didcot OX11 0DE, U.K.
+Affi lines{249=>"Diamond Light Source, Harwell Science and Innovation Campus, Didcot OX11 0DE, U.K."}
+ Length = 134	Department of Materials Science and Engineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015, United StatesDepartment of Materials Science
+Department of Materials ScienceEngineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015, United States
+
+Affi lines{310=>"Department of Materials Science and Engineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015, United States"}
+ Length = 109	Department of Physics and Astronomy, University College London, Gower Street, London WC1E 6BT, United KingdomDepartment of Physics
+Department of PhysicsAstronomy, University College London, Gower Street, London WC1E 6BT, United Kingdom
+
+Affi lines{312=>"ISIS Facility, STFC Rutherford Appleton Laboratory, Chilton, Didcot, Oxon OX11 0QX, United Kingdom", 313=>"Department of Physics and Astronomy, University College London, Gower Street, London WC1E 6BT, United Kingdom"}
+ Length = 101	Diamond Light Source, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United KingdomDiamond Light Source, Harwell Science
+Diamond Light Source, Harwell ScienceInnovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Affi lines{318=>"School of Chemistry, University of Southampton, Southampton SO17 1BJ, United Kingdom", 319=>"Diamond Light Source, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom"}
+ Length = 134	Department of Materials Science and Engineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015, United StatesDepartment of Materials Science
+Department of Materials ScienceEngineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015, United States
+
+Affi lines{321=>"Cardiff Catalysis Institute, School of Chemistry, Cardiff University, Main Building, Park Place, Cardiff, CF10 3AT, United Kingdom", 322=>"Department of Materials Science and Engineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015, United States"}
+ Length = 170	Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) &amp; Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UKResearch Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) 
+ Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UK
+ Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UK
+There are two affiliations
+Update 403 to: Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) 
+Add new affi:  Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UK
+Affi lines{403=>"Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) ", 404=>"Diamond Light Source Ltd. Harwell Science and Innovation Campus Didcot OX11 0DEU UK"}
+ Length = 83	Diamond Light Source Ltd. Harwell Science and Innovation Campus Didcot OX11 0DEU UKDiamond Light Source Ltd. Harwell Science
+Innovation Campus Didcot OX11 0DEU UK
+Innovation Campus Didcot OX11 0DEU UK
+Affi lines{403=>"Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) ", 404=>"Diamond Light Source Ltd. Harwell Science and Innovation Campus Didcot OX11 0DEU UK"}
+ Length = 83	Diamond Light Source Ltd. Harwell Science and Innovation Campus Didcot OX11 0DEU UKDiamond Light Source Ltd. Harwell Science
+Innovation Campus Didcot OX11 0DEU UK
+Innovation Campus Didcot OX11 0DEU UK
+Affi lines{405=>"Diamond Light Source Ltd. Harwell Science and Innovation Campus Didcot OX11 0DEU UK"}
+ Length = 170	Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) &amp; Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UKResearch Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) 
+ Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UK
+ Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UK
+There are two affiliations
+Update 410 to: Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) 
+Add new affi:  Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UK
+Affi lines{410=>"Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) ", 411=>"UK Catalysis Hub Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX110FA UK"}
+ Length = 170	Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) &amp; Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UKResearch Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) 
+ Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UK
+ Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UK
+There are two affiliations
+Update 412 to: Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) 
+Add new affi:  Chemistry DepartmentUniversity College of London 20 Gordon Street London WC1H 0AJ UK
+Affi lines{412=>"Research Complex at Harwell Rutherford Appleton Laboratory Didcot OX11 0FA (UK) "}
+ Length = 157	Department of Materials Science and Engineering, Southern University of Science and Technology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, ChinaDepartment of Materials Science
+Department of Materials ScienceEngineering, Southern University of Science
+Engineering, Southern University of ScienceTechnology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, China
+Technology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, China
+Affi lines{415=>"Department of Materials Science and Engineering, Southern University of Science and Technology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, China"}
+ Length = 157	Department of Materials Science and Engineering, Southern University of Science and Technology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, ChinaDepartment of Materials Science
+Department of Materials ScienceEngineering, Southern University of Science
+Engineering, Southern University of ScienceTechnology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, China
+Technology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, China
+Affi lines{416=>"Department of Materials Science and Engineering, Southern University of Science and Technology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, China"}
+ Length = 103	MI DE DOCCS Defectivity EUV Reticle &amp; Plasma, ASML, De Run 6501, 5504 DR Veldhoven, The NetherlandsMI DE DOCCS Defectivity EUV Reticle 
+MI DE DOCCS Defectivity EUV Reticle  Plasma, ASML, De Run 6501, 5504 DR Veldhoven, The Netherlands
+["ASML"]
+It is a single affilition
+Update 417 to: MI DE DOCCS Defectivity EUV Reticle & Plasma, ASML, De Run 6501, 5504 DR Veldhoven, The Netherlands
+Affi lines{417=>"MI DE DOCCS Defectivity EUV Reticle & Plasma, ASML, De Run 6501, 5504 DR Veldhoven, The Netherlands"}
+ Length = 157	Department of Materials Science and Engineering, Southern University of Science and Technology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, ChinaDepartment of Materials Science
+Department of Materials ScienceEngineering, Southern University of Science
+Engineering, Southern University of ScienceTechnology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, China
+Technology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, China
+Affi lines{418=>"Department of Materials Science and Engineering, Southern University of Science and Technology, No. 1088 Xueyuan Boulevard, Shenzhen, Guangdong 518055, China"}
+ Length = 112	Dipartimento di Scienze Chimiche and Unità di Ricerca INSTMUniversità di Padova Via Marzolo 1 35131 Padova ItalyDipartimento di Scienze Chimiche
+Dipartimento di Scienze ChimicheUnità di Ricerca INSTMUniversità di Padova Via Marzolo 1 35131 Padova Italy
+
+Affi lines{423=>"Dipartimento di Scienze Chimiche and Unità di Ricerca INSTMUniversità di Padova Via Marzolo 1 35131 Padova Italy"}
+ Length = 112	Dipartimento di Scienze Chimiche and Unità di Ricerca INSTMUniversità di Padova Via Marzolo 1 35131 Padova ItalyDipartimento di Scienze Chimiche
+Dipartimento di Scienze ChimicheUnità di Ricerca INSTMUniversità di Padova Via Marzolo 1 35131 Padova Italy
+
+Affi lines{425=>"Dipartimento di Scienze Chimiche and Unità di Ricerca INSTMUniversità di Padova Via Marzolo 1 35131 Padova Italy"}
+ Length = 44	Università di Padova and INSTM Research UnitUniversità di Padova
+INSTM Research Unit
+INSTM Research Unit
+Affi lines{429=>"Dipartimento di Scienze Chimiche", 430=>"Università di Padova and INSTM Research Unit", 431=>"35131 Padova", 432=>"Italy"}
+ Length = 44	Università di Padova and INSTM Research UnitUniversità di Padova
+INSTM Research Unit
+INSTM Research Unit
+Affi lines{433=>"Dipartimento di Scienze Chimiche", 434=>"Università di Padova and INSTM Research Unit", 435=>"35131 Padova", 436=>"Italy"}
+ Length = 59	Istituto per l'Energetica e le Interfasi CNR-IENI and INSTMIstituto per l'Energetica e le Interfasi CNR-IENI
+Istituto per l'Energetica e le Interfasi CNR-IENIINSTM
+INSTM
+Affi lines{445=>"Istituto per l'Energetica e le Interfasi CNR-IENI and INSTM", 446=>"Corso Stati Uniti, 4", 447=>"35127 Padova", 448=>"Italy"}
+ Length = 44	Università di Padova and INSTM Research UnitUniversità di Padova
+INSTM Research Unit
+INSTM Research Unit
+Affi lines{465=>"Dipartimento di Scienze Chimiche", 466=>"Università di Padova and INSTM Research Unit", 467=>"35131 Padova", 468=>"Italy"}
+ Length = 44	Università di Padova and INSTM Research UnitUniversità di Padova
+INSTM Research Unit
+INSTM Research Unit
+Affi lines{469=>"Dipartimento di Scienze Chimiche", 470=>"Università di Padova and INSTM Research Unit", 471=>"35131 Padova", 472=>"Italy"}
+ Length = 187	UK Catalysis Hub, Research Complex at Harwell RAL, Oxford, OX11 0FA, UK and Kathleen Lonsdale Building Department of Chemistry; University College London; Gordon Street London WC1H 0AJ UKUK Catalysis Hub, Research Complex at Harwell RAL, Oxford, OX11 0FA, UK
+Kathleen Lonsdale Building Department of Chemistry; University College London; Gordon Street London WC1H 0AJ UK
+
+There are two affiliations
+Update 476 to: UK Catalysis Hub, Research Complex at Harwell RAL, Oxford, OX11 0FA, UK
+Add new affi: Kathleen Lonsdale Building Department of Chemistry; University College London; Gordon Street London WC1H 0AJ UK
+Affi lines{475=>"School of Chemistry; University of Bristol Cantocks Close; Bristol BS8 1TS UK", 476=>"UK Catalysis Hub, Research Complex at Harwell RAL, Oxford, OX11 0FA, UK"}
+ Length = 53	School of Chemical Engineering and Analytical ScienceSchool of Chemical Engineering
+School of Chemical EngineeringAnalytical Science
+Analytical Science
+Affi lines{495=>"School of Chemical Engineering and Analytical Science", 496=>"The University of Manchester", 497=>"The Mill", 498=>"Manchester", 499=>"UK"}
+ Length = 53	School of Chemical Engineering and Analytical ScienceSchool of Chemical Engineering
+School of Chemical EngineeringAnalytical Science
+Analytical Science
+Affi lines{500=>"School of Chemical Engineering and Analytical Science", 501=>"The University of Manchester", 502=>"The Mill", 503=>"Manchester", 504=>"UK"}
+ Length = 53	School of Chemical Engineering and Analytical ScienceSchool of Chemical Engineering
+School of Chemical EngineeringAnalytical Science
+Analytical Science
+Affi lines{505=>"School of Chemical Engineering and Analytical Science", 506=>"The University of Manchester", 507=>"The Mill", 508=>"Manchester", 509=>"UK"}
+ Length = 101	Research Complex at Harwell, Science and Technology Facilities Council Rutherford Appleton LaboratoryResearch Complex at Harwell, Science
+Technology Facilities Council Rutherford Appleton Laboratory
+Technology Facilities Council Rutherford Appleton Laboratory
+Affi lines{579=>"UK Catalysis Hub", 580=>"Research Complex at Harwell, Science and Technology Facilities Council Rutherford Appleton Laboratory", 581=>"Harwell Science and Innovation Campus", 582=>"Oxon", 583=>"UK"}
+ Length = 37	Harwell Science and Innovation CampusHarwell Science
+Harwell ScienceInnovation Campus
+Innovation Campus
+Affi lines{579=>"UK Catalysis Hub", 580=>"Research Complex at Harwell, Science and Technology Facilities Council Rutherford Appleton Laboratory", 581=>"Harwell Science and Innovation Campus", 582=>"Oxon", 583=>"UK"}
+ Length = 26	Biochemistry and CatalysisBiochemistry
+BiochemistryCatalysis
+Catalysis
+Affi lines{593=>"University of Bucharest", 594=>"Faculty of Chemistry", 595=>"Department of Organic Chemistry", 596=>"Biochemistry and Catalysis", 597=>"Bucharest"}
+ Length = 26	Biochemistry and CatalysisBiochemistry
+BiochemistryCatalysis
+Catalysis
+Affi lines{598=>"University of Bucharest", 599=>"Faculty of Chemistry", 600=>"Department of Organic Chemistry", 601=>"Biochemistry and Catalysis", 602=>"Bucharest"}
+ Length = 26	Biochemistry and CatalysisBiochemistry
+BiochemistryCatalysis
+Catalysis
+Affi lines{603=>"University of Bucharest", 604=>"Faculty of Chemistry", 605=>"Department of Organic Chemistry", 606=>"Biochemistry and Catalysis", 607=>"Bucharest"}
+ Length = 61	The QUILL Centre/School of Chemistry and Chemical EngineeringThe QUILL Centre/School of Chemistry
+The QUILL Centre/School of ChemistryChemical Engineering
+Chemical Engineering
+Affi lines{612=>"Queen’s University Belfast", 613=>"The QUILL Centre/School of Chemistry and Chemical Engineering", 614=>"Belfast", 615=>"UK"}
+ Length = 61	The QUILL Centre/School of Chemistry and Chemical EngineeringThe QUILL Centre/School of Chemistry
+The QUILL Centre/School of ChemistryChemical Engineering
+Chemical Engineering
+Affi lines{616=>"Queen’s University Belfast", 617=>"The QUILL Centre/School of Chemistry and Chemical Engineering", 618=>"Belfast", 619=>"UK"}
+ Length = 61	The QUILL Centre/School of Chemistry and Chemical EngineeringThe QUILL Centre/School of Chemistry
+The QUILL Centre/School of ChemistryChemical Engineering
+Chemical Engineering
+Affi lines{620=>"Queen’s University Belfast", 621=>"The QUILL Centre/School of Chemistry and Chemical Engineering", 622=>"Belfast", 623=>"UK"}
+ Length = 61	The QUILL Centre/School of Chemistry and Chemical EngineeringThe QUILL Centre/School of Chemistry
+The QUILL Centre/School of ChemistryChemical Engineering
+Chemical Engineering
+Affi lines{624=>"Queen’s University Belfast", 625=>"The QUILL Centre/School of Chemistry and Chemical Engineering", 626=>"Belfast", 627=>"UK", 628=>"The University of Manchester"}
+ Length = 123	School of Chemistry and Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UKSchool of Chemistry
+School of ChemistryChemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK
+Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK
+Affi lines{629=>"School of Chemistry and Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK"}
+ Length = 123	School of Chemistry and Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UKSchool of Chemistry
+School of ChemistryChemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK
+Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK
+Affi lines{630=>"School of Chemistry and Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK"}
+ Length = 123	School of Chemistry and Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UKSchool of Chemistry
+School of ChemistryChemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK
+Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK
+Affi lines{631=>"School of Chemistry and Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK"}
+ Length = 123	School of Chemistry and Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UKSchool of Chemistry
+School of ChemistryChemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK
+Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK
+Affi lines{632=>"School of Chemistry and Chemical Engineering; Queens University Belfast, David Keir Building, Stranmillis Road, BT9 5AG; UK"}
+ Length = 87	School of Chemical Engineering and Analytical Science; The University of Manchester; UKSchool of Chemical Engineering
+School of Chemical EngineeringAnalytical Science; The University of Manchester; UK
+
+Affi lines{633=>"School of Chemical Engineering and Analytical Science; The University of Manchester; UK"}
+ Length = 75	ISIS Neutron and Muon Source; Science and Technology Facilities Council; UKISIS Neutron
+ISIS NeutronMuon Source; Science
+Muon Source; ScienceTechnology Facilities Council; UK
+Technology Facilities Council; UK
+Affi lines{634=>"ISIS Neutron and Muon Source; Science and Technology Facilities Council; UK"}
+ Length = 76	School of Chemistry and Chemical Engineering; Queen's University Belfast; UKSchool of Chemistry
+School of ChemistryChemical Engineering; Queen's University Belfast; UK
+Chemical Engineering; Queen's University Belfast; UK
+Affi lines{635=>"School of Chemistry and Chemical Engineering; Queen's University Belfast; UK"}
+ Length = 75	ISIS Neutron and Muon Source; Science and Technology Facilities Council; UKISIS Neutron
+ISIS NeutronMuon Source; Science
+Muon Source; ScienceTechnology Facilities Council; UK
+Technology Facilities Council; UK
+Affi lines{636=>"ISIS Neutron and Muon Source; Science and Technology Facilities Council; UK"}
+ Length = 87	School of Chemical Engineering and Analytical Science; The University of Manchester; UKSchool of Chemical Engineering
+School of Chemical EngineeringAnalytical Science; The University of Manchester; UK
+
+Affi lines{637=>"School of Chemical Engineering and Analytical Science; The University of Manchester; UK"}
+ Length = 103	Centre for Doctoral Training in Diamond Science and TechnologyUniversity of Warwick Coventry CV4 7AL UKCentre for Doctoral Training in Diamond Science
+Centre for Doctoral Training in Diamond ScienceTechnologyUniversity of Warwick Coventry CV4 7AL UK
+
+Affi lines{642=>"Department of ChemistryUniversity of Warwick Coventry CV4 7AL UK", 643=>"Centre for Doctoral Training in Diamond Science and TechnologyUniversity of Warwick Coventry CV4 7AL UK"}
+ Length = 107	Diamond Light Source LtdHarwell Science &amp; Innovation Campus Didcot, Oxfordshire OX11 0DE United KingdomDiamond Light Source LtdHarwell Science 
+Diamond Light Source LtdHarwell Science  Innovation Campus Didcot, Oxfordshire OX11 0DE United Kingdom
+ Innovation Campus Didcot, Oxfordshire OX11 0DE United Kingdom["Diamond Light Source"]
+It is a single affilition
+Update 673 to: Diamond Light Source LtdHarwell Science & Innovation Campus Didcot, Oxfordshire OX11 0DE United Kingdom
+Affi lines{672=>"UK Catalysis HubResearch Complex at Harwell Oxfordshire OX11 0FA United Kingdom", 673=>"Diamond Light Source LtdHarwell Science & Innovation Campus Didcot, Oxfordshire OX11 0DE United Kingdom", 674=>"School of ChemistryUniversity of Southampton Southampton SO17 1BJ United Kingdom"}
+ Length = 169	ISIS Neutron and Muon Facility Science and Technology Facilities Council Rutherford Appleton LaboratoryHarwell Science and Innovation Campus Oxon OX11 0QX United KingdomISIS Neutron
+ISIS NeutronMuon Facility Science
+Muon Facility ScienceTechnology Facilities Council Rutherford Appleton LaboratoryHarwell Science
+Technology Facilities Council Rutherford Appleton LaboratoryHarwell ScienceInnovation Campus Oxon OX11 0QX United Kingdom
+Innovation Campus Oxon OX11 0QX United Kingdom
+Affi lines{679=>"ISIS Neutron and Muon Facility Science and Technology Facilities Council Rutherford Appleton LaboratoryHarwell Science and Innovation Campus Oxon OX11 0QX United Kingdom"}
+ Length = 46	Centre of Advance Material and Energy SciencesCentre of Advance Material
+Centre of Advance MaterialEnergy Sciences
+Energy Sciences
+Affi lines{689=>"The UK Catalysis Hub", 690=>"Research Complex at Harwell", 691=>"Oxon", 692=>"UK", 693=>"Centre of Advance Material and Energy Sciences"}
+ Length = 62	Diamond Light Source Ltd Harwell Science and Innovation CampusDiamond Light Source Ltd Harwell Science
+Diamond Light Source Ltd Harwell ScienceInnovation Campus
+Innovation Campus
+Affi lines{699=>"University of Southampton", 700=>"Southampton SO17 1BJ", 701=>"UK", 702=>"Diamond Light Source Ltd Harwell Science and Innovation Campus", 703=>"Chilton"}
+ Length = 233	Department of Chemical and Biochemical Engineering; College of Chemistry and Chemical Engineering; National Engineering Laboratory for Green Chemical Productions of Alcohols-Ethers-Esters; Xiamen University; Xiamen 361005 P. R. ChinaDepartment of Chemical
+Department of ChemicalBiochemical Engineering; College of Chemistry
+Biochemical Engineering; College of ChemistryChemical Engineering; National Engineering Laboratory for Green Chemical Productions of Alcohols-Ethers-Esters; Xiamen University; Xiamen 361005 P. R. China
+
+Affi lines{762=>"Cardiff Catalysis Institute; School of Chemistry; Cardiff University; Main Building, Park Place Cardiff CF10 3AT United Kingdom", 763=>"Department of Chemical and Biochemical Engineering; College of Chemistry and Chemical Engineering; National Engineering Laboratory for Green Chemical Productions of Alcohols-Ethers-Esters; Xiamen University; Xiamen 361005 P. R. China"}
+ Length = 163	University of Groningen; Engineering and Technology Institute Groningen (ENTEG), Department of Chemical Engineering; Nijenborgh 4 9747 AG Groningen The NetherlandsUniversity of Groningen; Engineering
+Technology Institute Groningen (ENTEG), Department of Chemical Engineering; Nijenborgh 4 9747 AG Groningen The Netherlands
+Technology Institute Groningen (ENTEG), Department of Chemical Engineering; Nijenborgh 4 9747 AG Groningen The Netherlands
+Affi lines{771=>"University of Groningen; Engineering and Technology Institute Groningen (ENTEG), Department of Chemical Engineering; Nijenborgh 4 9747 AG Groningen The Netherlands"}
+ Length = 33	Inorganic Chemistry and CatalysisInorganic Chemistry
+Inorganic ChemistryCatalysis
+Catalysis
+Affi lines{791=>"Inorganic Chemistry and Catalysis", 792=>"Debye Institute for Nanomaterials Science", 793=>"Utrecht University", 794=>"Utrecht", 795=>"The Netherlands"}
+ Length = 33	Inorganic Chemistry and CatalysisInorganic Chemistry
+Inorganic ChemistryCatalysis
+Catalysis
+Affi lines{796=>"Inorganic Chemistry and Catalysis", 797=>"Debye Institute for Nanomaterials Science", 798=>"Utrecht University", 799=>"Utrecht", 800=>"The Netherlands"}
+ Length = 33	Inorganic Chemistry and CatalysisInorganic Chemistry
+Inorganic ChemistryCatalysis
+Catalysis
+Affi lines{801=>"Inorganic Chemistry and Catalysis", 802=>"Debye Institute for Nanomaterials Science", 803=>"Utrecht University", 804=>"Utrecht", 805=>"The Netherlands"}
+ Length = 33	Inorganic Chemistry and CatalysisInorganic Chemistry
+Inorganic ChemistryCatalysis
+Catalysis
+Affi lines{806=>"Inorganic Chemistry and Catalysis", 807=>"Debye Institute for Nanomaterials Science", 808=>"Utrecht University", 809=>"Utrecht", 810=>"The Netherlands"}
+ Length = 33	Inorganic Chemistry and CatalysisInorganic Chemistry
+Inorganic ChemistryCatalysis
+Catalysis
+Affi lines{811=>"Inorganic Chemistry and Catalysis", 812=>"Debye Institute for Nanomaterials Science", 813=>"Utrecht University", 814=>"Utrecht", 815=>"The Netherlands"}
+ Length = 33	Inorganic Chemistry and CatalysisInorganic Chemistry
+Inorganic ChemistryCatalysis
+Catalysis
+Affi lines{816=>"Inorganic Chemistry and Catalysis", 817=>"Debye Institute for Nanomaterials Science", 818=>"Utrecht University", 819=>"Utrecht", 820=>"The Netherlands"}
+ Length = 33	Inorganic Chemistry and CatalysisInorganic Chemistry
+Inorganic ChemistryCatalysis
+Catalysis
+Affi lines{821=>"Inorganic Chemistry and Catalysis", 822=>"Debye Institute for Nanomaterials Science", 823=>"Utrecht University", 824=>"Utrecht", 825=>"The Netherlands"}
+ Length = 161	Departament de Ciència de Materials i Química Física and Institut de Química Teòrica i Computacional (IQTCUB), Universitat de Barcelona, Barcelona E-08028, SpainDepartament de Ciència de Materials i Química Física
+Departament de Ciència de Materials i Química FísicaInstitut de Química Teòrica i Computacional (IQTCUB), Universitat de Barcelona, Barcelona E-08028, Spain
+
+Affi lines{829=>"Departament de Ciència de Materials i Química Física and Institut de Química Teòrica i Computacional (IQTCUB), Universitat de Barcelona, Barcelona E-08028, Spain", 830=>"Institució Catalana de Recerca i Estudis Avançats (ICREA), E-08010 Barcelona, Spain"}
+ Length = 169	Advanced Materials Engineering and Modelling Group, Faculty of Chemistry, Wrocław University of Science and Technology, Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, PolandAdvanced Materials Engineering
+Advanced Materials EngineeringModelling Group, Faculty of Chemistry, Wrocław University of Science
+Modelling Group, Faculty of Chemistry, Wrocław University of ScienceTechnology, Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, Poland
+Technology, Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, Poland
+Affi lines{856=>"Advanced Materials Engineering and Modelling Group, Faculty of Chemistry, Wrocław University of Science and Technology, Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, Poland"}
+ Length = 169	Advanced Materials Engineering and Modelling Group, Faculty of Chemistry, Wrocław University of Science and Technology, Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, PolandAdvanced Materials Engineering
+Advanced Materials EngineeringModelling Group, Faculty of Chemistry, Wrocław University of Science
+Modelling Group, Faculty of Chemistry, Wrocław University of ScienceTechnology, Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, Poland
+Technology, Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, Poland
+Affi lines{862=>"Advanced Materials Engineering and Modelling Group, Faculty of Chemistry, Wrocław University of Science and Technology, Wybrzeże Wyspiańskiego 27, 50-370 Wrocław, Poland"}
+ Length = 49	Department of Chemical and Biological EngineeringDepartment of Chemical
+Department of ChemicalBiological Engineering
+Biological Engineering
+Affi lines{913=>"Department of Chemical and Biological Engineering", 914=>"University of Sheffield", 915=>"Sheffield", 916=>"UK"}
+ Length = 103	School of Chemistry and Chemical Engineering; Queen's University Belfast; Belfast BT9 5AG N. Ireland UKSchool of Chemistry
+School of ChemistryChemical Engineering; Queen's University Belfast; Belfast BT9 5AG N. Ireland UK
+Chemical Engineering; Queen's University Belfast; Belfast BT9 5AG N. Ireland UK
+Affi lines{937=>"School of Chemistry and Chemical Engineering; Queen's University Belfast; Belfast BT9 5AG N. Ireland UK"}
+ Length = 88	Diamond Light Source; Harwell Science and Innovation Campus; Chilton, Didcot OX11 0DE UKDiamond Light Source; Harwell Science
+Diamond Light Source; Harwell ScienceInnovation Campus; Chilton, Didcot OX11 0DE UK
+Innovation Campus; Chilton, Didcot OX11 0DE UK
+Affi lines{940=>"Diamond Light Source; Harwell Science and Innovation Campus; Chilton, Didcot OX11 0DE UK"}
+ Length = 88	Diamond Light Source; Harwell Science and Innovation Campus; Chilton, Didcot OX11 0DE UKDiamond Light Source; Harwell Science
+Diamond Light Source; Harwell ScienceInnovation Campus; Chilton, Didcot OX11 0DE UK
+Innovation Campus; Chilton, Didcot OX11 0DE UK
+Affi lines{941=>"Diamond Light Source; Harwell Science and Innovation Campus; Chilton, Didcot OX11 0DE UK"}
+ Length = 103	School of Chemistry and Chemical Engineering; Queen's University Belfast; Belfast BT9 5AG N. Ireland UKSchool of Chemistry
+School of ChemistryChemical Engineering; Queen's University Belfast; Belfast BT9 5AG N. Ireland UK
+Chemical Engineering; Queen's University Belfast; Belfast BT9 5AG N. Ireland UK
+Affi lines{942=>"School of Chemistry and Chemical Engineering; Queen's University Belfast; Belfast BT9 5AG N. Ireland UK"}
+ Length = 88	Diamond Light Source; Harwell Science and Innovation Campus; Chilton, Didcot OX11 0DE UKDiamond Light Source; Harwell Science
+Diamond Light Source; Harwell ScienceInnovation Campus; Chilton, Didcot OX11 0DE UK
+Innovation Campus; Chilton, Didcot OX11 0DE UK
+Affi lines{943=>"UK Catalysis Hub; Research Complex at Harwell; Rutherford Appleton Laboratory; Harwell Oxon Didcot OX11 0FA UK", 944=>"Diamond Light Source; Harwell Science and Innovation Campus; Chilton, Didcot OX11 0DE UK", 945=>"School of Chemistry; University of Southampton; Southampton SO17 1BJ UK"}
+ Length = 106	Diamond Light Source Ltd., Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United KingdomDiamond Light Source Ltd., Harwell Science
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Affi lines{961=>"Diamond Light Source Ltd., Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom"}
+ Length = 106	Diamond Light Source Ltd., Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United KingdomDiamond Light Source Ltd., Harwell Science
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Affi lines{964=>"Diamond Light Source Ltd., Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom"}
+ Length = 106	Diamond Light Source Ltd., Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United KingdomDiamond Light Source Ltd., Harwell Science
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Affi lines{967=>"UK Catalysis Hub, Research Complex at Harwell, Rutherford Appleton Laboratory, Harwell Oxon, Didcot OX11 0FA, United Kingdom", 968=>"Diamond Light Source Ltd., Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom", 969=>"School of Chemistry, University of Southampton, University Road, Southampton SO17 1BJ, United Kingdom"}
+ Length = 133	Nanoscale Physics Research Laboratory, School of Physics and Astronomy, University of Birmingham, Edgbaston, Birmingham B15 2TT, U.K.Nanoscale Physics Research Laboratory, School of Physics
+Nanoscale Physics Research Laboratory, School of PhysicsAstronomy, University of Birmingham, Edgbaston, Birmingham B15 2TT, U.K.
+
+Affi lines{1017=>"Nanoscale Physics Research Laboratory, School of Physics and Astronomy, University of Birmingham, Edgbaston, Birmingham B15 2TT, U.K."}
+ Length = 133	Nanoscale Physics Research Laboratory, School of Physics and Astronomy, University of Birmingham, Edgbaston, Birmingham B15 2TT, U.K.Nanoscale Physics Research Laboratory, School of Physics
+Nanoscale Physics Research Laboratory, School of PhysicsAstronomy, University of Birmingham, Edgbaston, Birmingham B15 2TT, U.K.
+
+Affi lines{1018=>"Nanoscale Physics Research Laboratory, School of Physics and Astronomy, University of Birmingham, Edgbaston, Birmingham B15 2TT, U.K."}
+ Length = 91	Diamond Light Source, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, U.K.Diamond Light Source, Harwell Science
+Diamond Light Source, Harwell ScienceInnovation Campus, Chilton, Didcot OX11 0DE, U.K.
+Innovation Campus, Chilton, Didcot OX11 0DE, U.K.
+Affi lines{1028=>"UK Catalysis Hub, Research Complex at Harwell, Rutherford Appleton Laboratory, Harwell Oxon, Didcot OX11 0FA, U.K.", 1029=>"Department of Chemistry, University College London, 20 Gordon Street, London WC1H 0AJ, U.K.", 1030=>"Diamond Light Source, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, U.K.", 1031=>"School of Chemistry, University of Southampton, Highfield, Southampton SO17 1BJ, U.K."}
+ Length = 112	Diamond Light Source Ltd., Diamond House; Harwell Science and Innovation Campus; Didcot Oxfordshire OX11 0DE, UKDiamond Light Source Ltd., Diamond House; Harwell Science
+Innovation Campus; Didcot Oxfordshire OX11 0DE, UK
+Innovation Campus; Didcot Oxfordshire OX11 0DE, UK
+Affi lines{1036=>"Department of Chemistry; Kathleen Lonsdale Materials Chemistry; University College London, 20 Gordon Street; London WC1H 0AJ UK", 1037=>"Diamond Light Source Ltd., Diamond House; Harwell Science and Innovation Campus; Didcot Oxfordshire OX11 0DE, UK"}
+ Length = 171	UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory; Harwell Science and Innovation Campus OX11 0QX UKUK Catalysis Hub, Research Complex at Harwell, Science
+Technology Facilities Council, Rutherford Appleton Laboratory; Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory; Harwell ScienceInnovation Campus OX11 0QX UK
+Innovation Campus OX11 0QX UK
+Affi lines{1045=>"UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory; Harwell Science and Innovation Campus OX11 0QX UK", 1046=>"Cardiff Catalysis Institute, School of Chemistry; Cardiff University; Cardiff CF10 3AT UK"}
+ Length = 156	ISIS Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory; Harwell Science and Innovation Campus OX11 0QX UKISIS Neutron
+ISIS NeutronMuon Facility, Science
+Muon Facility, ScienceTechnology Facilities Council, Rutherford Appleton Laboratory; Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory; Harwell ScienceInnovation Campus OX11 0QX UK
+Innovation Campus OX11 0QX UK
+Affi lines{1050=>"ISIS Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory; Harwell Science and Innovation Campus OX11 0QX UK"}
+ Length = 180	UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.UK Catalysis Hub, Research Complex at Harwell, Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell ScienceInnovation Campus, Oxon OX11 0QX, U.K.
+Innovation Campus, Oxon OX11 0QX, U.K.
+Affi lines{1053=>"Department of Chemistry, University College London, 20 Gordon Street, London WC1H 0AJ, U.K.", 1054=>"UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.", 1055=>"Cardiff Catalysis Institute, School of Chemistry, Cardiff University, Main Building, Park Place, Cardiff CF10 3AT, U.K."}
+ Length = 127	Analytical Sciences and Development, GSK, Medicines Research Centre, Gunnels Wood Road, Stevenage, Hertfordshire, SG1 2NY, U.K.Analytical Sciences
+Analytical SciencesDevelopment, GSK, Medicines Research Centre, Gunnels Wood Road, Stevenage, Hertfordshire, SG1 2NY, U.K.
+
+Affi lines{1057=>"School of Chemistry, University of Southampton, University Road, Southampton SO17 1BJ, U.K.", 1058=>"Analytical Sciences and Development, GSK, Medicines Research Centre, Gunnels Wood Road, Stevenage, Hertfordshire, SG1 2NY, U.K."}
+ Length = 180	UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.UK Catalysis Hub, Research Complex at Harwell, Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell ScienceInnovation Campus, Oxon OX11 0QX, U.K.
+Innovation Campus, Oxon OX11 0QX, U.K.
+Affi lines{1060=>"UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.", 1061=>"ISIS Pulsed Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K."}
+ Length = 172	ISIS Pulsed Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.ISIS Pulsed Neutron
+ISIS Pulsed NeutronMuon Facility, Science
+Muon Facility, ScienceTechnology Facilities Council, Rutherford Appleton Laboratory, Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell ScienceInnovation Campus, Oxon OX11 0QX, U.K.
+Innovation Campus, Oxon OX11 0QX, U.K.
+Affi lines{1060=>"UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.", 1061=>"ISIS Pulsed Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K."}
+ Length = 172	ISIS Pulsed Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.ISIS Pulsed Neutron
+ISIS Pulsed NeutronMuon Facility, Science
+Muon Facility, ScienceTechnology Facilities Council, Rutherford Appleton Laboratory, Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell ScienceInnovation Campus, Oxon OX11 0QX, U.K.
+Innovation Campus, Oxon OX11 0QX, U.K.
+Affi lines{1062=>"ISIS Pulsed Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K."}
+ Length = 180	UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.UK Catalysis Hub, Research Complex at Harwell, Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell ScienceInnovation Campus, Oxon OX11 0QX, U.K.
+Innovation Campus, Oxon OX11 0QX, U.K.
+Affi lines{1065=>"UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.", 1066=>"ISIS Pulsed Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K."}
+ Length = 172	ISIS Pulsed Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.ISIS Pulsed Neutron
+ISIS Pulsed NeutronMuon Facility, Science
+Muon Facility, ScienceTechnology Facilities Council, Rutherford Appleton Laboratory, Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell ScienceInnovation Campus, Oxon OX11 0QX, U.K.
+Innovation Campus, Oxon OX11 0QX, U.K.
+Affi lines{1065=>"UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.", 1066=>"ISIS Pulsed Neutron and Muon Facility, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K."}
+ Length = 180	UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.UK Catalysis Hub, Research Complex at Harwell, Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell ScienceInnovation Campus, Oxon OX11 0QX, U.K.
+Innovation Campus, Oxon OX11 0QX, U.K.
+Affi lines{1067=>"Department of Chemistry, University College London, 20 Gordon Street, London WC1H 0AJ, U.K.", 1068=>"UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.", 1069=>"Cardiff Catalysis Institute, School of Chemistry, Cardiff University, Main Building, Park Place, Cardiff CF10 3AT, U.K."}
+ Length = 180	UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K.UK Catalysis Hub, Research Complex at Harwell, Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science
+Technology Facilities Council, Rutherford Appleton Laboratory, Harwell ScienceInnovation Campus, Oxon OX11 0QX, U.K.
+Innovation Campus, Oxon OX11 0QX, U.K.
+Affi lines{1070=>"School of Chemistry, University of Southampton, University Road, Southampton SO17 1BJ, U.K.", 1071=>"UK Catalysis Hub, Research Complex at Harwell, Science and Technology Facilities Council, Rutherford Appleton Laboratory, Harwell Science and Innovation Campus, Oxon OX11 0QX, U.K."}
+ Length = 88	Department of Life, Health and Chemical Sciences, The Open University, Milton Keynes, UKDepartment of Life, Health
+Department of Life, HealthChemical Sciences, The Open University, Milton Keynes, UK
+
+Affi lines{1074=>"Department of Life, Health and Chemical Sciences, The Open University, Milton Keynes, UK"}
+ Length = 71	Diamond Light Source, Harwell Science and Innovation Campus, Didcot, UKDiamond Light Source, Harwell Science
+Diamond Light Source, Harwell ScienceInnovation Campus, Didcot, UK
+Innovation Campus, Didcot, UK
+Affi lines{1075=>"Diamond Light Source, Harwell Science and Innovation Campus, Didcot, UK"}
+ Length = 71	Diamond Light Source, Harwell Science and Innovation Campus, Didcot, UKDiamond Light Source, Harwell Science
+Diamond Light Source, Harwell ScienceInnovation Campus, Didcot, UK
+Innovation Campus, Didcot, UK
+Affi lines{1078=>"Rutherford Appleton Laboratory, UK Catalysis Hub, Research Complex at Harwell, Didcot, UK", 1079=>"Diamond Light Source, Harwell Science and Innovation Campus, Didcot, UK", 1080=>"School of Chemistry, University of Southampton, Southampton, UK"}
+ Length = 31	School of Physics and AstronomySchool of Physics
+School of PhysicsAstronomy
+Astronomy
+Affi lines{1101=>"School of Physics and Astronomy", 1102=>"Faculty of Physical Sciences and Engineering", 1103=>"University of Southampton", 1104=>"Highfield", 1105=>"Southampton"}
+ Length = 44	Faculty of Physical Sciences and EngineeringFaculty of Physical Sciences
+Faculty of Physical SciencesEngineering
+Engineering
+Affi lines{1101=>"School of Physics and Astronomy", 1102=>"Faculty of Physical Sciences and Engineering", 1103=>"University of Southampton", 1104=>"Highfield", 1105=>"Southampton"}
+ Length = 101	Department of Pure &amp; Applied Chemistry, University of Strathclyde, Glasgow G1 1XL, United KingdomDepartment of Pure 
+Department of Pure  Applied Chemistry, University of Strathclyde, Glasgow G1 1XL, United Kingdom
+["University of Strathclyde"]
+It is a single affilition
+Update 1126 to: Department of Pure & Applied Chemistry, University of Strathclyde, Glasgow G1 1XL, United Kingdom
+Affi lines{1126=>"Department of Pure & Applied Chemistry, University of Strathclyde, Glasgow G1 1XL, United Kingdom", 1127=>"EaSTCHEM School of Chemistry, University of St Andrews, St Andrews KY16 9ST, United Kingdom"}
+ Length = 111	Diamond Light Source Ltd, Diamond House, Harwell Science and Innovation Campus, OX11 0DE Didcot, United KingdomDiamond Light Source Ltd, Diamond House, Harwell Science
+Diamond Light Source Ltd, Diamond House, Harwell ScienceInnovation Campus, OX11 0DE Didcot, United Kingdom
+Innovation Campus, OX11 0DE Didcot, United Kingdom
+Affi lines{1134=>"Diamond Light Source Ltd, Diamond House, Harwell Science and Innovation Campus, OX11 0DE Didcot, United Kingdom"}
+ Length = 111	Diamond Light Source Ltd, Diamond House, Harwell Science and Innovation Campus, OX11 0DE Didcot, United KingdomDiamond Light Source Ltd, Diamond House, Harwell Science
+Diamond Light Source Ltd, Diamond House, Harwell ScienceInnovation Campus, OX11 0DE Didcot, United Kingdom
+Innovation Campus, OX11 0DE Didcot, United Kingdom
+Affi lines{1135=>"Diamond Light Source Ltd, Diamond House, Harwell Science and Innovation Campus, OX11 0DE Didcot, United Kingdom"}
+ Length = 37	Harwell Science and Innovation CampusHarwell Science
+Harwell ScienceInnovation Campus
+Innovation Campus
+Affi lines{1154=>"Diamond Light Source", 1155=>"Harwell Science and Innovation Campus", 1156=>"Didcot", 1157=>"UK"}
+ Length = 37	Harwell Science and Innovation CampusHarwell Science
+Harwell ScienceInnovation Campus
+Innovation Campus
+Affi lines{1163=>"Diamond Light Source", 1164=>"Harwell Science and Innovation Campus", 1165=>"Didcot", 1166=>"UK"}
+ Length = 51	Department of Chemical and Biomolecular EngineeringDepartment of Chemical
+Department of ChemicalBiomolecular Engineering
+Biomolecular Engineering
+Affi lines{1298=>"Department of Chemical and Biomolecular Engineering", 1299=>"Georgia Institute of Technology", 1300=>"Atlanta", 1301=>"USA"}
+ Length = 72	Science and Technology Facilities Council Rutherford Appleton LaboratoryScience
+ScienceTechnology Facilities Council Rutherford Appleton Laboratory
+Technology Facilities Council Rutherford Appleton Laboratory
+Affi lines{1306=>"UK Catalysis Hub, Research Complex at Harwell", 1307=>"Science and Technology Facilities Council Rutherford Appleton Laboratory", 1308=>"Harwell Science and Innovation Campus", 1309=>"Oxon OX11 0QX", 1310=>"UK"}
+ Length = 37	Harwell Science and Innovation CampusHarwell Science
+Harwell ScienceInnovation Campus
+Innovation Campus
+Affi lines{1306=>"UK Catalysis Hub, Research Complex at Harwell", 1307=>"Science and Technology Facilities Council Rutherford Appleton Laboratory", 1308=>"Harwell Science and Innovation Campus", 1309=>"Oxon OX11 0QX", 1310=>"UK"}
+ Length = 72	Science and Technology Facilities Council Rutherford Appleton LaboratoryScience
+ScienceTechnology Facilities Council Rutherford Appleton Laboratory
+Technology Facilities Council Rutherford Appleton Laboratory
+Affi lines{1311=>"UK Catalysis Hub, Research Complex at Harwell", 1312=>"Science and Technology Facilities Council Rutherford Appleton Laboratory", 1313=>"Harwell Science and Innovation Campus", 1314=>"Oxon OX11 0QX", 1315=>"UK"}
+ Length = 37	Harwell Science and Innovation CampusHarwell Science
+Harwell ScienceInnovation Campus
+Innovation Campus
+Affi lines{1311=>"UK Catalysis Hub, Research Complex at Harwell", 1312=>"Science and Technology Facilities Council Rutherford Appleton Laboratory", 1313=>"Harwell Science and Innovation Campus", 1314=>"Oxon OX11 0QX", 1315=>"UK"}
+ Length = 30	ISIS Neutron and Muon FacilityISIS Neutron
+ISIS NeutronMuon Facility
+Muon Facility
+Affi lines{1320=>"ISIS Neutron and Muon Facility", 1321=>"Science and Technology Facilities Council", 1322=>"Rutherford Appleton Laboratory", 1323=>"Didcot", 1324=>"UK"}
+ Length = 41	Science and Technology Facilities CouncilScience
+ScienceTechnology Facilities Council
+Technology Facilities Council
+Affi lines{1320=>"ISIS Neutron and Muon Facility", 1321=>"Science and Technology Facilities Council", 1322=>"Rutherford Appleton Laboratory", 1323=>"Didcot", 1324=>"UK"}
+ Length = 30	ISIS Neutron and Muon FacilityISIS Neutron
+ISIS NeutronMuon Facility
+Muon Facility
+Affi lines{1325=>"ISIS Neutron and Muon Facility", 1326=>"Science and Technology Facilities Council", 1327=>"Rutherford Appleton Laboratory", 1328=>"Didcot", 1329=>"UK"}
+ Length = 41	Science and Technology Facilities CouncilScience
+ScienceTechnology Facilities Council
+Technology Facilities Council
+Affi lines{1325=>"ISIS Neutron and Muon Facility", 1326=>"Science and Technology Facilities Council", 1327=>"Rutherford Appleton Laboratory", 1328=>"Didcot", 1329=>"UK"}
+ Length = 116	State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 ChinaState Key Laboratory of Chemical Engineering; East China University of Science
+State Key Laboratory of Chemical Engineering; East China University of ScienceTechnology; Shanghai 200237 China
+Technology; Shanghai 200237 China
+Affi lines{1459=>"State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 China", 1460=>"Dept. of Chemical Engineering; University College London; London WC1E 7JE U.K."}
+ Length = 116	State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 ChinaState Key Laboratory of Chemical Engineering; East China University of Science
+State Key Laboratory of Chemical Engineering; East China University of ScienceTechnology; Shanghai 200237 China
+Technology; Shanghai 200237 China
+Affi lines{1461=>"State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 China"}
+ Length = 116	State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 ChinaState Key Laboratory of Chemical Engineering; East China University of Science
+State Key Laboratory of Chemical Engineering; East China University of ScienceTechnology; Shanghai 200237 China
+Technology; Shanghai 200237 China
+Affi lines{1462=>"State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 China"}
+ Length = 121	State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 P.R. ChinaState Key Laboratory of Chemical Engineering; East China University of Science
+State Key Laboratory of Chemical Engineering; East China University of ScienceTechnology; Shanghai 200237 P.R. China
+Technology; Shanghai 200237 P.R. China
+Affi lines{1464=>"State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 P.R. China"}
+ Length = 121	State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 P.R. ChinaState Key Laboratory of Chemical Engineering; East China University of Science
+State Key Laboratory of Chemical Engineering; East China University of ScienceTechnology; Shanghai 200237 P.R. China
+Technology; Shanghai 200237 P.R. China
+Affi lines{1465=>"State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 P.R. China"}
+ Length = 121	State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 P.R. ChinaState Key Laboratory of Chemical Engineering; East China University of Science
+State Key Laboratory of Chemical Engineering; East China University of ScienceTechnology; Shanghai 200237 P.R. China
+Technology; Shanghai 200237 P.R. China
+Affi lines{1466=>"State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 P.R. China"}
+ Length = 121	State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 P.R. ChinaState Key Laboratory of Chemical Engineering; East China University of Science
+State Key Laboratory of Chemical Engineering; East China University of ScienceTechnology; Shanghai 200237 P.R. China
+Technology; Shanghai 200237 P.R. China
+Affi lines{1467=>"State Key Laboratory of Chemical Engineering; East China University of Science and Technology; Shanghai 200237 P.R. China"}
+ Length = 129	Department of Science and Technological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria ItalyDepartment of Science
+Department of ScienceTechnological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria Italy
+
+Affi lines{1469=>"Department of Science and Technological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria Italy"}
+ Length = 108	School of Chemistry; Faculty of Natural and Environmental Sciences; University of Southampton; SO17 1BJ U.K.School of Chemistry; Faculty of Natural
+School of Chemistry; Faculty of NaturalEnvironmental Sciences; University of Southampton; SO17 1BJ U.K.
+
+Affi lines{1470=>"School of Chemistry; Faculty of Natural and Environmental Sciences; University of Southampton; SO17 1BJ U.K."}
+ Length = 129	Department of Science and Technological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria ItalyDepartment of Science
+Department of ScienceTechnological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria Italy
+
+Affi lines{1471=>"Department of Science and Technological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria Italy"}
+ Length = 129	Department of Science and Technological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria ItalyDepartment of Science
+Department of ScienceTechnological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria Italy
+
+Affi lines{1472=>"Department of Science and Technological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria Italy"}
+ Length = 108	School of Chemistry; Faculty of Natural and Environmental Sciences; University of Southampton; SO17 1BJ U.K.School of Chemistry; Faculty of Natural
+School of Chemistry; Faculty of NaturalEnvironmental Sciences; University of Southampton; SO17 1BJ U.K.
+
+Affi lines{1473=>"School of Chemistry; Faculty of Natural and Environmental Sciences; University of Southampton; SO17 1BJ U.K."}
+ Length = 129	Department of Science and Technological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria ItalyDepartment of Science
+Department of ScienceTechnological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria Italy
+
+Affi lines{1474=>"Department of Science and Technological Innovation; Università del Piemonte Orientale; Viale T. Michel 11 15121 Alessandria Italy"}
+ Length = 105	Diamond Light Source Ltd, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United KingdomDiamond Light Source Ltd, Harwell Science
+Diamond Light Source Ltd, Harwell ScienceInnovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Affi lines{1507=>"Diamond Light Source Ltd, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom"}
+ Length = 105	Diamond Light Source Ltd, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United KingdomDiamond Light Source Ltd, Harwell Science
+Diamond Light Source Ltd, Harwell ScienceInnovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Affi lines{1510=>"Diamond Light Source Ltd, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom"}
+ Length = 113	Department of Materials Science and Engineering Lehigh University, 5 East Packer Avenue, Bethlehem, PA 18015, USADepartment of Materials Science
+Department of Materials ScienceEngineering Lehigh University, 5 East Packer Avenue, Bethlehem, PA 18015, USA
+
+Affi lines{1525=>"Department of Materials Science and Engineering Lehigh University, 5 East Packer Avenue, Bethlehem, PA 18015, USA"}
+ Length = 113	Department of Materials Science and Engineering Lehigh University, 5 East Packer Avenue, Bethlehem, PA 18015, USADepartment of Materials Science
+Department of Materials ScienceEngineering Lehigh University, 5 East Packer Avenue, Bethlehem, PA 18015, USA
+
+Affi lines{1526=>"Department of Materials Science and Engineering Lehigh University, 5 East Packer Avenue, Bethlehem, PA 18015, USA"}
+ Length = 211	Center for Catalysis, Department of Chemistry and Center of Excellence for Innovation in Chemistry, Faculty of Science, Mahidol University, 272 Rama VI Road, Thung Phayathai, Ratchathewi, Bangkok 10400, ThailandCenter for Catalysis, Department of Chemistry
+Center for Catalysis, Department of ChemistryCenter of Excellence for Innovation in Chemistry, Faculty of Science, Mahidol University, 272 Rama VI Road, Thung Phayathai, Ratchathewi, Bangkok 10400, Thailand
+
+Affi lines{1532=>"Chemistry Research Laboratory, Mansfield Road, Oxford, OX1 3TA, United Kingdom", 1533=>"Center for Catalysis, Department of Chemistry and Center of Excellence for Innovation in Chemistry, Faculty of Science, Mahidol University, 272 Rama VI Road, Thung Phayathai, Ratchathewi, Bangkok 10400, Thailand"}
+ Length = 140	College of Environmental Science and Engineering, Beijing Forestry University, 35 Qinghua East Road, Haidian District, Beijing 100083, ChinaCollege of Environmental Science
+College of Environmental ScienceEngineering, Beijing Forestry University, 35 Qinghua East Road, Haidian District, Beijing 100083, China
+
+Affi lines{1539=>"Chemistry Research Laboratory, Mansfield Road, Oxford, OX1 3TA, United Kingdom", 1540=>"College of Environmental Science and Engineering, Beijing Forestry University, 35 Qinghua East Road, Haidian District, Beijing 100083, China"}
+ Length = 211	Center for Catalysis, Department of Chemistry and Center of Excellence for Innovation in Chemistry, Faculty of Science, Mahidol University, 272 Rama VI Road, Thung Phayathai, Ratchathewi, Bangkok 10400, ThailandCenter for Catalysis, Department of Chemistry
+Center for Catalysis, Department of ChemistryCenter of Excellence for Innovation in Chemistry, Faculty of Science, Mahidol University, 272 Rama VI Road, Thung Phayathai, Ratchathewi, Bangkok 10400, Thailand
+
+Affi lines{1541=>"Center for Catalysis, Department of Chemistry and Center of Excellence for Innovation in Chemistry, Faculty of Science, Mahidol University, 272 Rama VI Road, Thung Phayathai, Ratchathewi, Bangkok 10400, Thailand"}
+ Length = 169	State Key Laboratory of High Performance Ceramics and Superfine Microstructure, Shanghai Institute of Ceramics, Chinese Academy of Sciences, Shanghai 200050, P. R. ChinaState Key Laboratory of High Performance Ceramics
+State Key Laboratory of High Performance CeramicsSuperfine Microstructure, Shanghai Institute of Ceramics, Chinese Academy of Sciences, Shanghai 200050, P. R. China
+
+Affi lines{1559=>"State Key Laboratory of High Performance Ceramics and Superfine Microstructure, Shanghai Institute of Ceramics, Chinese Academy of Sciences, Shanghai 200050, P. R. China", 1560=>"Cardiff Catalysis Institute, School of Chemistry, Cardiff University, Main Building, Park Place, Cardiff, CF10 3AT, U.K."}
+ Length = 139	Department of Materials Science and Engineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015-3195, United StatesDepartment of Materials Science
+Department of Materials ScienceEngineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015-3195, United States
+
+Affi lines{1566=>"Department of Materials Science and Engineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015-3195, United States"}
+ Length = 169	State Key Laboratory of High Performance Ceramics and Superfine Microstructure, Shanghai Institute of Ceramics, Chinese Academy of Sciences, Shanghai 200050, P. R. ChinaState Key Laboratory of High Performance Ceramics
+State Key Laboratory of High Performance CeramicsSuperfine Microstructure, Shanghai Institute of Ceramics, Chinese Academy of Sciences, Shanghai 200050, P. R. China
+
+Affi lines{1567=>"State Key Laboratory of High Performance Ceramics and Superfine Microstructure, Shanghai Institute of Ceramics, Chinese Academy of Sciences, Shanghai 200050, P. R. China"}
+ Length = 139	Department of Materials Science and Engineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015-3195, United StatesDepartment of Materials Science
+Department of Materials ScienceEngineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015-3195, United States
+
+Affi lines{1568=>"Department of Materials Science and Engineering, Lehigh University, 5 East Packer Avenue, Bethlehem, Pennsylvania 18015-3195, United States"}
+ Length = 97	Institute of Materials Research and Engineering (IMRE), A*STAR, 3 Research Link, Singapore 117602Institute of Materials Research
+Institute of Materials ResearchEngineering (IMRE), A*STAR, 3 Research Link, Singapore 117602
+
+Affi lines{1570=>"School of Chemistry, University of Southampton, Southampton SO17 1BJ, U.K.,", 1571=>"Institute of Materials Research and Engineering (IMRE), A*STAR, 3 Research Link, Singapore 117602"}
+ Length = 94	Department of Chemistry and Tyndall National Institute, University College Cork, Cork, IrelandDepartment of Chemistry
+Department of ChemistryTyndall National Institute, University College Cork, Cork, Ireland
+
+Affi lines{1575=>"Department of Chemistry and Tyndall National Institute, University College Cork, Cork, Ireland", 1576=>"AMBER@CRANN, Trinity College Dublin, Dublin 2, Ireland"}
+ Length = 94	Department of Chemistry and Tyndall National Institute, University College Cork, Cork, IrelandDepartment of Chemistry
+Department of ChemistryTyndall National Institute, University College Cork, Cork, Ireland
+
+Affi lines{1578=>"Department of Chemistry and Tyndall National Institute, University College Cork, Cork, Ireland", 1579=>"AMBER@CRANN, Trinity College Dublin, Dublin 2, Ireland"}
+ Length = 97	Institute of Materials Research and Engineering (IMRE), A*STAR, 3 Research Link, Singapore 117602Institute of Materials Research
+Institute of Materials ResearchEngineering (IMRE), A*STAR, 3 Research Link, Singapore 117602
+
+Affi lines{1580=>"Institute of Materials Research and Engineering (IMRE), A*STAR, 3 Research Link, Singapore 117602", 1581=>"Department of Chemistry, National University of Singapore, 3 Science Drive 3, Singapore 117543"}
+ Length = 105	Diamond Light Source Ltd, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United KingdomDiamond Light Source Ltd, Harwell Science
+Diamond Light Source Ltd, Harwell ScienceInnovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom
+Affi lines{1588=>"Diamond Light Source Ltd, Harwell Science and Innovation Campus, Chilton, Didcot OX11 0DE, United Kingdom"}
+ Length = 144	Nanoscale Physics Research Laboratory, School of Physics and Astronomy, University of Birmingham, Edgbaston, Birmingham, B15 2TT, United KingdomNanoscale Physics Research Laboratory, School of Physics
+Nanoscale Physics Research Laboratory, School of PhysicsAstronomy, University of Birmingham, Edgbaston, Birmingham, B15 2TT, United Kingdom
+
+Affi lines{1593=>"Nanoscale Physics Research Laboratory, School of Physics and Astronomy, University of Birmingham, Edgbaston, Birmingham, B15 2TT, United Kingdom"}
+ Length = 144	Nanoscale Physics Research Laboratory, School of Physics and Astronomy, University of Birmingham, Edgbaston, Birmingham, B15 2TT, United KingdomNanoscale Physics Research Laboratory, School of Physics
+Nanoscale Physics Research Laboratory, School of PhysicsAstronomy, University of Birmingham, Edgbaston, Birmingham, B15 2TT, United Kingdom
+
+Affi lines{1595=>"Nanoscale Physics Research Laboratory, School of Physics and Astronomy, University of Birmingham, Edgbaston, Birmingham, B15 2TT, United Kingdom"}
+ Length = 47	Department of Materials Science and EngineeringDepartment of Materials Science
+Department of Materials ScienceEngineering
+Engineering
+Affi lines{1621=>"Department of Materials Science and Engineering", 1622=>"Lehigh University", 1623=>"Bethlehem, USA"}
+ Length = 47	Department of Materials Science and EngineeringDepartment of Materials Science
+Department of Materials ScienceEngineering
+Engineering
+Affi lines{1624=>"Department of Materials Science and Engineering", 1625=>"Lehigh University", 1626=>"Bethlehem, USA"}
+ Length = 47	Department of Materials Science and EngineeringDepartment of Materials Science
+Department of Materials ScienceEngineering
+Engineering
+Affi lines{1639=>"Department of Materials Science and Engineering", 1640=>"Lehigh University", 1641=>"Bethlehem, USA"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1660=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1661=>"Aarhus University", 1662=>"DK-8000 Aarhus C, Denmark"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1668=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1669=>"Aarhus University", 1670=>"DK-8000 Aarhus C, Denmark", 1671=>"Department of Chemistry"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1686=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1687=>"Aarhus University", 1688=>"DK-8000 Aarhus C, Denmark", 1689=>"Department of Chemistry"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1695=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1696=>"Aarhus University", 1697=>"DK-8000 Aarhus C, Denmark"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1703=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1704=>"Aarhus University", 1705=>"DK-8000 Aarhus C, Denmark"}
+ Length = 47	Department of Materials Science and EngineeringDepartment of Materials Science
+Department of Materials ScienceEngineering
+Engineering
+Affi lines{1711=>"Department of Materials Science and Engineering", 1712=>"Lehigh University", 1713=>"Bethlehem, USA"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1714=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1715=>"Aarhus University", 1716=>"DK-8000 Aarhus C, Denmark", 1717=>"Department of Chemistry and Interdisciplinary Nanoscience Center (iNANO)"}
+ Length = 72	Department of Chemistry and Interdisciplinary Nanoscience Center (iNANO)Department of Chemistry
+Department of ChemistryInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)
+Affi lines{1714=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1715=>"Aarhus University", 1716=>"DK-8000 Aarhus C, Denmark", 1717=>"Department of Chemistry and Interdisciplinary Nanoscience Center (iNANO)"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1718=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1719=>"Aarhus University", 1720=>"DK-8000 Aarhus C, Denmark", 1721=>"School of Chemical Engineering and Technology", 1722=>"Harbin Institute of Technology"}
+ Length = 45	School of Chemical Engineering and TechnologySchool of Chemical Engineering
+School of Chemical EngineeringTechnology
+Technology
+Affi lines{1718=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1719=>"Aarhus University", 1720=>"DK-8000 Aarhus C, Denmark", 1721=>"School of Chemical Engineering and Technology", 1722=>"Harbin Institute of Technology"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1728=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1729=>"Aarhus University", 1730=>"DK-8000 Aarhus C, Denmark"}
+ Length = 45	School of Chemical Engineering and TechnologySchool of Chemical Engineering
+School of Chemical EngineeringTechnology
+Technology
+Affi lines{1731=>"School of Chemical Engineering and Technology", 1732=>"Harbin Institute of Technology", 1733=>"150001 Harbin, China"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1734=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1735=>"Aarhus University", 1736=>"DK-8000 Aarhus C, Denmark", 1737=>"Department of Chemistry and Interdisciplinary Nanoscience Center (iNANO)"}
+ Length = 72	Department of Chemistry and Interdisciplinary Nanoscience Center (iNANO)Department of Chemistry
+Department of ChemistryInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)
+Affi lines{1734=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1735=>"Aarhus University", 1736=>"DK-8000 Aarhus C, Denmark", 1737=>"Department of Chemistry and Interdisciplinary Nanoscience Center (iNANO)"}
+ Length = 47	Department of Materials Science and EngineeringDepartment of Materials Science
+Department of Materials ScienceEngineering
+Engineering
+Affi lines{1738=>"Department of Materials Science and Engineering", 1739=>"Lehigh University", 1740=>"Bethlehem, USA"}
+ Length = 84	Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and AstronomyInterdisciplinary Nanoscience Center (iNANO)
+Interdisciplinary Nanoscience Center (iNANO)Department of Physics
+Department of PhysicsAstronomy
+Astronomy
+Affi lines{1741=>"Interdisciplinary Nanoscience Center (iNANO) and Department of Physics and Astronomy", 1742=>"Aarhus University", 1743=>"DK-8000 Aarhus C, Denmark"}
+ Length = 89	Diamond Light Source, Harwell Science and innovation Campus, Didcot, Oxon, OX11 0DE, U.K.Diamond Light Source, Harwell Science
+Diamond Light Source, Harwell Scienceinnovation Campus, Didcot, Oxon, OX11 0DE, U.K.
+innovation Campus, Didcot, Oxon, OX11 0DE, U.K.
+Affi lines{1760=>"Diamond Light Source, Harwell Science and innovation Campus, Didcot, Oxon, OX11 0DE, U.K."}
+ Length = 89	Diamond Light Source, Harwell Science and innovation Campus, Didcot, Oxon, OX11 0DE, U.K.Diamond Light Source, Harwell Science
+Diamond Light Source, Harwell Scienceinnovation Campus, Didcot, Oxon, OX11 0DE, U.K.
+innovation Campus, Didcot, Oxon, OX11 0DE, U.K.
+Affi lines{1761=>"Diamond Light Source, Harwell Science and innovation Campus, Didcot, Oxon, OX11 0DE, U.K."}
+ Length = 89	Diamond Light Source, Harwell Science and innovation Campus, Didcot, Oxon, OX11 0DE, U.K.Diamond Light Source, Harwell Science
+Diamond Light Source, Harwell Scienceinnovation Campus, Didcot, Oxon, OX11 0DE, U.K.
+innovation Campus, Didcot, Oxon, OX11 0DE, U.K.
+Affi lines{1763=>"Kathleen Lonsdale Materials, Department of Chemistry, University College London, Gordon Street, London, WC1H 0AJ, U.K.", 1764=>"Diamond Light Source, Harwell Science and innovation Campus, Didcot, Oxon, OX11 0DE, U.K."}
+ Length = 51	Department of Chemical and Biomolecular EngineeringDepartment of Chemical
+Department of ChemicalBiomolecular Engineering
+Biomolecular Engineering
+Affi lines{19=>"Department of Chemical and Biomolecular Engineering", 20=>"Yonsei University", 21=>"Seoul 03722", 22=>"South Korea"}
+ Length = 51	Department of Chemical and Biomolecular EngineeringDepartment of Chemical
+Department of ChemicalBiomolecular Engineering
+Biomolecular Engineering
+Affi lines{23=>"Department of Chemical and Biomolecular Engineering", 24=>"Yonsei University", 25=>"Seoul 03722", 26=>"South Korea"}
+ Length = 87	School of Science Engineering and EnvironmentUniversity of Salford Manchester M5 4WT UKSchool of Science Engineering
+School of Science EngineeringEnvironmentUniversity of Salford Manchester M5 4WT UK
+
+Affi lines{72=>"School of Science Engineering and EnvironmentUniversity of Salford Manchester M5 4WT UK", 73=>"Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UK"}
+ Length = 76	Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UKDiamond Light SourceHarwell Science
+Diamond Light SourceHarwell ScienceInnovation Campus Didcot OX11 0DE UK
+Innovation Campus Didcot OX11 0DE UK
+Affi lines{72=>"School of Science Engineering and EnvironmentUniversity of Salford Manchester M5 4WT UK", 73=>"Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UK"}
+ Length = 76	Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UKDiamond Light SourceHarwell Science
+Diamond Light SourceHarwell ScienceInnovation Campus Didcot OX11 0DE UK
+Innovation Campus Didcot OX11 0DE UK
+Affi lines{77=>"Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UK"}
+ Length = 87	School of Science Engineering and EnvironmentUniversity of Salford Manchester M5 4WT UKSchool of Science Engineering
+School of Science EngineeringEnvironmentUniversity of Salford Manchester M5 4WT UK
+
+Affi lines{82=>"School of Science Engineering and EnvironmentUniversity of Salford Manchester M5 4WT UK"}
+ Length = 76	Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UKDiamond Light SourceHarwell Science
+Diamond Light SourceHarwell ScienceInnovation Campus Didcot OX11 0DE UK
+Innovation Campus Didcot OX11 0DE UK
+Affi lines{83=>"Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UK"}
+ Length = 76	Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UKDiamond Light SourceHarwell Science
+Diamond Light SourceHarwell ScienceInnovation Campus Didcot OX11 0DE UK
+Innovation Campus Didcot OX11 0DE UK
+Affi lines{84=>"Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UK"}
+ Length = 76	Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UKDiamond Light SourceHarwell Science
+Diamond Light SourceHarwell ScienceInnovation Campus Didcot OX11 0DE UK
+Innovation Campus Didcot OX11 0DE UK
+Affi lines{85=>"Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UK"}
+ Length = 76	Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UKDiamond Light SourceHarwell Science
+Diamond Light SourceHarwell ScienceInnovation Campus Didcot OX11 0DE UK
+Innovation Campus Didcot OX11 0DE UK
+Affi lines{86=>"Diamond Light SourceHarwell Science and Innovation Campus Didcot OX11 0DE UK", 87=>"Department of ChemistryUniversity of Reading Reading RG6 6AD UK"}
