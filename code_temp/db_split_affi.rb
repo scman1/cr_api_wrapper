@@ -191,6 +191,7 @@ def create_affi_obj(lines_list, auth_id)
     end
     tkn_idx += 1
   end
+
   # make sure there is a short name, if blank make it the same as name
   if auth_affi.short_name == nil
     auth_affi.short_name = auth_affi.name
@@ -220,17 +221,14 @@ def create_affi_obj(lines_list, auth_id)
     end
     # look for country in institution table
     if auth_affi.country.to_s == ""  then
-      #printf "\n Before if %s", auth_affi.name
       inst_found = auth_affi.name
       # separate lookup for sysnonyms as they are not registered as institution
       if $affi_institutions.include?(auth_affi.name)
         inst_found = auth_affi.name
-        #printf "\n Before sendig %s", inst_found
         ctry = get_value("Affiliations", "country", "institution", inst_found.strip)
         auth_affi.country = ctry
       elsif $affi_institutions.include?(auth_affi.short_name)
         inst_found = auth_affi.short_name
-        #printf "\n Before sendig %s", inst_found
         ctry = get_value("Affiliations", "country", "institution", inst_found.strip)
         auth_affi.country = ctry
       elsif $institution_synonyms.keys.include?(auth_affi.name.to_sym)
@@ -244,8 +242,6 @@ def create_affi_obj(lines_list, auth_id)
       end
     end
   end
-  ## just for debugging
-  #auth_affi.print()
   return auth_affi
 end
 
@@ -710,14 +706,12 @@ begin
     if single_ctr > 1
       print "\n"
       print affi_lines
-      print "\nProcess all lines as one affiliation"
+      print "\nProcess lines as one affiliation?"
       affi_split = affi_splits(affi_lines.values) # for cases when multiple affiliations stored vertically
-      print affi_split
       if affi_split.count > 1
         print ("\n***************************************************************\n")
         print affi_split
       end
-
       affi_split.each do | an_affi|
         auth_affi = create_affi_obj(an_affi, auth_id)
         continue = affi_object_well_formed(auth_affi, affi_lines, false, auth_id)
