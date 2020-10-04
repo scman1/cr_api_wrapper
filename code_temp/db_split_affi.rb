@@ -703,11 +703,14 @@ begin
       if affi_split.count > 1
         print ("\n***************************************************************\n")
         print affi_split
-        #break
       end
-      auth_affi = create_affi_obj(affi_lines.values, auth_id)
-      continue = affi_object_well_formed(auth_affi, affi_lines, false, auth_id)
-      auth_affi.print()
+      
+      affi_split.each do | an_affi|
+        auth_affi = create_affi_obj(an_affi, auth_id)
+        continue = affi_object_well_formed(auth_affi, affi_lines, false, auth_id)
+        auth_affi.print()
+      end
+
     else
       print "\n"
       print affi_lines
