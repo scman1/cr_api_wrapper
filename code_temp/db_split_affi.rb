@@ -155,12 +155,13 @@ def create_affi_obj(lines_list, auth_id)
         # if the affiliation name is not an institution
         # add institution to name and make short name the institution
         # otherwise shot name is the same as name
-        if !$affi_institutions.include?(auth_affi.name) or \
-          !$institution_synonyms.keys.include?(auth_affi.name.to_sym) then
+        if $affi_institutions.include?(auth_affi.name) or \
+          $institution_synonyms.keys.include?(auth_affi.name.to_sym) then
+          auth_affi.short_name = auth_affi.name
+          auth_affi.add_01 = a_line
+        else
           auth_affi.name = auth_affi.name + ", " + a_line
           auth_affi.short_name = a_line
-        else
-          auth_affi.short_name = auth_affi.name
         end
       end
     elsif $institution_synonyms.keys.include?(a_line.to_sym) then
@@ -191,6 +192,11 @@ def create_affi_obj(lines_list, auth_id)
     end
     tkn_idx += 1
   end
+  # make sure there is a short name, if blank make it the same as name
+  if auth_affi.short_name == nil
+    auth_affi.short_name = auth_affi.name
+  end
+
   # if country is missing get check all addres lines in object
   if auth_affi.country == nil
     got_it = false
@@ -618,7 +624,10 @@ def affi_splits(affi_lines)
   prev_idx = 0
   if all_insts.count > 1
     all_insts[1..].each do |inst_indx| #ignore the first index
-      if inst_indx > 1 and inst_indx-1 > prev_idx  # 0 and 1 can have institutions such as UKCH+RCaH
+      # distance between institution has to be greather than 1
+      # 0 and 1, for instance can have institutions such as UKCH+RCaH
+      # ignore the two first occurrences
+      if inst_indx > 1 and inst_indx-1 > prev_idx
         return_splits.append(temp_lines[prev_idx..inst_indx-1])
         prev_idx = inst_indx
       end
