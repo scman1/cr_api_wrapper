@@ -109,7 +109,6 @@ def get_value(table, field_val, field_ftr, filter_val)
   #print filter_val
   sql_statement = "SELECT " + field_val + " FROM " + table + " WHERE " + \
    field_ftr + " = '" + filter_val + "';"
-   print sql_statement
   db = get_db()
   stm = db.prepare sql_statement
   rs = stm.execute
@@ -220,21 +219,26 @@ def create_affi_obj(lines_list, auth_id)
       auth_affi.country = ctry
     end
     # look for country in institution table
-    # print auth_affi.country
-    #
     if auth_affi.country.to_s == ""  then
       #printf "\n Before if %s", auth_affi.name
       inst_found = auth_affi.name
-      if $affi_institutions.include?(auth_affi.name) or \
-        $institution_synonyms.keys.include?(auth_affi.name.to_sym) then
+      # separate lookup for sysnonyms as they are not registered as institution
+      if $affi_institutions.include?(auth_affi.name)
         inst_found = auth_affi.name
         #printf "\n Before sendig %s", inst_found
         ctry = get_value("Affiliations", "country", "institution", inst_found.strip)
         auth_affi.country = ctry
-      elsif $affi_institutions.include?(auth_affi.short_name) or \
-        $institution_synonyms.keys.include?(auth_affi.short_name.to_s.to_sym) then
+      elsif $affi_institutions.include?(auth_affi.short_name)
         inst_found = auth_affi.short_name
         #printf "\n Before sendig %s", inst_found
+        ctry = get_value("Affiliations", "country", "institution", inst_found.strip)
+        auth_affi.country = ctry
+      elsif $institution_synonyms.keys.include?(auth_affi.name.to_sym)
+        inst_found = $institution_synonyms[auth_affi.name.to_sym]
+        ctry = get_value("Affiliations", "country", "institution", inst_found.strip)
+        auth_affi.country = ctry
+      elsif $institution_synonyms.keys.include?(auth_affi.short_name.to_sym)
+        inst_found = $institution_synonyms[auth_affi.short_name.to_sym]
         ctry = get_value("Affiliations", "country", "institution", inst_found.strip)
         auth_affi.country = ctry
       end
