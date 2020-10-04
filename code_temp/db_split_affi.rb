@@ -602,6 +602,36 @@ def process_multi(affi_lines, auth_id)
   return affi_lines
 end
 
+def affi_splits(affi_lines)
+  all_insts=[]
+  temp_lines = affi_lines
+  return_splits = []
+  affi_lines.each do |a_line|
+    inst_found = get_institution(a_line)
+    if inst_found == nil then
+      inst_found = get_institution_synonym(a_line)
+    end
+    if inst_found != nil and inst_found.to_s.downcase.strip == a_line.to_s.downcase.strip then
+      all_insts.append(affi_lines.find_index(a_line))
+    end
+  end
+  prev_idx = 0
+  if all_insts.count > 1
+    all_insts[1..].each do |inst_indx| #ignore the first index
+      if inst_indx > 1 # 0 and 1 can have institutions such as UKCH+RCaH
+        return_splits.append(temp_lines[prev_idx..inst_indx-1])
+        prev_idx = inst_indx
+      end
+    end
+  end
+  if prev_idx != 0
+    return_splits.append(temp_lines[prev_idx.. ])
+  else
+    return_splits = [affi_lines]
+  end
+  return return_splits
+end
+
 # list of country sysnonyms
 # (need to persist somewhere)
 $country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
@@ -621,6 +651,7 @@ $institution_synonyms = {"The ISIS facility":"ISIS Neutron and Muon Source",
     "STFC":"Science and Technology Facilities Councils",
     "Oxford University":"University of Oxford",
     "University of St Andrews":"University of St. Andrews",
+    "Diamond Light Source Ltd Harwell Science and Innovation Campus":"Diamond Light Source Ltd.",
     "Diamond Light Source":"Diamond Light Source Ltd.",
     "ISIS Facility":"ISIS Neutron and Muon Source",
     "University College of London":"University College London"}
@@ -667,6 +698,13 @@ begin
       print "\n"
       print affi_lines
       print "\nProcess all lines as one affiliation"
+      affi_split = affi_splits(affi_lines.values) # for cases when multiple affiliations stored vertically
+      print affi_split
+      if affi_split.count > 1
+        print ("\n***************************************************************\n")
+        print affi_split
+        #break
+      end
       auth_affi = create_affi_obj(affi_lines.values, auth_id)
       continue = affi_object_well_formed(auth_affi, affi_lines, false, auth_id)
       auth_affi.print()
