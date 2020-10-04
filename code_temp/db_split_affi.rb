@@ -618,7 +618,7 @@ def affi_splits(affi_lines)
   prev_idx = 0
   if all_insts.count > 1
     all_insts[1..].each do |inst_indx| #ignore the first index
-      if inst_indx > 1 # 0 and 1 can have institutions such as UKCH+RCaH
+      if inst_indx > 1 and inst_indx-1 > prev_idx  # 0 and 1 can have institutions such as UKCH+RCaH
         return_splits.append(temp_lines[prev_idx..inst_indx-1])
         prev_idx = inst_indx
       end
@@ -704,7 +704,7 @@ begin
         print ("\n***************************************************************\n")
         print affi_split
       end
-      
+
       affi_split.each do | an_affi|
         auth_affi = create_affi_obj(an_affi, auth_id)
         continue = affi_object_well_formed(auth_affi, affi_lines, false, auth_id)
