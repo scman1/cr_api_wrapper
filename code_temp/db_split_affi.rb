@@ -262,7 +262,8 @@ def split_by_separator(affi_string, auth_id)
   elsif affi_string.include?(";")
     tokens = affi_string.split(";")
   end
-  # further split each token if thet contain more than one keyword
+  # further split each token if they contain one keywords mixed with other
+  # elements
 
   if tokens != []
     return create_affi_obj(tokens, auth_id)
@@ -393,29 +394,15 @@ end
 # split an affiliation string using the entities lists and before building the
 # affiliation object
 def split_by_keywords(affi_string, auth_id)
-  # build affiliation object directly
-  # try with country and institution
-  # need to further split, look up for department, groupwork and faculty within
-  # scope of the institution. for each token
-  printf "\n************************** SPLITTING BY KEYWORD *****************\n"
-  printf "Affiliation: %s\n", affi_string
-  tokens=[]
   # get the indexes of each element found
   # separate the string using the indexes
-  # If first element not institution, Move institutuion to second position and
-  # country to last
-  kw_indexes = {} #array of indexes and lengths
+  kw_indexes = {} #kewrds array of indexes and lengths
   found_inst = found_country = nil
 
-
-  printf "\nBefore getting inst" + found_inst.to_s
-  printf "\n" + kw_indexes.to_s
   found_inst = get_institution(affi_string)
   if found_inst != nil then
     kw_indexes[affi_string.index(found_inst)] = found_inst.length
   end
-  printf "\nAfter getting inst" + found_inst.to_s
-  printf "\n" + kw_indexes.to_s
 
   if found_inst == nil then
     found_inst = get_institution_synonym(affi_string)
@@ -456,18 +443,6 @@ def split_by_keywords(affi_string, auth_id)
     temp_affi = affi_string
     # Order the indexes to break the affistring in its original order
     kw_indexes = kw_indexes.sort.to_h
-    printf "\nOrdered indexes: " + kw_indexes.to_s
-    #INGAP Centre for Research Based Innovation Department of ChemistryUniversity of Oslo N-0315 Oslo Norway
-    #{0=>42, 43=>23, 66=>18, 97=>6}
-    # affiliation_array = []
-    # kw_idx = 0
-    # affiliation_array = ["INGAP Centre for Research Based Innovation"]
-    # prev_split = 43 = 0 + 42 + 1
-    # kw_idx = 43
-    # affiliation_array = ["INGAP Centre for Research Based Innovation","Innovation Department of Chemistry"]
-    # prev_split = 67 = 43 + 23 + 1
-    # kw_idx = 66
-
     kw_indexes.keys.each do |kw_idx|
       # if the first index 0 make it the first element of the return array
       if affiliation_array == [] and kw_idx == 0 then
@@ -484,12 +459,6 @@ def split_by_keywords(affi_string, auth_id)
       prev_split = kw_idx + kw_indexes[kw_idx] + 1
     end
   end
-
-  printf"\n****************************************************************"
-  print "\n Complete split by keywords"
-  printf"\n****************************************************************\n"
-  print affiliation_array
-  printf"\n****************************************************************"
   return affiliation_array
 end
 
