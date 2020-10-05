@@ -1,4 +1,5 @@
 *.ods
 *.csv
+*.txt
 *#
 json_files/

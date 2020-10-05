@@ -405,12 +405,17 @@ def split_by_keywords(affi_string, auth_id)
   # If first element not institution, Move institutuion to second position and
   # country to last
   kw_indexes = {} #array of indexes and lengths
-  found_inst = found_country = ""
+  found_inst = found_country = nil
+
+
+  printf "\nBefore getting inst" + found_inst.to_s
+  printf "\n" + kw_indexes.to_s
   found_inst = get_institution(affi_string)
-  print found_inst
   if found_inst != nil then
     kw_indexes[affi_string.index(found_inst)] = found_inst.length
   end
+  printf "\nAfter getting inst" + found_inst.to_s
+  printf "\n" + kw_indexes.to_s
 
   if found_inst == nil then
     found_inst = get_institution_synonym(affi_string)
@@ -426,7 +431,8 @@ def split_by_keywords(affi_string, auth_id)
 
   found_country_synonym = get_country_synonym(affi_string)
   if found_country_synonym != nil then
-    kw_indexes[affi_string.index(found_country_synonym)] = found_country_synonym.length
+    cleared_affi_string = country_exclude(affi_string)
+    kw_indexes[cleared_affi_string.index(found_country_synonym)] = found_country_synonym.length
   end
 
   found_faculty = get_faculty(affi_string)
@@ -450,7 +456,7 @@ def split_by_keywords(affi_string, auth_id)
     temp_affi = affi_string
     # Order the indexes to break the affistring in its original order
     kw_indexes = kw_indexes.sort.to_h
-    print kw_indexes
+    printf "\nOrdered indexes: " + kw_indexes.to_s
     #INGAP Centre for Research Based Innovation Department of ChemistryUniversity of Oslo N-0315 Oslo Norway
     #{0=>42, 43=>23, 66=>18, 97=>6}
     # affiliation_array = []
