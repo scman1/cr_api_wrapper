@@ -205,7 +205,7 @@ def create_affi_obj(lines_list, auth_id)
       if instance_variable.to_s.include?("add_0") then
         #print instance_variable
         value = auth_affi.instance_variable_get(instance_variable)
-        ctry = get_country(value.to_s)
+        ctry = get_country_any(value.to_s)
         if ctry != nil then
           auth_affi.country = ctry
           value = drop_country(value)
@@ -216,7 +216,7 @@ def create_affi_obj(lines_list, auth_id)
     end
     # look for country in affiliation name
     if auth_affi.country.to_s == ""  then
-      ctry = get_country(auth_affi.name)
+      ctry = get_country_any(auth_affi.name)
       auth_affi.country = ctry
     end
     # look for country in institution table
@@ -262,6 +262,8 @@ def split_by_separator(affi_string, auth_id)
   elsif affi_string.include?(";")
     tokens = affi_string.split(";")
   end
+  # further split each token if thet contain more than one keyword
+
   if tokens != []
     return create_affi_obj(tokens, auth_id)
   else
@@ -334,7 +336,7 @@ end
 
 # if a value in the country or country sysnonyms lists is in string, return that
 # value (verify first that there are no country exceptions in string)
-def get_country(affi_string)
+def get_country_any(affi_string)
   cleared_affi_string = country_exclude(affi_string)
   $affi_countries.each do |country|
     if cleared_affi_string.include?(country)
@@ -344,6 +346,28 @@ def get_country(affi_string)
   $country_synonyms.keys.each do |ctry_key|
     if cleared_affi_string.include?(ctry_key.to_s)
       return $country_synonyms[ctry_key]
+    end
+  end
+  return nil
+end
+
+# if a value in the country lists is in string, return that value
+def get_country(affi_string)
+  cleared_affi_string = country_exclude(affi_string)
+  $affi_countries.each do |country|
+    if cleared_affi_string.include?(country)
+      return country
+    end
+  end
+  return nil
+end
+
+# if a value in the country sysnonyms lists is in string, return that value
+def get_country_synonym(affi_string)
+  cleared_affi_string = country_exclude(affi_string)
+  $country_synonyms.keys.each do |ctry_key|
+    if cleared_affi_string.include?(ctry_key.to_s)
+      return ctry_key.to_s
     end
   end
   return nil
@@ -366,42 +390,101 @@ def drop_country(affi_string)
   return dropped_country
 end
 
-# split an affiliation string using the institution and country lists and then
-# build the object
+# split an affiliation string using the entities lists and before building the
+# affiliation object
 def split_by_keywords(affi_string, auth_id)
   # build affiliation object directly
   # try with country and institution
-  # printf "\n************************** SPLITTING BY KEYWORD *****************\n"
-  # printf "Affiliation: %s\n", affi_string
+  # need to further split, look up for department, groupwork and faculty within
+  # scope of the institution. for each token
+  printf "\n************************** SPLITTING BY KEYWORD *****************\n"
+  printf "Affiliation: %s\n", affi_string
   tokens=[]
+  # get the indexes of each element found
+  # separate the string using the indexes
+  # If first element not institution, Move institutuion to second position and
+  # country to last
+  kw_indexes = {} #array of indexes and lengths
   found_inst = found_country = ""
   found_inst = get_institution(affi_string)
+  print found_inst
+  if found_inst != nil then
+    kw_indexes[affi_string.index(found_inst)] = found_inst.length
+  end
+
   if found_inst == nil then
     found_inst = get_institution_synonym(affi_string)
-    #printf "Institution: %s\n", found_inst
-  end
-  found_country = get_country(affi_string)
-  if found_inst.to_s != ""
-    ins_idx = affi_string.index(found_inst)
-    affi_len = affi_string.length
-    inst_len = found_inst.length
-    if ins_idx == 0
-      tokens.append found_inst
-      tokens.append drop_country(affi_string[inst_len, affi_len-inst_len].strip)
-      tokens.append found_country
-      affi_rest = affi_string[inst_len-1, affi_len-inst_len].strip
-    else
-      tokens.append affi_string[0, ins_idx].strip
-      tokens.append found_inst
-      tokens.append drop_country(affi_string[affi_string[ins_idx+inst_len, affi_len-inst_len].strip].strip)
-      tokens.append found_country
+    if found_inst != nil then
+      kw_indexes[affi_string.index(found_inst)] = found_inst.length
     end
-    # printf"\n****************************************************************\n"
-    # print tokens
-    # printf"\n****************************************************************\n"
-    affi_obj = create_affi_obj(tokens, auth_id)
-    return affi_obj
   end
+
+  found_country = get_country(affi_string)
+  if found_country != nil then
+    kw_indexes[affi_string.index(found_country)] = found_country.length
+  end
+
+  found_country_synonym = get_country_synonym(affi_string)
+  if found_country_synonym != nil then
+    kw_indexes[affi_string.index(found_country_synonym)] = found_country_synonym.length
+  end
+
+  found_faculty = get_faculty(affi_string)
+  if found_faculty != nil then
+    kw_indexes[affi_string.index(found_faculty)] = found_faculty.length
+  end
+
+  found_workgroup = get_workgroup(affi_string)
+  if found_workgroup != nil then
+    kw_indexes[affi_string.index(found_workgroup)] = found_workgroup.length
+  end
+
+  found_department = get_department(affi_string)
+  if found_department != nil then
+    kw_indexes[affi_string.index(found_department)] = found_department.length
+  end
+
+  affiliation_array = []
+  prev_split = 0
+  if kw_indexes.count > 0 then
+    temp_affi = affi_string
+    # Order the indexes to break the affistring in its original order
+    kw_indexes = kw_indexes.sort.to_h
+    print kw_indexes
+    #INGAP Centre for Research Based Innovation Department of ChemistryUniversity of Oslo N-0315 Oslo Norway
+    #{0=>42, 43=>23, 66=>18, 97=>6}
+    # affiliation_array = []
+    # kw_idx = 0
+    # affiliation_array = ["INGAP Centre for Research Based Innovation"]
+    # prev_split = 43 = 0 + 42 + 1
+    # kw_idx = 43
+    # affiliation_array = ["INGAP Centre for Research Based Innovation","Innovation Department of Chemistry"]
+    # prev_split = 67 = 43 + 23 + 1
+    # kw_idx = 66
+
+    kw_indexes.keys.each do |kw_idx|
+      # if the first index 0 make it the first element of the return array
+      if affiliation_array == [] and kw_idx == 0 then
+        affiliation_array = [temp_affi[kw_idx, kw_indexes[kw_idx]].strip]
+      elsif affiliation_array == [] then
+        affiliation_array = [temp_affi[..kw_idx-1].strip]
+        affiliation_array.append(temp_affi[kw_idx, kw_indexes[kw_idx]].strip)
+      elsif prev_split < kw_idx then
+        affiliation_array.append(temp_affi[prev_split..kw_idx-1].strip)
+        affiliation_array.append(temp_affi[kw_idx,kw_indexes[kw_idx]].strip)
+      else
+        affiliation_array.append(temp_affi[kw_idx,kw_indexes[kw_idx]].strip)
+      end
+      prev_split = kw_idx + kw_indexes[kw_idx] + 1
+    end
+  end
+
+  printf"\n****************************************************************"
+  print "\n Complete split by keywords"
+  printf"\n****************************************************************\n"
+  print affiliation_array
+  printf"\n****************************************************************"
+  return affiliation_array
 end
 
 # determine if the string needs to be split by delimiters or by keywords and
@@ -410,7 +493,8 @@ def split_complex(affi_string, auth_id)
   if affi_string.include?(",") or affi_string.include?(";")
     return split_by_separator(affi_string, auth_id)
   else
-    return split_by_keywords(affi_string, auth_id)
+    affi_tokens = split_by_keywords(affi_string, auth_id)
+    return create_affi_obj(affi_tokens, auth_id)
   end
 end
 
@@ -420,7 +504,7 @@ def is_complex(an_item)
   occurrence_counter = 0
   #verify if item has two or more affilition elements
   if get_institution(an_item) != nil then occurrence_counter += 1 end
-  if get_country(an_item) != nil then occurrence_counter += 1 end
+  if get_country_any(an_item) != nil then occurrence_counter += 1 end
   if get_department(an_item) != nil then occurrence_counter += 1 end
   if get_faculty(an_item) != nil then occurrence_counter += 1 end
   if get_workgroup(an_item) != nil then occurrence_counter += 1 end
@@ -444,7 +528,7 @@ def is_simple(an_item)
   if found_this != nil and found_this.downcase().strip == an_item.downcase().strip then return true end
   found_this = get_workgroup(an_item)
   if found_this != nil and found_this.downcase().strip == an_item.downcase().strip then return true end
-  found_this = get_country(an_item)
+  found_this = get_country_any(an_item)
   if found_this != nil and found_this.downcase().strip == an_item.downcase().strip then return true end
   if found_this != nil and found_this.length > an_item.length then return true end # found a country synonym
   return false
@@ -643,8 +727,8 @@ end
 
 # list of country sysnonyms
 # (need to persist somewhere)
-$country_synonyms = {"UK":"United Kingdom", "U.K.":"United Kingdom",
-    "U. K.":"United Kingdom", "U.K":"United Kingdom", "(UK)":"United Kingdom",
+$country_synonyms = {"(UK)":"United Kingdom", "UK":"United Kingdom",
+  "U.K.":"United Kingdom", "U. K.":"United Kingdom", "U.K":"United Kingdom",
     "PRC":"Peoples Republic of China", "P.R.C.":"Peoples Republic of China",
     "China":"Peoples Republic of China",
     "P.R.China":"Peoples Republic of China",
@@ -708,16 +792,11 @@ begin
       print affi_lines
       print "\nProcess lines as one affiliation?"
       affi_split = affi_splits(affi_lines.values) # for cases when multiple affiliations stored vertically
-      if affi_split.count > 1
-        print ("\n***************************************************************\n")
-        print affi_split
-      end
       affi_split.each do | an_affi|
         auth_affi = create_affi_obj(an_affi, auth_id)
         continue = affi_object_well_formed(auth_affi, affi_lines, false, auth_id)
         auth_affi.print()
       end
-
     else
       print "\n"
       print affi_lines
