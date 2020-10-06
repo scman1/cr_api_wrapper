@@ -262,8 +262,6 @@ def split_by_separator(affi_string, auth_id)
   elsif affi_string.include?(";")
     tokens = affi_string.split(";")
   end
-  # further split each token if they contain one keywords mixed with other
-  # elements
 
   if tokens != []
     return create_affi_obj(tokens, auth_id)
@@ -274,30 +272,44 @@ end
 
 # if a value in the institutions list is in string, return that value
 def get_institution(affi_string)
+  found_inst = nil
   $affi_institutions.each do |institution|
-    if affi_string.include?(institution)
-      return institution
+    if affi_string.include?(institution) then
+      if found_inst == nil then
+        found_inst = institution
+      elsif found_inst.length < institution.length then
+        found_inst = institution
+      end
     end
   end
-  return nil
+  return found_inst
 end
 
 # if a value in the institution sysnonyms list is in string, return that value
 def get_institution_synonym(affi_string)
-  print affi_string
+  found_inst = nil
   $institution_synonyms.keys.each do |inst_key|
-    if affi_string.include?(inst_key.to_s)
-      return inst_key.to_s
+    if affi_string.include?(inst_key.to_s) then
+      if found_inst == nil then
+        found_inst = inst_key.to_s
+      elsif found_inst.length < inst_key.to_s.length then
+        found_inst = inst_key.to_s
+      end
     end
   end
-  return nil
+  return found_inst
 end
 
 # if a value in the departments list is in string, return that value
 def get_department(affi_string)
+  found_dep = nil
   $affi_departments.each do |department|
     if affi_string.include?(department)
-      return department
+        if found_dep == nil
+          found_dep = department
+        elsif found_dep != nil and found_dep.length < department.length
+          found_dep = department
+        end
     end
   end
   return nil
@@ -377,23 +389,14 @@ end
 # if a value in the country or country sysnonyms lists is in string, remove that
 # value from the string
 def drop_country(affi_string)
-  dropped_country = affi_string
-  $affi_countries.each do |country|
-    if dropped_country.include?(country)
-      dropped_country = dropped_country.gsub(country,"").strip
-    end
-  end
-  $country_synonyms.keys.each do |ctry_key|
-     if affi_string.include?(ctry_key.to_s)
-       dropped_country = dropped_country.gsub(ctry_key.to_s,"").strip
-     end
-  end
+  found_ctry = get_country_any(affi_string)
+  dropped_country = affi_string.gsub(found_ctry,"").strip
   return dropped_country
 end
 
 # split an affiliation string using the entities lists and before building the
 # affiliation object
-def split_by_keywords(affi_string, auth_id)
+def split_by_keywords(affi_string)
   # get the indexes of each element found
   # separate the string using the indexes
   kw_indexes = {} #kewrds array of indexes and lengths
@@ -433,6 +436,7 @@ def split_by_keywords(affi_string, auth_id)
   end
 
   found_department = get_department(affi_string)
+  print "\n**"+found_department.to_s
   if found_department != nil then
     kw_indexes[affi_string.index(found_department)] = found_department.length
   end
@@ -446,19 +450,28 @@ def split_by_keywords(affi_string, auth_id)
     kw_indexes.keys.each do |kw_idx|
       # if the first index 0 make it the first element of the return array
       if affiliation_array == [] and kw_idx == 0 then
-        affiliation_array = [temp_affi[kw_idx, kw_indexes[kw_idx]].strip]
+        affiliation_array = [temp_affi[kw_idx, kw_indexes[kw_idx]]]
       elsif affiliation_array == [] then
-        affiliation_array = [temp_affi[..kw_idx-1].strip]
-        affiliation_array.append(temp_affi[kw_idx, kw_indexes[kw_idx]].strip)
+        affiliation_array = [temp_affi[..kw_idx-1]]
+        affiliation_array.append(temp_affi[kw_idx, kw_indexes[kw_idx]])
       elsif prev_split < kw_idx then
         affiliation_array.append(temp_affi[prev_split..kw_idx-1].strip)
-        affiliation_array.append(temp_affi[kw_idx,kw_indexes[kw_idx]].strip)
+        affiliation_array.append(temp_affi[kw_idx,kw_indexes[kw_idx]])
       else
-        affiliation_array.append(temp_affi[kw_idx,kw_indexes[kw_idx]].strip)
+        affiliation_array.append(temp_affi[kw_idx,kw_indexes[kw_idx]])
       end
       prev_split = kw_idx + kw_indexes[kw_idx] + 1
     end
   end
+  # strip and remove trailing commas in one place instead of with every
+  # assignment
+  indx = 0
+  while indx < affiliation_array.count do
+    affiliation_array[indx] = affiliation_array[indx].strip.chomp(",").chomp(";")
+    indx +=1
+  end
+  # remove leftover nulls
+  affiliation_array.delete("")
   return affiliation_array
 end
 
@@ -468,7 +481,7 @@ def split_complex(affi_string, auth_id)
   if affi_string.include?(",") or affi_string.include?(";")
     return split_by_separator(affi_string, auth_id)
   else
-    affi_tokens = split_by_keywords(affi_string, auth_id)
+    affi_tokens = split_by_keywords(affi_string)
     return create_affi_obj(affi_tokens, auth_id)
   end
 end
@@ -716,18 +729,19 @@ $country_synonyms = {"(UK)":"United Kingdom", "UK":"United Kingdom",
 # list of institution sysnonyms
 # (need to persist somewhere)
 $institution_synonyms = {"The ISIS facility":"ISIS Neutron and Muon Source",
-    "STFC":"Science and Technology Facilities Councils",
-    "Oxford University":"University of Oxford",
-    "University of St Andrews":"University of St. Andrews",
-    "Diamond Light Source Ltd Harwell Science and Innovation Campus":"Diamond Light Source Ltd.",
-    "Diamond Light Source":"Diamond Light Source Ltd.",
-    "ISIS Facility":"ISIS Neutron and Muon Source",
-    "University College of London":"University College London"}
+  "STFC":"Science and Technology Facilities Councils",
+  "Oxford University":"University of Oxford",
+  "University of St Andrews":"University of St. Andrews",
+  "Diamond Light Source Ltd Harwell Science and Innovation Campus":"Diamond Light Source Ltd.",
+  "Diamond Light Source":"Diamond Light Source Ltd.",
+  "ISIS Facility":"ISIS Neutron and Muon Source",
+  "University College of London":"University College London",
+  "Queens University Belfast":"Queen's University Belfast"}
 
 # list ofstrings which contain country names but are not countries, such as
 # streets, institution names, etc.
 # (need to persist somewhere)
-$country_exceptions = ["Denmark Hill", "UK Catalysis Hub"]
+$country_exceptions = ["Denmark Hill", "UK Catalysis Hub", "N. Ireland",  "Northern Ireland"]
 
 # main method
 # split the affiliations contained in CR affiliation table
